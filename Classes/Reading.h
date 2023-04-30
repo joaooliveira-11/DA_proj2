@@ -15,6 +15,7 @@ public:
     static map<string, Graph> readAllFiles();
     static void read_stadium_graph();
     static void read_shiping_graph();
+    static void read_tourism_graph();
 
 };
 

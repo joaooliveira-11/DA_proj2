@@ -14,8 +14,10 @@ int main() {
     }
      */
     //cout << graphs_map.size();
-    for(auto i : graphs_map["Shipping"].nodesMAP){
-        cout << i.first << " " << i.second.getOutgoing().size() << endl;
+    for(auto i : graphs_map["Tourism"].nodesMAP){
+        for(auto a : i.second.getOutgoing()){
+            cout << a->getCost() << endl;
+        }
     }
     return 0;
 }
