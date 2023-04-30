@@ -3,10 +3,10 @@
 #include <iostream>
 #include "Reading.h"
 
-map<string, Graph> graphs_map;
+map<string, Graph*> graphs_map;
 
 void Reading::read_stadium_graph(){
-    Graph graph = Graph();
+    Graph* graph = new Graph();
     string nodeA, nodeB;
     double cost;
     int verify = 0;
@@ -26,16 +26,16 @@ void Reading::read_stadium_graph(){
 
         Node NODEa = Node(nodeA);
         Node NODEb = Node(nodeB);
-        if(graph.nodesMAP.find(nodeA) == graph.nodesMAP.end()) graph.nodesMAP.emplace(nodeA, NODEa);
-        if(graph.nodesMAP.find(nodeB) == graph.nodesMAP.end()) graph.nodesMAP.emplace(nodeB, NODEb);
-        graph.addSegment(nodeA, nodeB, cost);
+        if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
+        if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
+        graph->addSegment(nodeA, nodeB, cost);
     }
     graphs_map.insert({"Stadium", graph});
 
 }
 
 void Reading::read_shiping_graph(){
-    Graph graph = Graph();
+    Graph* graph = new Graph();
     string nodeA, nodeB;
     double cost;
     int verify = 0;
@@ -55,15 +55,15 @@ void Reading::read_shiping_graph(){
 
         Node NODEa = Node(nodeA);
         Node NODEb = Node(nodeB);
-        if(graph.nodesMAP.find(nodeA) == graph.nodesMAP.end()) graph.nodesMAP.emplace(nodeA, NODEa);
-        if(graph.nodesMAP.find(nodeB) == graph.nodesMAP.end()) graph.nodesMAP.emplace(nodeB, NODEb);
-        graph.addSegment(nodeA, nodeB, cost);
+        if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
+        if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
+        graph->addSegment(nodeA, nodeB, cost);
     }
     graphs_map.insert({"Shipping", graph});
 }
 
 void Reading::read_tourism_graph(){
-    Graph graph = Graph();
+    Graph* graph = new Graph();
     string nodeA, nodeB;
     string labelA, labelB;
     double cost;
@@ -86,13 +86,15 @@ void Reading::read_tourism_graph(){
 
         Node NODEa = Node(nodeA);
         Node NODEb = Node(nodeB);
-        if(graph.nodesMAP.find(nodeA) == graph.nodesMAP.end()) graph.nodesMAP.emplace(nodeA, NODEa);
-        if(graph.nodesMAP.find(nodeB) == graph.nodesMAP.end()) graph.nodesMAP.emplace(nodeB, NODEb);
-        graph.addSegment(nodeA, nodeB, cost);
+        if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
+        if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
+        graph->addSegment(nodeA, nodeB, cost);
     }
     graphs_map.insert({"Tourism", graph});
 }
-map<string, Graph> Reading::readAllFiles(){
+
+
+map<string, Graph*> Reading::readAllFiles(){
     read_stadium_graph();
     read_shiping_graph();
     read_tourism_graph();
