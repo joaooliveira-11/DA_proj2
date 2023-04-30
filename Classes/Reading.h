@@ -16,8 +16,10 @@ public:
     static void read_stadium_graph();
     static void read_shiping_graph();
     static void read_tourism_graph();
+    static void read_realgraph1();
+    static void read_realgraph2();
+    static void read_realgraph3();
 
 };
-
 
 #endif
