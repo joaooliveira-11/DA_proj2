@@ -8,6 +8,7 @@ using namespace std;
 class Graph {
 public:
     ~Graph();
+    Graph();
     bool addSegment(string _nodeA, string _nodeB, double _cost);
 
     struct StringHash {
@@ -23,7 +24,7 @@ public:
     };
 
     std::unordered_map<string, Node, StringHash, StringEqual> nodesMAP;
-
+    double **dists = new double*[10000];
 private:
 
 };

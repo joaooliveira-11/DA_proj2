@@ -3,9 +3,7 @@
 #include <iostream>
 #include "Reading.h"
 
-map<string, Graph*> graphs_map;
-
-void Reading::read_stadium_graph(){
+Graph* Reading::read_stadium_graph(){
     Graph* graph = new Graph();
     string nodeA, nodeB;
     double cost;
@@ -30,11 +28,10 @@ void Reading::read_stadium_graph(){
         if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
         graph->addSegment(nodeA, nodeB, cost);
     }
-    graphs_map.insert({"Stadium", graph});
-
+    return graph;
 }
 
-void Reading::read_shiping_graph(){
+Graph* Reading::read_shiping_graph(){
     Graph* graph = new Graph();
     string nodeA, nodeB;
     double cost;
@@ -59,10 +56,10 @@ void Reading::read_shiping_graph(){
         if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
         graph->addSegment(nodeA, nodeB, cost);
     }
-    graphs_map.insert({"Shipping", graph});
+    return graph;
 }
 
-void Reading::read_tourism_graph(){
+Graph* Reading::read_tourism_graph(){
     Graph* graph = new Graph();
     string nodeA, nodeB;
     string labelA, labelB;
@@ -90,10 +87,10 @@ void Reading::read_tourism_graph(){
         if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
         graph->addSegment(nodeA, nodeB, cost);
     }
-    graphs_map.insert({"Tourism", graph});
+    return graph;
 }
 
-void Reading::read_realgraph1(){
+Graph* Reading::read_realgraph1(){
     Graph* graph = new Graph();
     string nodeA, nodeB;
     string node;
@@ -133,10 +130,10 @@ void Reading::read_realgraph1(){
 
         graph->addSegment(nodeA, nodeB, cost);
     }
-    graphs_map.insert({"RealGraph1", graph});
+    return graph;
 }
 
-void Reading::read_realgraph2(){
+Graph* Reading::read_realgraph2(){
     Graph* graph = new Graph();
     string nodeA, nodeB;
     string node;
@@ -176,10 +173,10 @@ void Reading::read_realgraph2(){
 
         graph->addSegment(nodeA, nodeB, cost);
     }
-    graphs_map.insert({"RealGraph2", graph});
+    return graph;
 }
 
-void Reading::read_realgraph3(){
+Graph* Reading::read_realgraph3(){
     Graph* graph = new Graph();
     string nodeA, nodeB;
     string node;
@@ -219,16 +216,8 @@ void Reading::read_realgraph3(){
 
         graph->addSegment(nodeA, nodeB, cost);
     }
-    graphs_map.insert({"RealGraph3", graph});
+    return graph;
 }
 
 
-map<string, Graph*> Reading::readAllFiles(){
-    read_stadium_graph();
-    read_shiping_graph();
-    read_tourism_graph();
-    read_realgraph1();
-    read_realgraph2();
-    read_realgraph3();
-    return graphs_map;
-}
+

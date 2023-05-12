@@ -12,13 +12,12 @@ using namespace std;
 
 class Reading {
 public:
-    static map<string, Graph*> readAllFiles();
-    static void read_stadium_graph();
-    static void read_shiping_graph();
-    static void read_tourism_graph();
-    static void read_realgraph1();
-    static void read_realgraph2();
-    static void read_realgraph3();
+    Graph* read_stadium_graph();
+    Graph* read_shiping_graph();
+    Graph* read_tourism_graph();
+    Graph* read_realgraph1();
+    Graph* read_realgraph2();
+    Graph* read_realgraph3();
 
 };
 
