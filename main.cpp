@@ -11,6 +11,8 @@ int main() {
     Graph *RWgraph2;
     Graph *RWgraph3;
 
+
+
     int option;
     cout << "===============MAIN MENU===============" << endl;
     cout << "Chose a type of Graph to work with" << endl;
@@ -38,19 +40,36 @@ int main() {
             }
             break;
         }
-        case 2:
+        case 2: {
             stadiumsgraph = reading.read_stadium_graph();
-            cout << stadiumsgraph->nodesMAP.size() << endl;
+            int n = stadiumsgraph->nodesMAP.size();
+            double minDist = 100000000.0;
+            int currentPath[n];
+            int path[n];
+            currentPath[0] = 2;
+            stadiumsgraph->nodesMAP.find(to_string(2))->second.setVisited(true);
+            stadiumsgraph->TSPRec(0, &minDist, 1, n, currentPath, path);
+            cout << minDist << endl;
+            for (int i = 0; i < n; i++) {
+                if(i != n -1) cout << path[i] << "-> ";
+                else cout << path[i];
+            }
             break;
+        }
         case 3: {
             shippinggraph = reading.read_shiping_graph();
             int n = shippinggraph->nodesMAP.size();
             double minDist = 100000000.0;
             int currentPath[n];
             int path[n];
-            currentPath[0] = 9;
+            currentPath[0] = 8;
+            shippinggraph->nodesMAP.find(to_string(8))->second.setVisited(true);
             shippinggraph->TSPRec(0, &minDist, 1, n, currentPath, path);
-            cout << minDist;
+            cout << minDist << endl;
+            for (int i = 0; i < n; i++) {
+                if(i != n -1) cout << path[i] << "-> ";
+                else cout << path[i];
+            }
             break;
         }
         case 4:

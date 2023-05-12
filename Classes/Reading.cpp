@@ -132,7 +132,6 @@ Graph* Reading::read_realgraph1(){
         iss2 >> cost >> c1;
 
         graph->addSegment(nodeA, nodeB, cost);
-        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
@@ -176,7 +175,6 @@ Graph* Reading::read_realgraph2(){
         iss2 >> cost >> c1;
 
         graph->addSegment(nodeA, nodeB, cost);
-        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
@@ -220,10 +218,282 @@ Graph* Reading::read_realgraph3(){
         iss2 >> cost >> c1;
 
         graph->addSegment(nodeA, nodeB, cost);
-        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
 
+Graph* Reading::read_fullyconected25(){
+    Graph* graph = new Graph();
+    string nodeA, nodeB;
+    double cost;
+    char c1;
+    ifstream in("../Project2Graphs/Extra_Fully_Connected_Graphs/Extra_Fully_Connected_Graphs/edges_25.csv");
+    if (!in.is_open()) exit(EXIT_FAILURE);
 
+    for (string line; getline(in, line);) {
+        istringstream iss(line);
+        getline(iss, nodeA, ',');
+        getline(iss,nodeB, ',');
+        iss >> cost >> c1;
 
+        Node NODEa = Node(nodeA);
+        Node NODEb = Node(nodeB);
+        if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
+        if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
+        graph->addSegment(nodeA, nodeB, cost);
+    }
+    return graph;
+}
+
+Graph* Reading::read_fullyconected50(){
+    Graph* graph = new Graph();
+    string nodeA, nodeB;
+    double cost;
+    char c1;
+    ifstream in("../Project2Graphs/Extra_Fully_Connected_Graphs/Extra_Fully_Connected_Graphs/edges_50.csv");
+    if (!in.is_open()) exit(EXIT_FAILURE);
+
+    for (string line; getline(in, line);) {
+        istringstream iss(line);
+        getline(iss, nodeA, ',');
+        getline(iss,nodeB, ',');
+        iss >> cost >> c1;
+
+        Node NODEa = Node(nodeA);
+        Node NODEb = Node(nodeB);
+        if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
+        if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
+        graph->addSegment(nodeA, nodeB, cost);
+    }
+    return graph;
+}
+
+Graph* Reading::read_fullyconected75(){
+    Graph* graph = new Graph();
+    string nodeA, nodeB;
+    double cost;
+    char c1;
+    ifstream in("../Project2Graphs/Extra_Fully_Connected_Graphs/Extra_Fully_Connected_Graphs/edges_75.csv");
+    if (!in.is_open()) exit(EXIT_FAILURE);
+
+    for (string line; getline(in, line);) {
+        istringstream iss(line);
+        getline(iss, nodeA, ',');
+        getline(iss,nodeB, ',');
+        iss >> cost >> c1;
+
+        Node NODEa = Node(nodeA);
+        Node NODEb = Node(nodeB);
+        if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
+        if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
+        graph->addSegment(nodeA, nodeB, cost);
+    }
+    return graph;
+}
+
+Graph* Reading::read_fullyconected100(){
+    Graph* graph = new Graph();
+    string nodeA, nodeB;
+    double cost;
+    char c1;
+    ifstream in("../Project2Graphs/Extra_Fully_Connected_Graphs/Extra_Fully_Connected_Graphs/edges_100.csv");
+    if (!in.is_open()) exit(EXIT_FAILURE);
+
+    for (string line; getline(in, line);) {
+        istringstream iss(line);
+        getline(iss, nodeA, ',');
+        getline(iss,nodeB, ',');
+        iss >> cost >> c1;
+
+        Node NODEa = Node(nodeA);
+        Node NODEb = Node(nodeB);
+        if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
+        if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
+        graph->addSegment(nodeA, nodeB, cost);
+    }
+    return graph;
+}
+
+Graph* Reading::read_fullyconected200(){
+    Graph* graph = new Graph();
+    string nodeA, nodeB;
+    double cost;
+    char c1;
+    ifstream in("../Project2Graphs/Extra_Fully_Connected_Graphs/Extra_Fully_Connected_Graphs/edges_200.csv");
+    if (!in.is_open()) exit(EXIT_FAILURE);
+
+    for (string line; getline(in, line);) {
+        istringstream iss(line);
+        getline(iss, nodeA, ',');
+        getline(iss,nodeB, ',');
+        iss >> cost >> c1;
+
+        Node NODEa = Node(nodeA);
+        Node NODEb = Node(nodeB);
+        if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
+        if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
+        graph->addSegment(nodeA, nodeB, cost);
+    }
+    return graph;
+}
+
+Graph* Reading::read_fullyconected300(){
+    Graph* graph = new Graph();
+    string nodeA, nodeB;
+    double cost;
+    char c1;
+    ifstream in("../Project2Graphs/Extra_Fully_Connected_Graphs/Extra_Fully_Connected_Graphs/edges_300.csv");
+    if (!in.is_open()) exit(EXIT_FAILURE);
+
+    for (string line; getline(in, line);) {
+        istringstream iss(line);
+        getline(iss, nodeA, ',');
+        getline(iss,nodeB, ',');
+        iss >> cost >> c1;
+
+        Node NODEa = Node(nodeA);
+        Node NODEb = Node(nodeB);
+        if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
+        if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
+        graph->addSegment(nodeA, nodeB, cost);
+    }
+    return graph;
+}
+
+Graph* Reading::read_fullyconected400(){
+    Graph* graph = new Graph();
+    string nodeA, nodeB;
+    double cost;
+    char c1;
+    ifstream in("../Project2Graphs/Extra_Fully_Connected_Graphs/Extra_Fully_Connected_Graphs/edges_400.csv");
+    if (!in.is_open()) exit(EXIT_FAILURE);
+
+    for (string line; getline(in, line);) {
+        istringstream iss(line);
+        getline(iss, nodeA, ',');
+        getline(iss,nodeB, ',');
+        iss >> cost >> c1;
+
+        Node NODEa = Node(nodeA);
+        Node NODEb = Node(nodeB);
+        if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
+        if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
+        graph->addSegment(nodeA, nodeB, cost);
+    }
+    return graph;
+}
+
+Graph* Reading::read_fullyconected500(){
+    Graph* graph = new Graph();
+    string nodeA, nodeB;
+    double cost;
+    char c1;
+    ifstream in("../Project2Graphs/Extra_Fully_Connected_Graphs/Extra_Fully_Connected_Graphs/edges_500.csv");
+    if (!in.is_open()) exit(EXIT_FAILURE);
+
+    for (string line; getline(in, line);) {
+        istringstream iss(line);
+        getline(iss, nodeA, ',');
+        getline(iss,nodeB, ',');
+        iss >> cost >> c1;
+
+        Node NODEa = Node(nodeA);
+        Node NODEb = Node(nodeB);
+        if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
+        if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
+        graph->addSegment(nodeA, nodeB, cost);
+    }
+    return graph;
+}
+
+Graph* Reading::read_fullyconected600(){
+    Graph* graph = new Graph();
+    string nodeA, nodeB;
+    double cost;
+    char c1;
+    ifstream in("../Project2Graphs/Extra_Fully_Connected_Graphs/Extra_Fully_Connected_Graphs/edges_600.csv");
+    if (!in.is_open()) exit(EXIT_FAILURE);
+
+    for (string line; getline(in, line);) {
+        istringstream iss(line);
+        getline(iss, nodeA, ',');
+        getline(iss,nodeB, ',');
+        iss >> cost >> c1;
+
+        Node NODEa = Node(nodeA);
+        Node NODEb = Node(nodeB);
+        if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
+        if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
+        graph->addSegment(nodeA, nodeB, cost);
+    }
+    return graph;
+}
+
+Graph* Reading::read_fullyconected700(){
+    Graph* graph = new Graph();
+    string nodeA, nodeB;
+    double cost;
+    char c1;
+    ifstream in("../Project2Graphs/Extra_Fully_Connected_Graphs/Extra_Fully_Connected_Graphs/edges_700.csv");
+    if (!in.is_open()) exit(EXIT_FAILURE);
+
+    for (string line; getline(in, line);) {
+        istringstream iss(line);
+        getline(iss, nodeA, ',');
+        getline(iss,nodeB, ',');
+        iss >> cost >> c1;
+
+        Node NODEa = Node(nodeA);
+        Node NODEb = Node(nodeB);
+        if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
+        if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
+        graph->addSegment(nodeA, nodeB, cost);
+    }
+    return graph;
+}
+
+Graph* Reading::read_fullyconected800(){
+    Graph* graph = new Graph();
+    string nodeA, nodeB;
+    double cost;
+    char c1;
+    ifstream in("../Project2Graphs/Extra_Fully_Connected_Graphs/Extra_Fully_Connected_Graphs/edges_800.csv");
+    if (!in.is_open()) exit(EXIT_FAILURE);
+
+    for (string line; getline(in, line);) {
+        istringstream iss(line);
+        getline(iss, nodeA, ',');
+        getline(iss,nodeB, ',');
+        iss >> cost >> c1;
+
+        Node NODEa = Node(nodeA);
+        Node NODEb = Node(nodeB);
+        if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
+        if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
+        graph->addSegment(nodeA, nodeB, cost);
+    }
+    return graph;
+}
+
+Graph* Reading::read_fullyconected900(){
+    Graph* graph = new Graph();
+    string nodeA, nodeB;
+    double cost;
+    char c1;
+    ifstream in("../Project2Graphs/Extra_Fully_Connected_Graphs/Extra_Fully_Connected_Graphs/edges_900.csv");
+    if (!in.is_open()) exit(EXIT_FAILURE);
+
+    for (string line; getline(in, line);) {
+        istringstream iss(line);
+        getline(iss, nodeA, ',');
+        getline(iss,nodeB, ',');
+        iss >> cost >> c1;
+
+        Node NODEa = Node(nodeA);
+        Node NODEb = Node(nodeB);
+        if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
+        if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
+        graph->addSegment(nodeA, nodeB, cost);
+    }
+    return graph;
+}
