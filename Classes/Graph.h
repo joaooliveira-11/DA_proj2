@@ -25,6 +25,9 @@ public:
 
     std::unordered_map<string, Node, StringHash, StringEqual> nodesMAP;
     double **dists = new double*[10000];
+    void savepath(int n, int current_path[], int path[]);
+    void TSPRec(double currDist, double *minDist, int currentIndx, int n, int currentPath[], int path[]);
+
 private:
 
 };

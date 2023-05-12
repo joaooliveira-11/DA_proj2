@@ -8,7 +8,6 @@ string Node::getID() const{
 
 void Node::addOutgoing(Segment *s) {
     outgoing.push_back(s);
-
 }
 
 void Node::addIncoming(Segment *segment) {
@@ -22,3 +21,7 @@ vector<Segment *> Node::getOutgoing() const{
 vector<Segment *> Node::getIncoming() const{
     return incoming;
 }
+
+bool Node::isVisited() {return visited;}
+
+void Node::setVisited(bool visited_) {this->visited = visited_;}

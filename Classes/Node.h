@@ -21,6 +21,9 @@ public:
     void addOutgoing(Segment *s);
     void setSegments(vector<Segment *> newOutgoing);
     void setIncoming(vector<Segment *> newIncoming);
+
+    bool isVisited();
+    void setVisited(bool visited_);
 };
 
 
