@@ -27,6 +27,7 @@ Graph* Reading::read_stadium_graph(){
         if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
         if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
         graph->addSegment(nodeA, nodeB, cost);
+        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
@@ -55,6 +56,7 @@ Graph* Reading::read_shiping_graph(){
         if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
         if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
         graph->addSegment(nodeA, nodeB, cost);
+        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
@@ -86,6 +88,7 @@ Graph* Reading::read_tourism_graph(){
         if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
         if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
         graph->addSegment(nodeA, nodeB, cost);
+        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
@@ -129,6 +132,7 @@ Graph* Reading::read_realgraph1(){
         iss2 >> cost >> c1;
 
         graph->addSegment(nodeA, nodeB, cost);
+        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
@@ -172,6 +176,7 @@ Graph* Reading::read_realgraph2(){
         iss2 >> cost >> c1;
 
         graph->addSegment(nodeA, nodeB, cost);
+        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
@@ -215,6 +220,7 @@ Graph* Reading::read_realgraph3(){
         iss2 >> cost >> c1;
 
         graph->addSegment(nodeA, nodeB, cost);
+        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
