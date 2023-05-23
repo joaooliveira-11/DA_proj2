@@ -4,6 +4,7 @@
 #include <string>
 #include <unordered_map>
 #include "Node.h"
+
 using namespace std;
 class Graph {
 public:
@@ -25,8 +26,10 @@ public:
 
     std::unordered_map<string, Node, StringHash, StringEqual> nodesMAP;
     double **dists = new double*[10000];
+
     void savepath(int n, int current_path[], int path[]);
     void TSPRec(double currDist, double *minDist, int currentIndx, int n, int currentPath[], int path[]);
+    void primMST();
 
 private:
 

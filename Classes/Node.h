@@ -12,18 +12,31 @@ private:
     vector<Segment *> outgoing;
     vector<Segment *> incoming;
 
+    Segment *path = nullptr;
+    double dist = 0;
+
 public:
     Node(string _id);
+    Node();
     string getID() const;
     vector<Segment *> getOutgoing() const;
     vector<Segment *> getIncoming() const;
     void addIncoming(Segment *segment);
     void addOutgoing(Segment *s);
-    void setSegments(vector<Segment *> newOutgoing);
-    void setIncoming(vector<Segment *> newIncoming);
+    //void setSegments(vector<Segment *> newOutgoing);
+    //void setIncoming(vector<Segment *> newIncoming);
+
+    Segment* getPath();
+    double getDist();
+    void setDist(double distance);
+    void setPath(Segment *path);
+
+    bool operator<(Node & node) const;
+
 
     bool isVisited();
     void setVisited(bool visited_);
+    int queueIndex = 0;
 };
 
 

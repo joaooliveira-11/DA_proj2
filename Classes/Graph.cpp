@@ -1,5 +1,9 @@
 #include <limits>
+#include <queue>
 #include "Graph.h"
+#include "Node.h"
+#include "PQ.h"
+#include <iostream>
 
 Graph::~Graph() {
 }
@@ -56,6 +60,37 @@ void Graph::TSPRec(double currDist, double *minDist, int currentIndx, int n, int
                 }
             }
         }
+    }
+}
+
+void Graph::primMST() {
+
+    MutablePriorityQueue<Node> mutablePQ;
+
+    for (auto& pair : nodesMAP) {
+        pair.second.setVisited(false);
+        pair.second.setDist(numeric_limits<double>::infinity());
+        mutablePQ.insert(&pair.second);
+    }
+
+    nodesMAP.find("0")->second.setDist(0);
+    nodesMAP.find("0")->second.setPath(nullptr);
+    nodesMAP.find("0")->second.setVisited(true);
+    mutablePQ.decreaseKey(&nodesMAP.find("0")->second);
+
+    while (!mutablePQ.empty()) {
+        Node* nodeOrig = mutablePQ.extractMin();
+        //cout << nodeOrig->getID() << endl;
+        const string nodestartID = nodeOrig->getID();
+        for(auto segment : nodeOrig->getOutgoing()){
+            const string nodeDestID = segment->getNodeB();
+            if(!(nodesMAP.find(nodeDestID)->second.isVisited()) && segment->getCost() < nodesMAP.find(nodeDestID)->second.getDist()){
+                nodesMAP.find(nodeDestID)->second.setDist(segment->getCost());
+                nodesMAP.find(nodeDestID)->second.setPath(segment);
+                mutablePQ.decreaseKey(&nodesMAP.find(nodeDestID)->second);
+            }
+        }
+        nodesMAP.find(nodestartID)->second.setVisited(true);
     }
 }
 

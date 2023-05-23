@@ -2,6 +2,8 @@
 
 Node::Node(string _id) : id(_id) {}
 
+Node::Node() = default;
+
 string Node::getID() const{
     return id;
 }
@@ -22,6 +24,18 @@ vector<Segment *> Node::getIncoming() const{
     return incoming;
 }
 
+bool Node::operator<(Node & node) const {
+    return this->dist < node.dist;
+}
+
 bool Node::isVisited() {return visited;}
 
 void Node::setVisited(bool visited_) {this->visited = visited_;}
+
+Segment* Node::getPath() {return path;}
+
+double Node::getDist(){ return dist;}
+
+void Node::setDist(double distance){ dist = distance;}
+
+void Node::setPath(Segment *path) {this->path = path;}

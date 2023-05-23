@@ -241,6 +241,7 @@ Graph* Reading::read_fullyconected25(){
         if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
         if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
         graph->addSegment(nodeA, nodeB, cost);
+        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
