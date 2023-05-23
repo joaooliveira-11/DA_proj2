@@ -53,11 +53,16 @@ void Menu::readmenu(){
                 else cout << path[i] << endl;
             }
              */
-            cout << "Minimum Spanning Tree (MST) connections" << endl;
+            double cost = 0;
+            cout << "Pre-Order: 0";
             tourismgraph->primMST();
+            tourismgraph->preOrderWalk("0", cost);
+            cout << "\n" <<"Cost: " << cost;
+            /*
             for(auto pair : tourismgraph->nodesMAP){
                 if(pair.second.getPath() != nullptr) cout << pair.second.getPath()->getNodeA() << " --- " << pair.second.getPath()->getNodeB() << " cost: " << pair.second.getPath()->getCost() << endl;
             }
+             */
             break;
         }
         case 2: {
@@ -76,11 +81,19 @@ void Menu::readmenu(){
                 else cout << path[i];
             }
              */
-            cout << "Minimum Spanning Tree (MST) connections" << endl;
+
+            double cost = 0;
+            cout << "Pre-Order: 0";
             stadiumsgraph->primMST();
-            for(auto pair : stadiumsgraph->nodesMAP){
-                if(pair.second.getPath() != nullptr) cout << pair.second.getPath()->getNodeA() << "---" << pair.second.getPath()->getNodeB() << " (cost entre os nodes: " << pair.second.getPath()->getCost() << endl;
+            stadiumsgraph->preOrderWalk("0", cost);
+            cout << "\n" <<"Cost: " << cost;
+/*
+            for(auto pair : stadiumsgraph->nodesMAP) {
+                if (pair.second.getPath() != nullptr)
+                    cout << pair.second.getPath()->getNodeA() << "---" << pair.second.getPath()->getNodeB()
+                         << " (cost entre os nodes: " << pair.second.getPath()->getCost() << endl;
             }
+            */
             break;
         }
         case 3: {
@@ -99,16 +112,22 @@ void Menu::readmenu(){
                 else cout << path[i];
             }
              */
+            double cost = 0;
+            cout << "Pre-Order: 0";
             shippinggraph->primMST();
-            cout << "Minimum Spanning Tree (MST) connections" << endl;
+            shippinggraph->preOrderWalk("0", cost);
+            cout << "\n" <<"Cost: " << cost;
+            /*
             for(auto pair : shippinggraph->nodesMAP){
                 if(pair.second.getPath() != nullptr) cout << pair.second.getPath()->getNodeA() << "---" << pair.second.getPath()->getNodeB() << " cost: " << pair.second.getPath()->getCost() << endl;
             }
+             */
             break;
         }
         case 4:{
             FCgraph25 = reading.read_fullyconected900();
             FCgraph25->primMST();
+
             /*
             int n = FCgraph25 ->nodesMAP.size();
             double minDist = 100000000.0;
@@ -123,11 +142,16 @@ void Menu::readmenu(){
                 else cout << path[i];
             }
              */
-            cout << "Minimum Spanning Tree (MST) connections" << endl;
+            double cost = 0;
+            cout << "Pre-Order: 0";
             FCgraph25->primMST();
+            FCgraph25->preOrderWalk("0", cost);
+            cout << "\n" <<"Cost: " << cost;
+            /*
             for(auto pair : FCgraph25->nodesMAP){
                 if(pair.second.getPath() != nullptr) cout << pair.second.getPath()->getNodeA() << " --- " << pair.second.getPath()->getNodeB() << " cost: " << pair.second.getPath()->getCost() << endl;
             }
+             */
             break;
         }
         case 5:

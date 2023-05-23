@@ -94,4 +94,16 @@ void Graph::primMST() {
     }
 }
 
+void Graph::preOrderWalk(string nodeID, double &cost){
+    for(auto pair : nodesMAP){
+        if(pair.second.getPath() != nullptr && pair.second.getPath()->getNodeA() == nodeID) {
+            auto path = pair.second.getPath()->getNodeB();
+            cout <<" -> " << path ;
+            cost += pair.second.getPath()->getCost();
+            preOrderWalk(path, cost);
+        }
+    }
+
+}
+
 
