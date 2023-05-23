@@ -132,6 +132,7 @@ Graph* Reading::read_realgraph1(){
         iss2 >> cost >> c1;
 
         graph->addSegment(nodeA, nodeB, cost);
+        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
@@ -175,6 +176,7 @@ Graph* Reading::read_realgraph2(){
         iss2 >> cost >> c1;
 
         graph->addSegment(nodeA, nodeB, cost);
+        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
@@ -218,6 +220,7 @@ Graph* Reading::read_realgraph3(){
         iss2 >> cost >> c1;
 
         graph->addSegment(nodeA, nodeB, cost);
+        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
@@ -265,6 +268,7 @@ Graph* Reading::read_fullyconected50(){
         if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
         if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
         graph->addSegment(nodeA, nodeB, cost);
+        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
@@ -288,6 +292,7 @@ Graph* Reading::read_fullyconected75(){
         if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
         if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
         graph->addSegment(nodeA, nodeB, cost);
+        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
@@ -311,6 +316,7 @@ Graph* Reading::read_fullyconected100(){
         if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
         if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
         graph->addSegment(nodeA, nodeB, cost);
+        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
@@ -334,6 +340,7 @@ Graph* Reading::read_fullyconected200(){
         if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
         if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
         graph->addSegment(nodeA, nodeB, cost);
+        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
@@ -357,6 +364,7 @@ Graph* Reading::read_fullyconected300(){
         if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
         if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
         graph->addSegment(nodeA, nodeB, cost);
+        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
@@ -380,6 +388,7 @@ Graph* Reading::read_fullyconected400(){
         if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
         if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
         graph->addSegment(nodeA, nodeB, cost);
+        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
@@ -403,6 +412,7 @@ Graph* Reading::read_fullyconected500(){
         if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
         if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
         graph->addSegment(nodeA, nodeB, cost);
+        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
@@ -426,6 +436,7 @@ Graph* Reading::read_fullyconected600(){
         if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
         if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
         graph->addSegment(nodeA, nodeB, cost);
+        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
@@ -449,6 +460,7 @@ Graph* Reading::read_fullyconected700(){
         if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
         if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
         graph->addSegment(nodeA, nodeB, cost);
+        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
@@ -472,6 +484,7 @@ Graph* Reading::read_fullyconected800(){
         if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
         if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
         graph->addSegment(nodeA, nodeB, cost);
+        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
@@ -495,6 +508,7 @@ Graph* Reading::read_fullyconected900(){
         if(graph->nodesMAP.find(nodeA) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeA, NODEa);
         if(graph->nodesMAP.find(nodeB) == graph->nodesMAP.end()) graph->nodesMAP.emplace(nodeB, NODEb);
         graph->addSegment(nodeA, nodeB, cost);
+        graph->addSegment(nodeB, nodeA, cost);
     }
     return graph;
 }
