@@ -39,3 +39,5 @@ double Node::getDist(){ return dist;}
 void Node::setDist(double distance){ dist = distance;}
 
 void Node::setPath(Segment *path) {this->path = path;}
+
+void Node::setQueuIndex(int index){this->queueIndex = 0;}

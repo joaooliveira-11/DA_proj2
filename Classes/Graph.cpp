@@ -6,6 +6,7 @@
 #include <iostream>
 
 Graph::~Graph() {
+
 }
 
 Graph::Graph() {
@@ -32,6 +33,15 @@ bool Graph::addSegment(string _nodeA, string _nodeB, double _cost) {
     int indexB = std::stoi(_nodeB);
     dists[indexA][indexB] = _cost;
     return true;
+}
+
+void Graph::resetNodes(){
+    for(auto& pair: nodesMAP){
+        pair.second.setVisited(false);
+        pair.second.setDist(0);
+        pair.second.setPath(nullptr);
+        pair.second.setQueuIndex(0);
+    }
 }
 
 void Graph::savepath(int n, int current_path[], int path[]) {
@@ -64,8 +74,8 @@ void Graph::TSPRec(double currDist, double *minDist, int currentIndx, int n, int
 }
 
 void Graph::primMST() {
-
     MutablePriorityQueue<Node> mutablePQ;
+    vector<string> primVisit;
 
     for (auto& pair : nodesMAP) {
         pair.second.setVisited(false);
@@ -80,6 +90,7 @@ void Graph::primMST() {
 
     while (!mutablePQ.empty()) {
         Node* nodeOrig = mutablePQ.extractMin();
+        primVisit.push_back(nodeOrig->getID());
         //cout << nodeOrig->getID() << endl;
         const string nodestartID = nodeOrig->getID();
         for(auto segment : nodeOrig->getOutgoing()){
@@ -92,18 +103,56 @@ void Graph::primMST() {
         }
         nodesMAP.find(nodestartID)->second.setVisited(true);
     }
+    for(auto& pair : nodesMAP){
+        pair.second.setVisited(false);
+    }
+    vector<string> preOrder;
+    preOrderWalk("0",primVisit,&preOrder);
 }
 
-void Graph::preOrderWalk(string nodeID, double &cost){
+/*
+void Graph::preOrderWalk(string nodeID, double &cost, string* current_node){
+    string path;
     for(auto pair : nodesMAP){
         if(pair.second.getPath() != nullptr && pair.second.getPath()->getNodeA() == nodeID) {
-            auto path = pair.second.getPath()->getNodeB();
-            cout <<" -> " << path ;
+            path = pair.second.getPath()->getNodeB();
+            cout <<" -> " << path;
             cost += pair.second.getPath()->getCost();
-            preOrderWalk(path, cost);
+            *current_node = path;
+            preOrderWalk(path, cost, current_node);
         }
     }
+}
+*/
 
+void Graph::preOrderWalk(string nodeID, vector<string> primVisit, vector<string> *preOrder) {
+    nodesMAP.find(nodeID)->second.setVisited(true);
+    preOrder->push_back(nodeID);
+    for (auto next_node: primVisit) {
+        if (nodesMAP.find(next_node)->second.getPath() != nullptr) {
+            if (nodesMAP.find(next_node)->second.getPath()->getNodeA() == nodeID &&
+                !(nodesMAP.find(next_node)->second.isVisited())) {
+                preOrderWalk(next_node, primVisit, preOrder);
+            }
+        }
+    }
+    if (nodesMAP.find(nodeID)->second.getPath() == nullptr) {
+        double totalcost = 0;
+        preOrder->push_back("0");
+        for (int i = 0; i < preOrder->size() - 1; i++) {
+            int nodeA = std::stoi((*preOrder)[i]);
+            int nodeB = std::stoi((*preOrder)[i + 1]);
+            if (dists[nodeA][nodeB] != std::numeric_limits<double>::infinity()) {
+                totalcost += dists[nodeA][nodeB];
+                cout << nodeA << " -> " << nodeB << " || distance: " << dists[nodeA][nodeB] << " || type: "
+                     << "direct connection" << endl;
+            } else {
+                totalcost += 0;
+                cout << nodeA << " -> " << nodeB << " || distance: " << 0 << " || type: " << "Haversine connection" << endl;
+            }
+        }
+        cout << "Triangular Inequality Cost: " << totalcost << endl;
+    }
 }
 
 

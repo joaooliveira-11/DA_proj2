@@ -8,8 +8,10 @@
 
 class Menu {
 public:
-    void readmenu();
-
+    static void readmenu();
+    static void TSPalgorithmsSubmenu(Graph* graph);
+    static void TSPbacktrack(Graph* graph);
+    static void TSPtriangularInequality(Graph* graph);
 };
 
 

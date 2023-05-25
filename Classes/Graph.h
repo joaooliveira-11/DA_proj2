@@ -32,9 +32,11 @@ public:
     void savepath(int n, int current_path[], int path[]);
     void TSPRec(double currDist, double *minDist, int currentIndx, int n, int currentPath[], int path[]);
     void primMST();
-    void preOrderWalk(string nodeID, double &cost);
+    void preOrderWalk(string nodeID,vector<string>primVisit, vector<string>* preOrder);
+    void resetNodes();
 
 
+    //void preOrderWalk(string nodeID, double &cost, string *current_node);
 };
 
 

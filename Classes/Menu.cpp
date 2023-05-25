@@ -23,7 +23,80 @@ Graph *FCgraph700;
 Graph *FCgraph800;
 Graph *FCgraph900;
 
-void Menu::readmenu(){
+void Menu::TSPbacktrack(Graph *graph) {
+    int n = graph->nodesMAP.size();
+    double minDist = 100000000.0;
+    int currentPath[n];
+    int path[n];
+    currentPath[0] = 0;
+    graph->nodesMAP.find(to_string(0))->second.setVisited(true);
+    graph->TSPRec(0, &minDist, 1, n, currentPath, path);
+    for (int i = 0; i < n; i++) {
+        if (i != n - 1) cout << path[i] << "-> ";
+        else cout << path[i] << endl;
+    }
+    cout << "TSP Backtrack Cost: " << minDist << endl;
+    graph->resetNodes();
+}
+
+void Menu::TSPtriangularInequality(Graph *graph) {
+    graph->primMST();
+    graph->resetNodes();
+}
+
+void Menu::TSPalgorithmsSubmenu(Graph *graph) {
+    int option;
+    cout << "===============TSP Algorithms===============" << endl;
+    cout << "Chose an aproach for the TSP" << endl;
+    cout << "1 - TSP Backtrack Aproach" << endl;
+    cout << "2 - TSP Triangular Inequality Aproach" << endl;
+    cin >> option;
+
+    switch (option) {
+        case 1: {
+            TSPbacktrack(graph);
+
+            string decision;
+            cout << "Do you want to do another action?. (ex.: yes or no) \n";
+            cin >> decision;
+            while (decision != "yes" && decision != "no") {
+                cout << "Do you want to do another action?. (ex.: yes or no) \n";
+                cin >> decision;
+            }
+            if (decision == "yes"){
+                TSPalgorithmsSubmenu(graph);
+                break;
+            }
+            else {
+                readmenu();
+                break;
+            }
+        }
+        case 2: {
+            TSPtriangularInequality(graph);
+
+            string decision;
+            cout << "Do you want to do another action?. (ex.: yes or no) \n";
+            cin >> decision;
+            while (decision != "yes" && decision != "no") {
+                cout << "Do you want to do another action?. (ex.: yes or no) \n";
+                cin >> decision;
+            }
+            if (decision == "yes") {
+                TSPalgorithmsSubmenu(graph);
+                break;
+            }
+            else {
+                readmenu();
+                break;
+            }
+        }
+        default:
+            break;
+    }
+}
+
+void Menu::readmenu() {
 
     int option;
     cout << "===============MAIN MENU===============" << endl;
@@ -31,152 +104,124 @@ void Menu::readmenu(){
     cout << "1 - Toy-Graphs: tourism" << endl;
     cout << "2 - Toy-Graphs: stadiums" << endl;
     cout << "3 - Toy-Graphs: shipping" << endl;
-    cout << "4 - Real-World-Graphs: 1" << endl;
-    cout << "5 - Real-World-Graphs: 2" << endl;
-    cout << "6 - Real-World-Graphs: 3" << endl;
+
+    cout << "4 - Extra Fully connected: 25" << endl;
+    cout << "5 - Extra Fully connected: 50" << endl;
+    cout << "6 - Extra Fully connected: 75" << endl;
+    cout << "7 - Extra Fully connected: 100" << endl;
+    cout << "8 - Extra Fully connected: 200" << endl;
+    cout << "9 - Extra Fully connected: 300" << endl;
+    cout << "10 - Extra Fully connected: 400" << endl;
+    cout << "11 - Extra Fully connected: 500" << endl;
+    cout << "12 - Extra Fully connected: 600" << endl;
+    cout << "13 - Extra Fully connected: 700" << endl;
+    cout << "14 - Extra Fully connected: 800" << endl;
+    cout << "15 - Extra Fully connected: 900" << endl;
+
+    cout << "16 - Real-World-Graphs: 1" << endl;
+    cout << "17 - Real-World-Graphs: 2" << endl;
+    cout << "18 - Real-World-Graphs: 3" << endl;
     cin >> option;
 
     switch (option) {
         case 1: {
-            tourismgraph = reading.read_tourism_graph();
-            /*
-            int n = tourismgraph->nodesMAP.size();
-            double minDist = 100000000.0;
-            int currentPath[n];
-            int path[n];
-            currentPath[0] = 0;
-            tourismgraph->nodesMAP.find(to_string(0))->second.setVisited(true);
-            tourismgraph->TSPRec(0, &minDist, 1, n, currentPath, path);
-            cout << minDist << endl;
-            for (int i = 0; i < n; i++) {
-                if(i != n -1) cout << path[i] << "-> ";
-                else cout << path[i] << endl;
-            }
-             */
-            double cost = 0;
-            cout << "Pre-Order: 0";
-            tourismgraph->primMST();
-            tourismgraph->preOrderWalk("0", cost);
-            cout << "\n" <<"Cost: " << cost;
-            /*
-            for(auto pair : tourismgraph->nodesMAP){
-                if(pair.second.getPath() != nullptr) cout << pair.second.getPath()->getNodeA() << " --- " << pair.second.getPath()->getNodeB() << " cost: " << pair.second.getPath()->getCost() << endl;
-            }
-             */
+            if(tourismgraph == nullptr) tourismgraph = reading.read_tourism_graph();
+            TSPalgorithmsSubmenu(tourismgraph);
             break;
         }
         case 2: {
-            stadiumsgraph = reading.read_stadium_graph();
-            /*
-            int n = stadiumsgraph->nodesMAP.size();
-            double minDist = 100000000.0;
-            int currentPath[n];
-            int path[n];
-            currentPath[0] = 0;
-            stadiumsgraph->nodesMAP.find(to_string(0))->second.setVisited(true);
-            stadiumsgraph->TSPRec(0, &minDist, 1, n, currentPath, path);
-            cout << minDist << endl;
-            for (int i = 0; i < n; i++) {
-                if(i != n -1) cout << path[i] << "-> ";
-                else cout << path[i];
-            }
-             */
-
-            double cost = 0;
-            cout << "Pre-Order: 0";
-            stadiumsgraph->primMST();
-            stadiumsgraph->preOrderWalk("0", cost);
-            cout << "\n" <<"Cost: " << cost;
-/*
-            for(auto pair : stadiumsgraph->nodesMAP) {
-                if (pair.second.getPath() != nullptr)
-                    cout << pair.second.getPath()->getNodeA() << "---" << pair.second.getPath()->getNodeB()
-                         << " (cost entre os nodes: " << pair.second.getPath()->getCost() << endl;
-            }
-            */
+            if(stadiumsgraph == nullptr) stadiumsgraph = reading.read_stadium_graph();
+            TSPalgorithmsSubmenu(stadiumsgraph);
             break;
+
         }
         case 3: {
-            shippinggraph = reading.read_shiping_graph();
-            /*
-            int n = shippinggraph->nodesMAP.size();
-            double minDist = 100000000.0;
-            int currentPath[n];
-            int path[n];
-            currentPath[0] = 0;
-            shippinggraph->nodesMAP.find(to_string(0))->second.setVisited(true);
-            shippinggraph->TSPRec(0, &minDist, 1, n, currentPath, path);
-            cout << minDist << endl;
-            for (int i = 0; i < n; i++) {
-                if(i != n -1) cout << path[i] << "-> ";
-                else cout << path[i];
-            }
-             */
-            double cost = 0;
-            cout << "Pre-Order: 0";
-            shippinggraph->primMST();
-            shippinggraph->preOrderWalk("0", cost);
-            cout << "\n" <<"Cost: " << cost;
-            /*
-            for(auto pair : shippinggraph->nodesMAP){
-                if(pair.second.getPath() != nullptr) cout << pair.second.getPath()->getNodeA() << "---" << pair.second.getPath()->getNodeB() << " cost: " << pair.second.getPath()->getCost() << endl;
-            }
-             */
+            if(shippinggraph == nullptr) shippinggraph = reading.read_shiping_graph();
+            TSPalgorithmsSubmenu(shippinggraph);
             break;
         }
-        case 4:{
-            FCgraph25 = reading.read_fullyconected900();
-            FCgraph25->primMST();
-
-            /*
-            int n = FCgraph25 ->nodesMAP.size();
-            double minDist = 100000000.0;
-            int currentPath[n];
-            int path[n];
-            currentPath[0] = 0;
-            FCgraph25 ->nodesMAP.find(to_string(0))->second.setVisited(true);
-            FCgraph25 ->TSPRec(0, &minDist, 1, n, currentPath, path);
-            cout << minDist << endl;
-            for (int i = 0; i < n; i++) {
-                if(i != n -1) cout << path[i] << "-> ";
-                else cout << path[i];
-            }
-             */
-            double cost = 0;
-            cout << "Pre-Order: 0";
-            FCgraph25->primMST();
-            FCgraph25->preOrderWalk("0", cost);
-            cout << "\n" <<"Cost: " << cost;
-            /*
-            for(auto pair : FCgraph25->nodesMAP){
-                if(pair.second.getPath() != nullptr) cout << pair.second.getPath()->getNodeA() << " --- " << pair.second.getPath()->getNodeB() << " cost: " << pair.second.getPath()->getCost() << endl;
-            }
-             */
+        case 4: {
+            if(FCgraph25 == nullptr) FCgraph25 = reading.read_fullyconected25();
+            TSPalgorithmsSubmenu(FCgraph25);
             break;
         }
-        case 5:
-            RWgraph2 = reading.read_realgraph2();
-            cout << RWgraph2->nodesMAP.size() << endl;
+        case 5: {
+            if(FCgraph50 == nullptr) FCgraph50 = reading.read_fullyconected50();
+            TSPalgorithmsSubmenu(FCgraph50);
             break;
+        }
         case 6: {
-            RWgraph3 = reading.read_realgraph3();
-            int n = RWgraph3->nodesMAP.size();
-            double minDist = 100000000.0;
-            int currentPath[n];
-            int path[n];
-            currentPath[0] = 0;
-            RWgraph3->nodesMAP.find(to_string(0))->second.setVisited(true);
-            RWgraph3->TSPRec(0, &minDist, 1, n, currentPath, path);
-            cout << minDist << endl;
-            for (int i = 0; i < n; i++) {
-                if(i != n -1) cout << path[i] << "-> ";
-                else cout << path[i];
-            }
+            if(FCgraph75 == nullptr) FCgraph75 = reading.read_fullyconected75();
+            TSPalgorithmsSubmenu(FCgraph75);
             break;
-            for(auto pair : RWgraph3 ->nodesMAP){
-                if(pair.second.getPath() != nullptr) cout << pair.second.getPath()->getNodeA() << "->" << pair.second.getPath()->getNodeB()  << endl;
-                else cout << pair.first << endl;
-            }
+
+        }
+        case 7: {
+            if(FCgraph100 == nullptr) FCgraph100 = reading.read_fullyconected100();
+            TSPalgorithmsSubmenu(FCgraph100);
+            break;
+        }
+        case 8: {
+            if(FCgraph200 == nullptr) FCgraph200 = reading.read_fullyconected200();
+            TSPalgorithmsSubmenu(FCgraph200);
+            break;
+
+        }
+        case 9: {
+            if(FCgraph300 == nullptr) FCgraph300 = reading.read_fullyconected300();
+            TSPalgorithmsSubmenu(FCgraph300);
+            break;
+
+        }
+        case 10: {
+            if(FCgraph400 == nullptr) FCgraph400 = reading.read_fullyconected400();
+            TSPalgorithmsSubmenu(FCgraph400);
+            break;
+
+        }
+        case 11: {
+            if(FCgraph500 == nullptr) FCgraph500 = reading.read_fullyconected500();
+            TSPalgorithmsSubmenu(FCgraph500);
+            break;
+
+        }
+        case 12: {
+            if(FCgraph600 == nullptr) FCgraph600 = reading.read_fullyconected600();
+            TSPalgorithmsSubmenu(FCgraph600);
+            break;
+
+        }
+        case 13: {
+            if(FCgraph700 == nullptr) FCgraph700 = reading.read_fullyconected700();
+            TSPalgorithmsSubmenu(FCgraph700);
+            break;
+
+        }
+        case 14: {
+            if(FCgraph800 == nullptr) FCgraph800 = reading.read_fullyconected800();
+            TSPalgorithmsSubmenu(FCgraph800);
+            break;
+
+        }
+        case 15: {
+            if(FCgraph900 == nullptr) FCgraph900 = reading.read_fullyconected900();
+            TSPalgorithmsSubmenu(FCgraph900);
+            break;
+
+        }
+        case 16: {
+            if(RWgraph1 == nullptr) RWgraph1 = reading.read_realgraph1();
+            TSPalgorithmsSubmenu(RWgraph1);
+            break;
+        }
+        case 17: {
+            if(RWgraph2 == nullptr) RWgraph2 = reading.read_realgraph2();
+            TSPalgorithmsSubmenu(RWgraph2);
+            break;
+        }
+        case 18: {
+            if(RWgraph3 == nullptr) RWgraph3 = reading.read_realgraph3();
+            TSPalgorithmsSubmenu(RWgraph3);
             break;
         }
         default:

@@ -36,6 +36,7 @@ public:
 
     bool isVisited();
     void setVisited(bool visited_);
+    void setQueuIndex(int index);
     int queueIndex = 0;
 };
 
