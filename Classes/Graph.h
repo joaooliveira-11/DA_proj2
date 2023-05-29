@@ -37,8 +37,6 @@ public:
     double HaversineDist(string nodeA, string nodeB);
     double degreesToRadians(double degrees);
 
-
-    //void preOrderWalk(string nodeID, double &cost, string *current_node);
 };
 
 
