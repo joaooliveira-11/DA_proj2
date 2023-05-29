@@ -1,6 +1,14 @@
 #include "Menu.h"
+#include <bits/stdc++.h>
+#include <sys/time.h>
 
 Reading reading = Reading();
+
+struct report{
+    double elapsedBacktrack, elapsedTriangular, distBacktrack, distTriangular;
+};
+
+report graphreport{0, 0, 0, 0};
 
 Graph *tourismgraph;
 Graph *stadiumsgraph;
@@ -23,7 +31,7 @@ Graph *FCgraph700;
 Graph *FCgraph800;
 Graph *FCgraph900;
 
-void Menu::TSPbacktrack(Graph *graph) {
+double Menu::TSPbacktrack(Graph *graph) {
     int n = graph->nodesMAP.size();
     double minDist = 100000000.0;
     int currentPath[n];
@@ -37,25 +45,41 @@ void Menu::TSPbacktrack(Graph *graph) {
     }
     cout << "TSP Backtrack Cost: " << minDist << endl;
     graph->resetNodes();
+    return minDist;
 }
 
 void Menu::TSPtriangularInequality(Graph *graph) {
-    graph->primMST();
+    graphreport.distTriangular = graph->primMST();
     graph->resetNodes();
 }
 
+double Menu::printElapsedTime(timeval start, timeval end){
+    double elapsed =  (end.tv_sec - start.tv_sec) * 1e6;
+    elapsed = (elapsed + (end.tv_usec -
+                   start.tv_usec)) * 1e-6;
+    cout << "The elapsed time was: " << fixed <<elapsed <<setprecision(6) <<"seconds. "<< endl;
+    return elapsed;
+}
+
 void Menu::TSPalgorithmsSubmenu(Graph *graph) {
+
     int option;
     cout << "===============TSP Algorithms===============" << endl;
     cout << "Chose an aproach for the TSP" << endl;
-    cout << "1 - TSP Backtrack Aproach" << endl;
+    cout << "1 - TSP Backtrack Aproach (only for toy graphs)" << endl;
     cout << "2 - TSP Triangular Inequality Aproach" << endl;
+    cout << "4 - Report (only for toy graphs)" << endl;
     cin >> option;
 
     switch (option) {
         case 1: {
-            TSPbacktrack(graph);
+            struct timeval start, end;
+            gettimeofday(&start, NULL);
+            ios_base::sync_with_stdio(false);
+            graphreport.distBacktrack= TSPbacktrack(graph);
 
+            gettimeofday(&end, NULL);
+            graphreport.elapsedBacktrack = printElapsedTime(start, end);
             string decision;
             cout << "Do you want to do another action?. (ex.: yes or no) \n";
             cin >> decision;
@@ -73,7 +97,40 @@ void Menu::TSPalgorithmsSubmenu(Graph *graph) {
             }
         }
         case 2: {
+            struct timeval start, end;
+            gettimeofday(&start, NULL);
+            ios_base::sync_with_stdio(false);
             TSPtriangularInequality(graph);
+
+            gettimeofday(&end, NULL);
+            graphreport.elapsedTriangular = printElapsedTime(start, end);
+
+            string decision;
+            cout << "Do you want to do another action?. (ex.: yes or no) \n";
+            cin >> decision;
+            while (decision != "yes" && decision != "no") {
+                cout << "Do you want to do another action?. (ex.: yes or no) \n";
+                cin >> decision;
+            }
+            if (decision == "yes") {
+                TSPalgorithmsSubmenu(graph);
+                break;
+            }
+            else {
+                readmenu();
+                break;
+            }
+        }
+        case 4:{
+            if(graphreport.elapsedTriangular == 0 || graphreport.elapsedBacktrack == 0 || graphreport.distTriangular == 0 || graphreport.distBacktrack == 0){
+                cout << "You don't have the data yet, remember that you need to run both algorithms to get the full data. \n";
+                TSPalgorithmsSubmenu(graph);
+            }
+            double ratioTime, ratioDist;
+            ratioTime =  (graphreport.elapsedTriangular / graphreport.elapsedBacktrack) * 100 ;
+            ratioDist = ((graphreport.distTriangular / graphreport.distBacktrack) * 100) - 100 ;
+            cout << "the triangular aproximation takes "<< ratioTime <<"% of the time it takes the backtracking algorithm  \n" ;
+            cout << "the triangular aproximation distance is "<< ratioDist <<"% longer than the backtracking algorithm distance\n \n" ;
 
             string decision;
             cout << "Do you want to do another action?. (ex.: yes or no) \n";

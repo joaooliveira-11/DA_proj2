@@ -73,7 +73,7 @@ void Graph::TSPRec(double currDist, double *minDist, int currentIndx, int n, int
     }
 }
 
-void Graph::primMST() {
+int  Graph::primMST() {
     MutablePriorityQueue<Node> mutablePQ;
     vector<string> primVisit;
 
@@ -107,25 +107,11 @@ void Graph::primMST() {
         pair.second.setVisited(false);
     }
     vector<string> preOrder;
-    preOrderWalk("0",primVisit,&preOrder);
+    double result = preOrderWalk("0",primVisit,&preOrder);
+    return result;
 }
 
-/*
-void Graph::preOrderWalk(string nodeID, double &cost, string* current_node){
-    string path;
-    for(auto pair : nodesMAP){
-        if(pair.second.getPath() != nullptr && pair.second.getPath()->getNodeA() == nodeID) {
-            path = pair.second.getPath()->getNodeB();
-            cout <<" -> " << path;
-            cost += pair.second.getPath()->getCost();
-            *current_node = path;
-            preOrderWalk(path, cost, current_node);
-        }
-    }
-}
-*/
-
-void Graph::preOrderWalk(string nodeID, vector<string> primVisit, vector<string> *preOrder) {
+int Graph::preOrderWalk(string nodeID, vector<string> primVisit, vector<string> *preOrder) {
     nodesMAP.find(nodeID)->second.setVisited(true);
     preOrder->push_back(nodeID);
     for (auto next_node: primVisit) {
@@ -152,6 +138,7 @@ void Graph::preOrderWalk(string nodeID, vector<string> primVisit, vector<string>
             }
         }
         cout << "Triangular Inequality Cost: " << totalcost << endl;
+        return totalcost;
     }
 }
 
