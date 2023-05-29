@@ -4,6 +4,7 @@
 #include "Node.h"
 #include "PQ.h"
 #include <iostream>
+#include <math.h>
 
 Graph::~Graph() {
 
@@ -35,6 +36,29 @@ bool Graph::addSegment(string _nodeA, string _nodeB, double _cost) {
     return true;
 }
 
+double Graph::degreesToRadians(double degrees) {
+    return degrees * M_PI / 180.0;
+}
+
+double Graph::HaversineDist(string nodeA, string nodeB){
+    double longitudeA = nodesMAP.find(nodeA)->second.getLONG();
+    double longitudeB = nodesMAP.find(nodeB)->second.getLONG();
+    double latitudeA = nodesMAP.find(nodeA)->second.getLAT();
+    double latitudeB = nodesMAP.find(nodeB)->second.getLAT();
+
+    double deltaLatitude = degreesToRadians(latitudeB - latitudeA);
+    double deltaLongitude = degreesToRadians(longitudeB - longitudeA);
+
+    double a = std::sin(deltaLatitude / 2.0) * std::sin(deltaLatitude / 2.0) +
+               std::cos(degreesToRadians(latitudeA)) * std::cos(degreesToRadians(latitudeB)) *
+               std::sin(deltaLongitude / 2.0) * std::sin(deltaLongitude / 2.0);
+
+    double c = 2.0 * std::atan2(std::sqrt(a), std::sqrt(1.0 - a));
+
+    double distance = 6371.0 * c * 1000;
+    return distance;
+}
+
 void Graph::resetNodes(){
     for(auto& pair: nodesMAP){
         pair.second.setVisited(false);
@@ -50,7 +74,7 @@ void Graph::savepath(int n, int current_path[], int path[]) {
     }
 }
 
-void Graph::TSPRec(double currDist, double *minDist, int currentIndx, int n, int currentPath[], int path[]) {
+double Graph::TSPRec(double currDist, double *minDist, int currentIndx, int n, int currentPath[], int path[]) {
     if (currentIndx == n) {
         currDist += dists[currentPath[currentIndx - 1]][currentPath[0]];
         if (currDist < *minDist) {
@@ -71,9 +95,10 @@ void Graph::TSPRec(double currDist, double *minDist, int currentIndx, int n, int
             }
         }
     }
+    return *minDist;
 }
 
-void Graph::primMST() {
+double Graph::primMST() {
     MutablePriorityQueue<Node> mutablePQ;
     vector<string> primVisit;
 
@@ -107,25 +132,10 @@ void Graph::primMST() {
         pair.second.setVisited(false);
     }
     vector<string> preOrder;
-    preOrderWalk("0",primVisit,&preOrder);
+    return preOrderWalk("0",primVisit,&preOrder);
 }
 
-/*
-void Graph::preOrderWalk(string nodeID, double &cost, string* current_node){
-    string path;
-    for(auto pair : nodesMAP){
-        if(pair.second.getPath() != nullptr && pair.second.getPath()->getNodeA() == nodeID) {
-            path = pair.second.getPath()->getNodeB();
-            cout <<" -> " << path;
-            cost += pair.second.getPath()->getCost();
-            *current_node = path;
-            preOrderWalk(path, cost, current_node);
-        }
-    }
-}
-*/
-
-void Graph::preOrderWalk(string nodeID, vector<string> primVisit, vector<string> *preOrder) {
+double Graph::preOrderWalk(string nodeID, vector<string> primVisit, vector<string> *preOrder) {
     nodesMAP.find(nodeID)->second.setVisited(true);
     preOrder->push_back(nodeID);
     for (auto next_node: primVisit) {
@@ -147,11 +157,18 @@ void Graph::preOrderWalk(string nodeID, vector<string> primVisit, vector<string>
                 cout << nodeA << " -> " << nodeB << " || distance: " << dists[nodeA][nodeB] << " || type: "
                      << "direct connection" << endl;
             } else {
-                totalcost += 0;
-                cout << nodeA << " -> " << nodeB << " || distance: " << 0 << " || type: " << "Haversine connection" << endl;
+                Node NODEA = nodesMAP.find( (*preOrder)[i] )->second;
+                Node NODEB = nodesMAP.find ( (*preOrder)[i + 1] )->second;
+                double distance = 0;
+                if(NODEA.isLongSET() &&  NODEA.isLatSET() && NODEB.isLongSET() && NODEB.isLatSET()){
+                    distance = HaversineDist(NODEA.getID(), NODEB.getID());
+                    totalcost += distance;
+                }
+                cout << nodeA << " -> " << nodeB << " || distance: " << distance << " || type: " << "Haversine connection" << endl;
             }
         }
         cout << "Triangular Inequality Cost: " << totalcost << endl;
+        return totalcost;
     }
 }
 

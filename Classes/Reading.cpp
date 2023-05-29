@@ -115,6 +115,9 @@ Graph* Reading::read_realgraph1(){
         iss >> latitude >> c1;
 
         Node NODE = Node(node);
+        NODE.setLONG(longitude);
+        NODE.setLAT(latitude);
+
         if(graph->nodesMAP.find(node) == graph->nodesMAP.end()) graph->nodesMAP.emplace(node, NODE);
     }
 
@@ -159,6 +162,9 @@ Graph* Reading::read_realgraph2(){
         iss >> latitude >> c1;
 
         Node NODE = Node(node);
+        NODE.setLONG(longitude);
+        NODE.setLAT(latitude);
+
         if(graph->nodesMAP.find(node) == graph->nodesMAP.end()) graph->nodesMAP.emplace(node, NODE);
     }
 
@@ -203,6 +209,9 @@ Graph* Reading::read_realgraph3(){
         iss >> latitude >> c1;
 
         Node NODE = Node(node);
+        NODE.setLONG(longitude);
+        NODE.setLAT(latitude);
+
         if(graph->nodesMAP.find(node) == graph->nodesMAP.end()) graph->nodesMAP.emplace(node, NODE);
     }
 
