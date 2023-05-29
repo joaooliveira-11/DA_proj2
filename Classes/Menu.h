@@ -5,7 +5,6 @@
 #include "Reading.h"
 #include <iostream>
 
-
 class Menu {
 public:
     static void readmenu();

@@ -4,12 +4,6 @@
 
 Reading reading = Reading();
 
-struct report{
-    double elapsedBacktrack, elapsedTriangular, distBacktrack, distTriangular;
-};
-
-report graphreport{0, 0, 0, 0};
-
 Graph *tourismgraph;
 Graph *stadiumsgraph;
 Graph *shippinggraph;
@@ -49,7 +43,8 @@ double Menu::TSPbacktrack(Graph *graph) {
 }
 
 void Menu::TSPtriangularInequality(Graph *graph) {
-    graphreport.distTriangular = graph->primMST();
+    graph->graphreport.distTriangular = graph->primMST();
+    //graphreport.distTriangular = graph->primMST();
     graph->resetNodes();
 }
 
@@ -76,10 +71,13 @@ void Menu::TSPalgorithmsSubmenu(Graph *graph) {
             struct timeval start, end;
             gettimeofday(&start, NULL);
             ios_base::sync_with_stdio(false);
-            graphreport.distBacktrack= TSPbacktrack(graph);
+            //graphreport.distBacktrack= TSPbacktrack(graph);
+            graph->graphreport.distBacktrack = TSPbacktrack(graph);
 
             gettimeofday(&end, NULL);
-            graphreport.elapsedBacktrack = printElapsedTime(start, end);
+            //graphreport.elapsedBacktrack = printElapsedTime(start, end);
+            graph->graphreport.elapsedBacktrack = printElapsedTime(start, end);
+
             string decision;
             cout << "Do you want to do another action?. (ex.: yes or no) \n";
             cin >> decision;
@@ -103,7 +101,8 @@ void Menu::TSPalgorithmsSubmenu(Graph *graph) {
             TSPtriangularInequality(graph);
 
             gettimeofday(&end, NULL);
-            graphreport.elapsedTriangular = printElapsedTime(start, end);
+            //graphreport.elapsedTriangular = printElapsedTime(start, end);
+            graph->graphreport.elapsedTriangular = printElapsedTime(start, end);
 
             string decision;
             cout << "Do you want to do another action?. (ex.: yes or no) \n";
@@ -122,13 +121,20 @@ void Menu::TSPalgorithmsSubmenu(Graph *graph) {
             }
         }
         case 4:{
+            /*
             if(graphreport.elapsedTriangular == 0 || graphreport.elapsedBacktrack == 0 || graphreport.distTriangular == 0 || graphreport.distBacktrack == 0){
                 cout << "You don't have the data yet, remember that you need to run both algorithms to get the full data. \n";
                 TSPalgorithmsSubmenu(graph);
             }
+             */
+            if(graph->graphreport.elapsedTriangular == 0 || graph->graphreport.elapsedBacktrack == 0 || graph->graphreport.distTriangular == 0 || graph->graphreport.distBacktrack == 0){
+                cout << "You don't have the data yet, remember that you need to run both algorithms to get the full data. \n";
+                TSPalgorithmsSubmenu(graph);
+            }
+
             double ratioTime, ratioDist;
-            ratioTime =  (graphreport.elapsedTriangular / graphreport.elapsedBacktrack) * 100 ;
-            ratioDist = ((graphreport.distTriangular / graphreport.distBacktrack) * 100) - 100 ;
+            ratioTime =  (graph->graphreport.elapsedTriangular / graph->graphreport.elapsedBacktrack) * 100 ;
+            ratioDist = ((graph->graphreport.distTriangular / graph->graphreport.distBacktrack) * 100) - 100 ;
             cout << "the triangular aproximation takes "<< ratioTime <<"% of the time it takes the backtracking algorithm  \n" ;
             cout << "the triangular aproximation distance is "<< ratioDist <<"% longer than the backtracking algorithm distance\n \n" ;
 

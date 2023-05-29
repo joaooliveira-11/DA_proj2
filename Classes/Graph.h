@@ -37,6 +37,11 @@ public:
     double HaversineDist(string nodeA, string nodeB);
     double degreesToRadians(double degrees);
 
+    struct report{
+        double elapsedBacktrack, elapsedTriangular, distBacktrack, distTriangular;
+    };
+    report graphreport{0, 0, 0, 0};
+
 };
 
 
