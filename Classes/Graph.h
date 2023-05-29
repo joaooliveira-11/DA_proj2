@@ -30,13 +30,13 @@ public:
     double **dists = new double*[10000];
 
     void savepath(int n, int current_path[], int path[]);
-    void TSPRec(double currDist, double *minDist, int currentIndx, int n, int currentPath[], int path[]);
-    int primMST();
-    int preOrderWalk(string nodeID, vector<string>primVisit, vector<string>* preOrder);
+    double TSPRec(double currDist, double *minDist, int currentIndx, int n, int currentPath[], int path[]);
+    double primMST();
+    double preOrderWalk(string nodeID,vector<string>primVisit, vector<string>* preOrder);
     void resetNodes();
+    double HaversineDist(string nodeA, string nodeB);
+    double degreesToRadians(double degrees);
 
-
-    //void preOrderWalk(string nodeID, double &cost, string *current_node);
 };
 
 

@@ -41,3 +41,19 @@ void Node::setDist(double distance){ dist = distance;}
 void Node::setPath(Segment *path) {this->path = path;}
 
 void Node::setQueuIndex(int index){this->queueIndex = 0;}
+
+void Node::setLONG(double longitude_){
+    this->longitude = longitude_;
+    this->longitudeSET = true;
+}
+
+void Node::setLAT(double latitude_){
+    this->latitude = latitude_;
+    this->latitudeSET = true;
+}
+
+double Node::getLONG(){ return longitude;}
+double Node::getLAT(){ return latitude;}
+
+bool Node::isLongSET() {return longitudeSET;}
+bool Node::isLatSET() {return latitudeSET;}

@@ -8,12 +8,17 @@ using namespace std;
 class Node {
 private:
     string id;
+
     bool visited = false;
     vector<Segment *> outgoing;
     vector<Segment *> incoming;
 
     Segment *path = nullptr;
     double dist = 0;
+
+    double longitude,latitude;
+    bool longitudeSET = false;
+    bool latitudeSET = false;
 
 public:
     Node(string _id);
@@ -23,8 +28,6 @@ public:
     vector<Segment *> getIncoming() const;
     void addIncoming(Segment *segment);
     void addOutgoing(Segment *s);
-    //void setSegments(vector<Segment *> newOutgoing);
-    //void setIncoming(vector<Segment *> newIncoming);
 
     Segment* getPath();
     double getDist();
@@ -38,6 +41,13 @@ public:
     void setVisited(bool visited_);
     void setQueuIndex(int index);
     int queueIndex = 0;
+
+    void setLONG(double longitude_);
+    void setLAT(double latitude_);
+    double getLONG();
+    double getLAT();
+    bool isLongSET();
+    bool isLatSET();
 };
 
 
