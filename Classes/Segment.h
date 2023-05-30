@@ -13,6 +13,8 @@ public:
     string getNodeA() const;
     string getNodeB() const;
     double getCost() const;
+
+    bool operator<(Segment b){if(this->getCost() > b.getCost()) return true; else return false;}
 };
 
 #endif

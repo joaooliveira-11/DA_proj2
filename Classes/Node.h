@@ -20,6 +20,8 @@ private:
     bool longitudeSET = false;
     bool latitudeSET = false;
 
+    int degree = 0;
+
 public:
     Node(string _id);
     Node();
@@ -48,6 +50,10 @@ public:
     double getLAT();
     bool isLongSET();
     bool isLatSET();
+
+    void incrementDegree(int i);
+
+    int getDegree();
 };
 
 

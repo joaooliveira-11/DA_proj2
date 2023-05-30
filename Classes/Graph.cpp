@@ -5,6 +5,8 @@
 #include "PQ.h"
 #include <iostream>
 #include <math.h>
+#include <set>
+#include <algorithm>
 
 Graph::~Graph() {
 
@@ -123,17 +125,100 @@ double Graph::primMST() {
             if(!(nodesMAP.find(nodeDestID)->second.isVisited()) && segment->getCost() < nodesMAP.find(nodeDestID)->second.getDist()){
                 nodesMAP.find(nodeDestID)->second.setDist(segment->getCost());
                 nodesMAP.find(nodeDestID)->second.setPath(segment);
+                nodesMAP.find(nodestartID)->second.incrementDegree(1);
                 mutablePQ.decreaseKey(&nodesMAP.find(nodeDestID)->second);
             }
         }
         nodesMAP.find(nodestartID)->second.setVisited(true);
     }
+/*
+    /// para o christophides
+    vector<string> oddDegree;
+    for(auto pair : nodesMAP){
+        if((pair.second.getDegree() > 0) && ((pair.second.getDegree() % 2) == 1)){
+            oddDegree.push_back(pair.second.getID());
+        }
+    }
+
+    for(auto p : oddDegree){
+        cout << p<<endl;
+    }
+
+
+
+
+    vector<vector<double>> costMatrix(oddDegree.size(), vector<double>(oddDegree.size(), numeric_limits<double>::infinity()));
+    for (auto node :oddDegree) {
+        int nodeA = stoi(node);
+        for(auto s : nodesMAP.find(node)->second.getIncoming()){
+            int nodeB = stoi(s->getNodeA());
+            for(auto c : oddDegree) {
+                if(c == s->getNodeA()) {
+                    costMatrix[nodeA][nodeB] = s->getCost();
+                }
+            }
+        }
+    }
+
+    hungarianAlgorithm(costMatrix);
+*/
+
+    ///para a triangular
+
     for(auto& pair : nodesMAP){
         pair.second.setVisited(false);
     }
     vector<string> preOrder;
     return preOrderWalk("0",primVisit,&preOrder);
+
 }
+
+
+//incomplete
+void Graph::hungarianAlgorithm(vector<vector<double>> matrix) {
+    int rows = matrix.size();
+    int cols = matrix[0].size();
+
+    vector<double> row_mins(cols, 0.0);
+    vector<double> col_mins(rows, 0.0);
+
+    //find row minimum
+    for (int i = 0; i < rows; i++) {
+        double row_min = numeric_limits<double>::infinity();
+        for (int j = 0; j < cols; j++) {
+            if (matrix[j][i] < row_min) {
+                row_min = matrix[j][i];
+            }
+            row_mins[i] = row_min;
+        }
+    }
+    for (int i = 0; i < cols; i++) {
+        for (int j = 0; j < rows; j++) {
+            matrix[i][j] = matrix[i][j] == 0 ?  0 :  matrix[i][j] - row_mins[i];
+        }
+    }
+
+    //find column minimum
+    for (int i = 0; i < cols; i++) {
+        double col_min = numeric_limits<double>::infinity();
+        for (int j = 0; j < rows; j++) {
+            if (matrix[i][j] < col_min) {
+                col_min = matrix[i][j];
+            }
+            col_mins[i] = col_min;
+        }
+    }
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            matrix[j][i] == 0.0 ? (matrix[j][i] - col_mins[i]) : 0.0;
+        }
+    }
+    //reduce matrix
+
+
+}
+
 
 double Graph::preOrderWalk(string nodeID, vector<string> primVisit, vector<string> *preOrder) {
     nodesMAP.find(nodeID)->second.setVisited(true);
@@ -170,6 +255,43 @@ double Graph::preOrderWalk(string nodeID, vector<string> primVisit, vector<strin
         cout << "Triangular Inequality Cost: " << totalcost << endl;
         return totalcost;
     }
+    return 0.0;
+}
+
+pair<double, string> Graph::getNearest(string next, string origin){
+        nodesMAP.find(next)->second.setVisited(true);
+        double cost = std::numeric_limits<double>::infinity();
+        string dest = "";
+        for(auto i = 0; i < nodesMAP.size(); i++) {
+            if (!nodesMAP.find(to_string(i))->second.isVisited() && (dists[stoi(next)][i] < cost) && to_string(i) != origin) {
+                cost = dists[stoi(next)][i];
+                dest = to_string(i);
+            }
+        }
+    if(dest == "") return  { dists[stoi(origin)][stoi(next)], origin};
+        return {cost, dest};
+}
+
+double Graph::nearestNeightbour(string origin){
+
+    for(auto &i : nodesMAP){
+        i.second.setVisited(false);
+    }
+
+
+    string next =  origin;
+    string previous;
+    double total = 0.0;
+    do{
+        previous = next;
+        auto res = getNearest(next, origin);
+        total += res.first;
+        next  = res.second;
+        /*cout << previous << " -> " << next << " || distance: " << dists[stoi(previous)][stoi(next)] << " || type: "
+             << "direct connection" << endl; */
+    }while(next != origin);
+
+    return total;
 }
 
 

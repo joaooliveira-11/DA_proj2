@@ -42,6 +42,11 @@ public:
     };
     report graphreport{0, 0, 0, 0};
 
+    void hungarianAlgorithm(vector<vector<double>> matrix);
+
+    double nearestNeightbour(string origin);
+
+    pair<double, string> getNearest(string next, string origin);
 };
 
 

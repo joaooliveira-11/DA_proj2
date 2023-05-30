@@ -24,7 +24,19 @@ double Menu::TSPbacktrack(Graph *graph) {
 
 void Menu::TSPtriangularInequality(Graph *graph) {
     graph->graphreport.distTriangular = graph->primMST();
-    //graphreport.distTriangular = graph->primMST();
+    graph->resetNodes();
+}
+
+void Menu::TSPnearestNeighbor(Graph *graph){
+    double minimum = numeric_limits<double>::infinity();
+    double res;
+    for(int i = 0; i < graph->nodesMAP.size(); i++){
+        res = graph->nearestNeightbour(to_string(i));
+        //cout << "subtotal: " <<res <<endl <<endl;
+        minimum = min(res, minimum);
+    }
+    cout << "the minimum of all the neighbors is: " << minimum <<endl <<endl;
+
     graph->resetNodes();
 }
 
@@ -43,6 +55,7 @@ void Menu::TSPalgorithmsSubmenu(Graph *graph) {
     cout << "Chose an aproach for the TSP" << endl;
     cout << "1 - TSP Backtrack Aproach (only for toy graphs)" << endl;
     cout << "2 - TSP Triangular Inequality Aproach" << endl;
+    cout << "3 - TSP Nearest Neighbor" << endl;
     cout << "4 - Report (only for toy graphs)" << endl;
     cin >> option;
 
@@ -99,6 +112,33 @@ void Menu::TSPalgorithmsSubmenu(Graph *graph) {
                 readmenu();
                 break;
             }
+        }
+        case 3:{
+            struct timeval start, end;
+            gettimeofday(&start, NULL);
+            ios_base::sync_with_stdio(false);
+
+            TSPnearestNeighbor(graph);
+
+            gettimeofday(&end, NULL);
+            printElapsedTime(start, end);
+
+            string decision;
+            cout << "Do you want to do another action?. (ex.: yes or no) \n";
+            cin >> decision;
+            while (decision != "yes" && decision != "no") {
+                cout << "Do you want to do another action?. (ex.: yes or no) \n";
+                cin >> decision;
+            }
+            if (decision == "yes") {
+                TSPalgorithmsSubmenu(graph);
+                break;
+            }
+            else {
+                readmenu();
+                break;
+            }
+
         }
         case 4:{
             /*
