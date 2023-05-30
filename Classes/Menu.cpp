@@ -3,27 +3,7 @@
 #include <sys/time.h>
 
 Reading reading = Reading();
-
-Graph *tourismgraph;
-Graph *stadiumsgraph;
-Graph *shippinggraph;
-
-Graph *RWgraph1;
-Graph *RWgraph2;
-Graph *RWgraph3;
-
-Graph *FCgraph25;
-Graph *FCgraph50;
-Graph *FCgraph75;
-Graph *FCgraph100;
-Graph *FCgraph200;
-Graph *FCgraph300;
-Graph *FCgraph400;
-Graph *FCgraph500;
-Graph *FCgraph600;
-Graph *FCgraph700;
-Graph *FCgraph800;
-Graph *FCgraph900;
+Graph* graphsArray[18];
 
 double Menu::TSPbacktrack(Graph *graph) {
     int n = graph->nodesMAP.size();
@@ -159,136 +139,173 @@ void Menu::TSPalgorithmsSubmenu(Graph *graph) {
     }
 }
 
-void Menu::readmenu() {
-
+void Menu::toyGraphs() {
     int option;
-    cout << "===============MAIN MENU===============" << endl;
-    cout << "Chose a type of Graph to work with" << endl;
-    cout << "1 - Toy-Graphs: tourism" << endl;
-    cout << "2 - Toy-Graphs: stadiums" << endl;
-    cout << "3 - Toy-Graphs: shipping" << endl;
-
-    cout << "4 - Extra Fully connected: 25" << endl;
-    cout << "5 - Extra Fully connected: 50" << endl;
-    cout << "6 - Extra Fully connected: 75" << endl;
-    cout << "7 - Extra Fully connected: 100" << endl;
-    cout << "8 - Extra Fully connected: 200" << endl;
-    cout << "9 - Extra Fully connected: 300" << endl;
-    cout << "10 - Extra Fully connected: 400" << endl;
-    cout << "11 - Extra Fully connected: 500" << endl;
-    cout << "12 - Extra Fully connected: 600" << endl;
-    cout << "13 - Extra Fully connected: 700" << endl;
-    cout << "14 - Extra Fully connected: 800" << endl;
-    cout << "15 - Extra Fully connected: 900" << endl;
-
-    cout << "16 - Real-World-Graphs: 1" << endl;
-    cout << "17 - Real-World-Graphs: 2" << endl;
-    cout << "18 - Real-World-Graphs: 3" << endl;
+    cout << "===============Toy Graphs Submenu===============" << endl;
+    cout << "Chose a Toy Graph to work with" << endl;
+    cout << "1 - tourism" << endl;
+    cout << "2 - stadiums" << endl;
+    cout << "3 - shipping" << endl;
     cin >> option;
 
     switch (option) {
         case 1: {
-            if(tourismgraph == nullptr) tourismgraph = reading.read_tourism_graph();
-            TSPalgorithmsSubmenu(tourismgraph);
+            if (graphsArray[tourism] == nullptr) graphsArray[tourism] = reading.read_tourism_graph();
+            TSPalgorithmsSubmenu(graphsArray[tourism]);
             break;
         }
         case 2: {
-            if(stadiumsgraph == nullptr) stadiumsgraph = reading.read_stadium_graph();
-            TSPalgorithmsSubmenu(stadiumsgraph);
+            if (graphsArray[stadiums] == nullptr) graphsArray[stadiums] = reading.read_stadium_graph();
+            TSPalgorithmsSubmenu(graphsArray[stadiums]);
             break;
-
         }
         case 3: {
-            if(shippinggraph == nullptr) shippinggraph = reading.read_shiping_graph();
-            TSPalgorithmsSubmenu(shippinggraph);
-            break;
-        }
-        case 4: {
-            if(FCgraph25 == nullptr) FCgraph25 = reading.read_fullyconected25();
-            TSPalgorithmsSubmenu(FCgraph25);
-            break;
-        }
-        case 5: {
-            if(FCgraph50 == nullptr) FCgraph50 = reading.read_fullyconected50();
-            TSPalgorithmsSubmenu(FCgraph50);
-            break;
-        }
-        case 6: {
-            if(FCgraph75 == nullptr) FCgraph75 = reading.read_fullyconected75();
-            TSPalgorithmsSubmenu(FCgraph75);
-            break;
-
-        }
-        case 7: {
-            if(FCgraph100 == nullptr) FCgraph100 = reading.read_fullyconected100();
-            TSPalgorithmsSubmenu(FCgraph100);
-            break;
-        }
-        case 8: {
-            if(FCgraph200 == nullptr) FCgraph200 = reading.read_fullyconected200();
-            TSPalgorithmsSubmenu(FCgraph200);
-            break;
-
-        }
-        case 9: {
-            if(FCgraph300 == nullptr) FCgraph300 = reading.read_fullyconected300();
-            TSPalgorithmsSubmenu(FCgraph300);
-            break;
-
-        }
-        case 10: {
-            if(FCgraph400 == nullptr) FCgraph400 = reading.read_fullyconected400();
-            TSPalgorithmsSubmenu(FCgraph400);
-            break;
-
-        }
-        case 11: {
-            if(FCgraph500 == nullptr) FCgraph500 = reading.read_fullyconected500();
-            TSPalgorithmsSubmenu(FCgraph500);
-            break;
-
-        }
-        case 12: {
-            if(FCgraph600 == nullptr) FCgraph600 = reading.read_fullyconected600();
-            TSPalgorithmsSubmenu(FCgraph600);
-            break;
-
-        }
-        case 13: {
-            if(FCgraph700 == nullptr) FCgraph700 = reading.read_fullyconected700();
-            TSPalgorithmsSubmenu(FCgraph700);
-            break;
-
-        }
-        case 14: {
-            if(FCgraph800 == nullptr) FCgraph800 = reading.read_fullyconected800();
-            TSPalgorithmsSubmenu(FCgraph800);
-            break;
-
-        }
-        case 15: {
-            if(FCgraph900 == nullptr) FCgraph900 = reading.read_fullyconected900();
-            TSPalgorithmsSubmenu(FCgraph900);
-            break;
-
-        }
-        case 16: {
-            if(RWgraph1 == nullptr) RWgraph1 = reading.read_realgraph1();
-            TSPalgorithmsSubmenu(RWgraph1);
-            break;
-        }
-        case 17: {
-            if(RWgraph2 == nullptr) RWgraph2 = reading.read_realgraph2();
-            TSPalgorithmsSubmenu(RWgraph2);
-            break;
-        }
-        case 18: {
-            if(RWgraph3 == nullptr) RWgraph3 = reading.read_realgraph3();
-            TSPalgorithmsSubmenu(RWgraph3);
+            if (graphsArray[shipping] == nullptr) graphsArray[shipping] = reading.read_shiping_graph();
+            TSPalgorithmsSubmenu(graphsArray[shipping]);
             break;
         }
         default:
             break;
     }
+}
 
+void Menu::realWorldGraphs(){
+    int option;
+    cout << "===============Real World Graphs Submenu===============" << endl;
+    cout << "Chose a Toy Graph to work with" << endl;
+    cout << "1 - Real-World-Graphs: 1" << endl;
+    cout << "2 - Real-World-Graphs: 2" << endl;
+    cout << "3 - Real-World-Graphs: 3" << endl;
+    cin >> option;
+
+    switch (option) {
+        case 1: {
+            if(graphsArray[RW1]  == nullptr) graphsArray[RW1] = reading.read_realgraph1();
+            TSPalgorithmsSubmenu(graphsArray[RW1]);
+            break;
+        }
+        case 2: {
+            if(graphsArray[RW2] == nullptr) graphsArray[RW2] = reading.read_realgraph2();
+            TSPalgorithmsSubmenu(graphsArray[RW2]);
+            break;
+        }
+        case 3: {
+            if(graphsArray[RW3] == nullptr) graphsArray[RW3] = reading.read_realgraph3();
+            TSPalgorithmsSubmenu(graphsArray[RW3]);
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+void Menu::fullyConnectedGraphs(){
+    int option;
+    cout << "===============Fully Connected Graphs Submenu===============" << endl;
+    cout << "1 - Extra Fully connected: 25" << endl;
+    cout << "2 - Extra Fully connected: 50" << endl;
+    cout << "3 - Extra Fully connected: 75" << endl;
+    cout << "4 - Extra Fully connected: 100" << endl;
+    cout << "5 - Extra Fully connected: 200" << endl;
+    cout << "6 - Extra Fully connected: 300" << endl;
+    cout << "7 - Extra Fully connected: 400" << endl;
+    cout << "8 - Extra Fully connected: 500" << endl;
+    cout << "9 - Extra Fully connected: 600" << endl;
+    cout << "10 - Extra Fully connected: 700" << endl;
+    cout << "11 - Extra Fully connected: 800" << endl;
+    cout << "12 - Extra Fully connected: 900" << endl;
+    cin >> option;
+
+    switch (option) {
+        case 1: {
+            if(graphsArray[FC25] == nullptr) graphsArray[FC25] = reading.read_fullyconected25();
+            TSPalgorithmsSubmenu(graphsArray[FC25]);
+            break;
+        }
+        case 2: {
+            if(graphsArray[FC50] == nullptr) graphsArray[FC50] = reading.read_fullyconected50();
+            TSPalgorithmsSubmenu(graphsArray[FC50]);
+            break;
+        }
+        case 3: {
+            if(graphsArray[FC75] == nullptr) graphsArray[FC75] = reading.read_fullyconected75();
+            TSPalgorithmsSubmenu(graphsArray[FC75]);
+            break;
+        }
+        case 4: {
+            if(graphsArray[FC100] == nullptr) graphsArray[FC100] = reading.read_fullyconected100();
+            TSPalgorithmsSubmenu(graphsArray[FC100]);
+            break;
+        }
+        case 5: {
+            if(graphsArray[FC200] == nullptr) graphsArray[FC200] = reading.read_fullyconected200();
+            TSPalgorithmsSubmenu(graphsArray[FC200]);
+            break;
+        }
+        case 6: {
+            if(graphsArray[FC300] == nullptr) graphsArray[FC300] = reading.read_fullyconected300();
+            TSPalgorithmsSubmenu(graphsArray[FC300]);
+            break;
+        }
+        case 7: {
+            if(graphsArray[FC400]== nullptr) graphsArray[FC400] = reading.read_fullyconected400();
+            TSPalgorithmsSubmenu(graphsArray[FC400]);
+            break;
+        }
+        case 8: {
+            if(graphsArray[FC500] == nullptr) graphsArray[FC500] = reading.read_fullyconected500();
+            TSPalgorithmsSubmenu(graphsArray[FC500]);
+            break;
+        }
+        case 9: {
+            if(graphsArray[FC600] == nullptr) graphsArray[FC600] = reading.read_fullyconected600();
+            TSPalgorithmsSubmenu(graphsArray[FC600]);
+            break;
+        }
+        case 10: {
+            if(graphsArray[FC700] == nullptr) graphsArray[FC700] = reading.read_fullyconected700();
+            TSPalgorithmsSubmenu(graphsArray[FC700]);
+            break;
+        }
+        case 11: {
+            if(graphsArray[FC800] == nullptr) graphsArray[FC800]  = reading.read_fullyconected800();
+            TSPalgorithmsSubmenu(graphsArray[FC800] );
+            break;
+        }
+        case 12: {
+            if(graphsArray[FC900]  == nullptr) graphsArray[FC900]  = reading.read_fullyconected900();
+            TSPalgorithmsSubmenu(graphsArray[FC900]);
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+void Menu::readmenu() {
+
+    int option;
+    cout << "===============MAIN MENU===============" << endl;
+    cout << "Chose a type of Graph to work with" << endl;
+    cout << "1 - Toy Graphs" << endl;
+    cout << "2 - Real-World Graphs" << endl;
+    cout << "3 - Fully-Connected Graphs" << endl;
+    cin >> option;
+
+    switch (option) {
+        case 1: {
+            toyGraphs();
+            break;
+        }
+        case 2: {
+            realWorldGraphs();
+            break;
+        }
+        case 3: {
+            fullyConnectedGraphs();
+            break;
+        }
+        default:
+            break;
+    }
 }
