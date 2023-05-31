@@ -24,7 +24,6 @@ double Menu::TSPbacktrack(Graph *graph) {
 
 void Menu::TSPtriangularInequality(Graph *graph) {
     graph->graphreport.distTriangular = graph->primMST();
-    //graphreport.distTriangular = graph->primMST();
     graph->resetNodes();
 }
 
@@ -51,11 +50,9 @@ void Menu::TSPalgorithmsSubmenu(Graph *graph) {
             struct timeval start, end;
             gettimeofday(&start, NULL);
             ios_base::sync_with_stdio(false);
-            //graphreport.distBacktrack= TSPbacktrack(graph);
             graph->graphreport.distBacktrack = TSPbacktrack(graph);
 
             gettimeofday(&end, NULL);
-            //graphreport.elapsedBacktrack = printElapsedTime(start, end);
             graph->graphreport.elapsedBacktrack = printElapsedTime(start, end);
 
             string decision;
@@ -81,7 +78,6 @@ void Menu::TSPalgorithmsSubmenu(Graph *graph) {
             TSPtriangularInequality(graph);
 
             gettimeofday(&end, NULL);
-            //graphreport.elapsedTriangular = printElapsedTime(start, end);
             graph->graphreport.elapsedTriangular = printElapsedTime(start, end);
 
             string decision;
@@ -101,12 +97,6 @@ void Menu::TSPalgorithmsSubmenu(Graph *graph) {
             }
         }
         case 4:{
-            /*
-            if(graphreport.elapsedTriangular == 0 || graphreport.elapsedBacktrack == 0 || graphreport.distTriangular == 0 || graphreport.distBacktrack == 0){
-                cout << "You don't have the data yet, remember that you need to run both algorithms to get the full data. \n";
-                TSPalgorithmsSubmenu(graph);
-            }
-             */
             if(graph->graphreport.elapsedTriangular == 0 || graph->graphreport.elapsedBacktrack == 0 || graph->graphreport.distTriangular == 0 || graph->graphreport.distBacktrack == 0){
                 cout << "You don't have the data yet, remember that you need to run both algorithms to get the full data. \n";
                 TSPalgorithmsSubmenu(graph);
@@ -155,12 +145,12 @@ void Menu::toyGraphs() {
             break;
         }
         case 2: {
-            if (graphsArray[stadiums] == nullptr) graphsArray[stadiums] = reading.read_stadium_graph();
+            if (graphsArray[stadiums] == nullptr) graphsArray[stadiums] = reading.read_toygraphs(2);
             TSPalgorithmsSubmenu(graphsArray[stadiums]);
             break;
         }
         case 3: {
-            if (graphsArray[shipping] == nullptr) graphsArray[shipping] = reading.read_shiping_graph();
+            if (graphsArray[shipping] == nullptr) graphsArray[shipping] = reading.read_toygraphs(1);
             TSPalgorithmsSubmenu(graphsArray[shipping]);
             break;
         }
@@ -180,17 +170,17 @@ void Menu::realWorldGraphs(){
 
     switch (option) {
         case 1: {
-            if(graphsArray[RW1]  == nullptr) graphsArray[RW1] = reading.read_realgraph1();
+            if(graphsArray[RW1]  == nullptr) graphsArray[RW1] = reading.read_realgraphs(1);
             TSPalgorithmsSubmenu(graphsArray[RW1]);
             break;
         }
         case 2: {
-            if(graphsArray[RW2] == nullptr) graphsArray[RW2] = reading.read_realgraph2();
+            if(graphsArray[RW2] == nullptr) graphsArray[RW2] = reading.read_realgraphs(2);
             TSPalgorithmsSubmenu(graphsArray[RW2]);
             break;
         }
         case 3: {
-            if(graphsArray[RW3] == nullptr) graphsArray[RW3] = reading.read_realgraph3();
+            if(graphsArray[RW3] == nullptr) graphsArray[RW3] = reading.read_realgraphs(3);
             TSPalgorithmsSubmenu(graphsArray[RW3]);
             break;
         }
@@ -218,62 +208,62 @@ void Menu::fullyConnectedGraphs(){
 
     switch (option) {
         case 1: {
-            if(graphsArray[FC25] == nullptr) graphsArray[FC25] = reading.read_fullyconected25();
+            if(graphsArray[FC25] == nullptr) graphsArray[FC25] = reading.read_fullyconectedGraphs(25);
             TSPalgorithmsSubmenu(graphsArray[FC25]);
             break;
         }
         case 2: {
-            if(graphsArray[FC50] == nullptr) graphsArray[FC50] = reading.read_fullyconected50();
+            if(graphsArray[FC50] == nullptr) graphsArray[FC50] = reading.read_fullyconectedGraphs(50);
             TSPalgorithmsSubmenu(graphsArray[FC50]);
             break;
         }
         case 3: {
-            if(graphsArray[FC75] == nullptr) graphsArray[FC75] = reading.read_fullyconected75();
+            if(graphsArray[FC75] == nullptr) graphsArray[FC75] = reading.read_fullyconectedGraphs(75);
             TSPalgorithmsSubmenu(graphsArray[FC75]);
             break;
         }
         case 4: {
-            if(graphsArray[FC100] == nullptr) graphsArray[FC100] = reading.read_fullyconected100();
+            if(graphsArray[FC100] == nullptr) graphsArray[FC100] = reading.read_fullyconectedGraphs(100);
             TSPalgorithmsSubmenu(graphsArray[FC100]);
             break;
         }
         case 5: {
-            if(graphsArray[FC200] == nullptr) graphsArray[FC200] = reading.read_fullyconected200();
+            if(graphsArray[FC200] == nullptr) graphsArray[FC200] = reading.read_fullyconectedGraphs(200);
             TSPalgorithmsSubmenu(graphsArray[FC200]);
             break;
         }
         case 6: {
-            if(graphsArray[FC300] == nullptr) graphsArray[FC300] = reading.read_fullyconected300();
+            if(graphsArray[FC300] == nullptr) graphsArray[FC300] = reading.read_fullyconectedGraphs(300);
             TSPalgorithmsSubmenu(graphsArray[FC300]);
             break;
         }
         case 7: {
-            if(graphsArray[FC400]== nullptr) graphsArray[FC400] = reading.read_fullyconected400();
+            if(graphsArray[FC400]== nullptr) graphsArray[FC400] = reading.read_fullyconectedGraphs(400);
             TSPalgorithmsSubmenu(graphsArray[FC400]);
             break;
         }
         case 8: {
-            if(graphsArray[FC500] == nullptr) graphsArray[FC500] = reading.read_fullyconected500();
+            if(graphsArray[FC500] == nullptr) graphsArray[FC500] = reading.read_fullyconectedGraphs(500);
             TSPalgorithmsSubmenu(graphsArray[FC500]);
             break;
         }
         case 9: {
-            if(graphsArray[FC600] == nullptr) graphsArray[FC600] = reading.read_fullyconected600();
+            if(graphsArray[FC600] == nullptr) graphsArray[FC600] = reading.read_fullyconectedGraphs(600);
             TSPalgorithmsSubmenu(graphsArray[FC600]);
             break;
         }
         case 10: {
-            if(graphsArray[FC700] == nullptr) graphsArray[FC700] = reading.read_fullyconected700();
+            if(graphsArray[FC700] == nullptr) graphsArray[FC700] = reading.read_fullyconectedGraphs(700);
             TSPalgorithmsSubmenu(graphsArray[FC700]);
             break;
         }
         case 11: {
-            if(graphsArray[FC800] == nullptr) graphsArray[FC800]  = reading.read_fullyconected800();
+            if(graphsArray[FC800] == nullptr) graphsArray[FC800]  = reading.read_fullyconectedGraphs(800);
             TSPalgorithmsSubmenu(graphsArray[FC800] );
             break;
         }
         case 12: {
-            if(graphsArray[FC900]  == nullptr) graphsArray[FC900]  = reading.read_fullyconected900();
+            if(graphsArray[FC900]  == nullptr) graphsArray[FC900]  = reading.read_fullyconectedGraphs(900);
             TSPalgorithmsSubmenu(graphsArray[FC900]);
             break;
         }

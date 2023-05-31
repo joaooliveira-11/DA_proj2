@@ -36,8 +36,8 @@ bool Graph::addSegment(string _nodeA, string _nodeB, double _cost) {
     return true;
 }
 
-double Graph::degreesToRadians(double degrees) {
-    return degrees * M_PI / 180.0;
+double Graph::degreesToRadians(double coord) {
+    return coord * M_PI / 180.0;
 }
 
 double Graph::HaversineDist(string nodeA, string nodeB){
@@ -46,8 +46,8 @@ double Graph::HaversineDist(string nodeA, string nodeB){
     double latitudeA = nodesMAP.find(nodeA)->second.getLAT();
     double latitudeB = nodesMAP.find(nodeB)->second.getLAT();
 
-    double deltaLatitude = degreesToRadians(latitudeB - latitudeA);
-    double deltaLongitude = degreesToRadians(longitudeB - longitudeA);
+    double deltaLatitude = degreesToRadians(latitudeB) - degreesToRadians(latitudeA);
+    double deltaLongitude = degreesToRadians(longitudeB) - degreesToRadians(longitudeA);
 
     double a = std::sin(deltaLatitude / 2.0) * std::sin(deltaLatitude / 2.0) +
                std::cos(degreesToRadians(latitudeA)) * std::cos(degreesToRadians(latitudeB)) *
@@ -131,6 +131,7 @@ double Graph::primMST() {
     for(auto& pair : nodesMAP){
         pair.second.setVisited(false);
     }
+
     vector<string> preOrder;
     return preOrderWalk("0",primVisit,&preOrder);
 }
@@ -147,7 +148,7 @@ double Graph::preOrderWalk(string nodeID, vector<string> primVisit, vector<strin
         }
     }
     if (nodesMAP.find(nodeID)->second.getPath() == nullptr) {
-        double totalcost = 0;
+        double totalcost = 0.0;
         preOrder->push_back("0");
         for (int i = 0; i < preOrder->size() - 1; i++) {
             int nodeA = std::stoi((*preOrder)[i]);
