@@ -115,6 +115,8 @@ double Graph::primMST() {
     nodesMAP.find("0")->second.setVisited(true);
     mutablePQ.decreaseKey(&nodesMAP.find("0")->second);
 
+    vector<Segment> segments_mst;
+
     while (!mutablePQ.empty()) {
         Node* nodeOrig = mutablePQ.extractMin();
         primVisit.push_back(nodeOrig->getID());
@@ -127,40 +129,72 @@ double Graph::primMST() {
                 nodesMAP.find(nodeDestID)->second.setPath(segment);
                 nodesMAP.find(nodestartID)->second.incrementDegree(1);
                 mutablePQ.decreaseKey(&nodesMAP.find(nodeDestID)->second);
+                segments_mst.push_back(*segment);
             }
         }
         nodesMAP.find(nodestartID)->second.setVisited(true);
     }
-/*
+
+
+
     /// para o christophides
-    vector<string> oddDegree;
+    /*
+    vector<pair<string, bool>>oddDegree;
     for(auto pair : nodesMAP){
         if((pair.second.getDegree() > 0) && ((pair.second.getDegree() % 2) == 1)){
-            oddDegree.push_back(pair.second.getID());
+            oddDegree.push_back({pair.second.getID(), false});
         }
+
     }
-
-    for(auto p : oddDegree){
-        cout << p<<endl;
-    }
-
-
-
-
-    vector<vector<double>> costMatrix(oddDegree.size(), vector<double>(oddDegree.size(), numeric_limits<double>::infinity()));
-    for (auto node :oddDegree) {
-        int nodeA = stoi(node);
-        for(auto s : nodesMAP.find(node)->second.getIncoming()){
-            int nodeB = stoi(s->getNodeA());
-            for(auto c : oddDegree) {
-                if(c == s->getNodeA()) {
-                    costMatrix[nodeA][nodeB] = s->getCost();
+    //bipartite matching
+    for(auto &node1 : oddDegree){
+        if(!node1.second){
+            node1.second = true;
+            double min_dist = numeric_limits<double>::infinity();
+            int match = 0;
+            for(auto node2 = 0; node2 < oddDegree.size(); node2++) {
+                if (dists[stoi(node1.first)][stoi(oddDegree[node2].first)] < min_dist && !oddDegree[node2].second) {
+                    match = node2;
+                    min_dist = dists[stoi(node1.first)][stoi(oddDegree[node2].first)];
                 }
             }
+            oddDegree[match].second = true;
+            segments_mst.push_back(Segment(node1.first, to_string(match), dists[stoi(node1.first)][match]));
         }
     }
 
-    hungarianAlgorithm(costMatrix);
+    vector<Segment> eulerian_tour;
+    for (const auto& segment : segments_mst) {
+        eulerian_tour.push_back(segment);
+        eulerian_tour.push_back(Segment(segment.getNodeB(), segment.getNodeA(), segment.getCost()));
+    }
+
+    sort(eulerian_tour.begin(), eulerian_tour.end(), [](const Segment& a, const Segment& b) {
+        if (a.getNodeA() != b.getNodeA()) {
+            return stoi(a.getNodeA()) < stoi(b.getNodeA());
+        }
+        return a.getNodeB() < b.getNodeB();
+    });
+
+
+    vector<bool> visited(eulerian_tour.size(), false);
+
+    vector<string> eulerian_path;
+
+
+
+
+
+
+    eulerian_path.push_back("0");
+
+    double total = 0.0;
+    for(int i = 0; i < eulerian_path.size() - 1 ; i += 2){
+        cout << stoi(eulerian_path[i]) << " -> " << stoi(eulerian_path[i + 1]) << endl;
+        total += dists[stoi(eulerian_path[i])][stoi(eulerian_path[i + 1])];
+    }
+
+    cout << "cost: " << total << endl;
 */
 
     ///para a triangular
@@ -171,53 +205,9 @@ double Graph::primMST() {
     vector<string> preOrder;
     return preOrderWalk("0",primVisit,&preOrder);
 
-}
-
-
-//incomplete
-void Graph::hungarianAlgorithm(vector<vector<double>> matrix) {
-    int rows = matrix.size();
-    int cols = matrix[0].size();
-
-    vector<double> row_mins(cols, 0.0);
-    vector<double> col_mins(rows, 0.0);
-
-    //find row minimum
-    for (int i = 0; i < rows; i++) {
-        double row_min = numeric_limits<double>::infinity();
-        for (int j = 0; j < cols; j++) {
-            if (matrix[j][i] < row_min) {
-                row_min = matrix[j][i];
-            }
-            row_mins[i] = row_min;
-        }
-    }
-    for (int i = 0; i < cols; i++) {
-        for (int j = 0; j < rows; j++) {
-            matrix[i][j] = matrix[i][j] == 0 ?  0 :  matrix[i][j] - row_mins[i];
-        }
-    }
-
-    //find column minimum
-    for (int i = 0; i < cols; i++) {
-        double col_min = numeric_limits<double>::infinity();
-        for (int j = 0; j < rows; j++) {
-            if (matrix[i][j] < col_min) {
-                col_min = matrix[i][j];
-            }
-            col_mins[i] = col_min;
-        }
-    }
-
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            matrix[j][i] == 0.0 ? (matrix[j][i] - col_mins[i]) : 0.0;
-        }
-    }
-    //reduce matrix
-
 
 }
+
 
 
 double Graph::preOrderWalk(string nodeID, vector<string> primVisit, vector<string> *preOrder) {
@@ -272,26 +262,34 @@ pair<double, string> Graph::getNearest(string next, string origin){
         return {cost, dest};
 }
 
-double Graph::nearestNeightbour(string origin){
+vector<string> Graph::nearestNeightbour(string origin){
 
     for(auto &i : nodesMAP){
         i.second.setVisited(false);
+        i.second.setDist(numeric_limits<double>::infinity());
     }
 
 
     string next =  origin;
     string previous;
+    vector<string> tour;
     double total = 0.0;
     do{
+        tour.push_back(next);
+        nodesMAP.find(next)->second.setDist(total);
         previous = next;
         auto res = getNearest(next, origin);
         total += res.first;
         next  = res.second;
-        /*cout << previous << " -> " << next << " || distance: " << dists[stoi(previous)][stoi(next)] << " || type: "
-             << "direct connection" << endl; */
+        cout << previous << " -> " << next << " || distance: " << dists[stoi(previous)][stoi(next)] << " || type: "
+             << "direct connection" << endl;
     }while(next != origin);
-
-    return total;
+    cout << "total: "  <<total <<endl;
+    return tour;
 }
 
+
+double Graph::swapNodes(int i, int j){
+    return nodesMAP.find(to_string(i))->second.getDist() - nodesMAP.find(to_string(j))->second.getDist();
+}
 

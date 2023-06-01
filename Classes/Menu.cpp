@@ -27,15 +27,40 @@ void Menu::TSPtriangularInequality(Graph *graph) {
     graph->resetNodes();
 }
 
+void do2Opt(vector<string> &tour, int i, int j) {
+    reverse(begin(tour) + i + 1, begin(tour) + j + 1);
+}
+
 void Menu::TSPnearestNeighbor(Graph *graph){
-    double minimum = numeric_limits<double>::infinity();
-    double res;
-    for(int i = 0; i < graph->nodesMAP.size(); i++){
-        res = graph->nearestNeightbour(to_string(i));
-        //cout << "subtotal: " <<res <<endl <<endl;
-        minimum = min(res, minimum);
+    vector<string> tour = graph->nearestNeightbour("0");
+
+    double res = 0.0;
+    for(int i = 0; i < tour.size() - 1; i++){
+        res += graph->dists[stoi(tour[i])][stoi(tour[i + 1])];
     }
-    cout << "the minimum of all the neighbors is: " << minimum <<endl <<endl;
+    res += graph->dists[stoi(tour[tour.size() - 1])][0];
+
+    cout << "the minimum of all the neighbors is: " << res <<endl <<endl;
+
+    int n = tour.size();
+    bool foundImprovement = true;
+    while (foundImprovement) {
+        foundImprovement = false;
+        for (int i = 0; i <= n - 2; i++) {
+            for (int j = i + 1; j <= n - 1; j++) {
+                int diff =  - graph->dists[stoi(tour[i])][stoi(tour[(i + 1) % n])] - graph->dists[stoi(tour[j])][stoi(tour[(j + 1) % n])]
+                        + graph->dists[stoi(tour[i])][stoi(tour[j])] + graph->dists[stoi(tour[(i + 1) % n])][stoi(tour[(j + 1) % n])];
+
+                // If the length of the path is reduced, do a 2-opt swap
+                if (diff < 0) {
+                    do2Opt(tour, i, j);
+                    res += diff;
+                    foundImprovement = true;
+                }
+            }
+        }
+    }
+    cout << "2-opt improvement:" << res <<endl <<endl;
 
     graph->resetNodes();
 }
