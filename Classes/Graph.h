@@ -14,9 +14,10 @@ public:
     Graph();
     bool addSegment(string _nodeA, string _nodeB, double _cost);
 
+    /*
     struct StringHash {
         std::size_t operator()(const string& str) const {
-            return 37* hash<string>()(str);
+            return hash<string>()(str);
         }
     };
 
@@ -25,14 +26,16 @@ public:
             return str1 == str2;
         }
     };
+*/
+    std::unordered_map<string, Node> nodesMAP;
 
-    std::unordered_map<string, Node, StringHash, StringEqual> nodesMAP;
     double **dists = new double*[10000];
 
     void savepath(int n, int current_path[], int path[]);
     double TSPRec(double currDist, double *minDist, int currentIndx, int n, int currentPath[], int path[]);
     double primMST();
-    double preOrderWalk(string nodeID,vector<string>primVisit, vector<string>* preOrder);
+    double preOrderWalk(string nodeID, vector<string>& primVisit, vector<string> *preOrder, Graph *mst);
+    void preorder_helper(string node, vector<string> *preOrder, Graph* mst);
     void resetNodes();
     double HaversineDist(string nodeA, string nodeB);
     double degreesToRadians(double degrees);

@@ -40,7 +40,7 @@ double Graph::degreesToRadians(double coord) {
     return coord * M_PI / 180.0;
 }
 
-double Graph::HaversineDist(string nodeA, string nodeB){
+double Graph::HaversineDist(string nodeA, string nodeB) {
     double longitudeA = nodesMAP.find(nodeA)->second.getLONG();
     double longitudeB = nodesMAP.find(nodeB)->second.getLONG();
     double latitudeA = nodesMAP.find(nodeA)->second.getLAT();
@@ -59,8 +59,8 @@ double Graph::HaversineDist(string nodeA, string nodeB){
     return distance;
 }
 
-void Graph::resetNodes(){
-    for(auto& pair: nodesMAP){
+void Graph::resetNodes() {
+    for (auto &pair: nodesMAP) {
         pair.second.setVisited(false);
         pair.second.setDist(0);
         pair.second.setPath(nullptr);
@@ -98,7 +98,16 @@ double Graph::TSPRec(double currDist, double *minDist, int currentIndx, int n, i
     return *minDist;
 }
 
+void Graph::preorder_helper(string node, vector<string> *preOrder, Graph* mst){
+    mst->nodesMAP.find(node)->second.setVisited(true);
+    preOrder->push_back(node);
+    for(auto segment : mst->nodesMAP.find(node)->second.getOutgoing()){
+        if(!(mst->nodesMAP.find(segment->getNodeB())->second.isVisited())) preorder_helper(segment->getNodeB(), preOrder, mst);
+    }
+}
+
 double Graph::primMST() {
+    Graph *mst = new Graph();
     MutablePriorityQueue<Node> mutablePQ;
     vector<string> primVisit;
 
@@ -128,23 +137,34 @@ double Graph::primMST() {
         }
         nodesMAP.find(nodestartID)->second.setVisited(true);
     }
-    for(auto& pair : nodesMAP){
-        pair.second.setVisited(false);
+
+    for(auto pair : nodesMAP){
+        auto path = pair.second.getPath();
+        if(path!= nullptr){
+            if (mst->nodesMAP.find(path->getNodeA()) == mst->nodesMAP.end()) {
+                Node node = Node(path->getNodeA());
+                mst->nodesMAP.emplace(node.getID(), node);
+            }
+            if (mst->nodesMAP.find(path->getNodeB()) == mst->nodesMAP.end()) {
+                Node node = Node(path->getNodeB());
+                mst->nodesMAP.emplace(node.getID(), node);
+            }
+            mst->nodesMAP.find(path->getNodeA())->second.addOutgoing(path);
+        }
     }
 
     vector<string> preOrder;
-    return preOrderWalk("0",primVisit,&preOrder);
+    cout << "acabei prim" << endl;
+    return preOrderWalk("0", primVisit, &preOrder, mst);
 }
 
-double Graph::preOrderWalk(string nodeID, vector<string> primVisit, vector<string> *preOrder) {
-    nodesMAP.find(nodeID)->second.setVisited(true);
+double Graph::preOrderWalk(string nodeID, vector<string>& primVisit, vector<string> *preOrder, Graph *mst) {
+    mst->nodesMAP.find(nodeID)->second.setVisited(true);
     preOrder->push_back(nodeID);
-    for (auto next_node: primVisit) {
-        if (nodesMAP.find(next_node)->second.getPath() != nullptr) {
-            if (nodesMAP.find(next_node)->second.getPath()->getNodeA() == nodeID &&
-                !(nodesMAP.find(next_node)->second.isVisited())) {
-                preOrderWalk(next_node, primVisit, preOrder);
-            }
+
+    for(auto itr = primVisit.begin(); itr != primVisit.end(); itr++){
+        if(!(mst->nodesMAP.find(*itr)->second.isVisited())){
+            preorder_helper(*itr,preOrder,mst);
         }
     }
     if (nodesMAP.find(nodeID)->second.getPath() == nullptr) {
@@ -158,14 +178,15 @@ double Graph::preOrderWalk(string nodeID, vector<string> primVisit, vector<strin
                 cout << nodeA << " -> " << nodeB << " || distance: " << dists[nodeA][nodeB] << " || type: "
                      << "direct connection" << endl;
             } else {
-                Node NODEA = nodesMAP.find( (*preOrder)[i] )->second;
-                Node NODEB = nodesMAP.find ( (*preOrder)[i + 1] )->second;
+                Node NODEA = nodesMAP.find((*preOrder)[i])->second;
+                Node NODEB = nodesMAP.find((*preOrder)[i + 1])->second;
                 double distance = 0;
-                if(NODEA.isLongSET() &&  NODEA.isLatSET() && NODEB.isLongSET() && NODEB.isLatSET()){
+                if (NODEA.isLongSET() && NODEA.isLatSET() && NODEB.isLongSET() && NODEB.isLatSET()) {
                     distance = HaversineDist(NODEA.getID(), NODEB.getID());
                     totalcost += distance;
                 }
-                cout << nodeA << " -> " << nodeB << " || distance: " << distance << " || type: " << "Haversine connection" << endl;
+                cout << nodeA << " -> " << nodeB << " || distance: " << distance << " || type: "
+                     << "Haversine connection" << endl;
             }
         }
         cout << "Triangular Inequality Cost: " << totalcost << endl;
