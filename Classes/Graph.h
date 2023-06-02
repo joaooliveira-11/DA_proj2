@@ -31,16 +31,22 @@ public:
 
     void savepath(int n, int current_path[], int path[]);
     double TSPRec(double currDist, double *minDist, int currentIndx, int n, int currentPath[], int path[]);
+
     double primMST();
-    double preOrderWalk(string nodeID,vector<string>primVisit, vector<string>* preOrder);
+    double preOrderWalk(string nodeID,vector<string>&primVisit, vector<string>* preOrder);
+
+    double primMST2();
+    double preOrderWalk2(string nodeID, vector<string>& primVisit, vector<string> *preOrder, Graph *mst);
+    void preorder_helper(string node, vector<string> *preOrder, Graph *mst);
+
     void resetNodes();
     double HaversineDist(string nodeA, string nodeB);
     double degreesToRadians(double degrees);
 
     struct report{
-        double elapsedBacktrack, elapsedTriangular, distBacktrack, distTriangular;
+        double elapsedBacktrack, elapsedTriangular, elapsedTriangular2, distBacktrack, distTriangular, distTriangular2;
     };
-    report graphreport{0, 0, 0, 0};
+    report graphreport{0, 0, 0, 0,0,0};
 
 };
 

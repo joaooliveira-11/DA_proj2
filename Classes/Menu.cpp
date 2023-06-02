@@ -23,7 +23,28 @@ double Menu::TSPbacktrack(Graph *graph) {
 }
 
 void Menu::TSPtriangularInequality(Graph *graph) {
-    graph->graphreport.distTriangular = graph->primMST();
+    int option;
+    cout << "===============TSP Triangular Submenu===============" << endl;
+    cout << "Chose a version for this algorithm" << endl;
+    cout << "1 - Triangular Inequality (better aproximation / slower)" << endl;
+    cout << "2 - Triangular Inequality (worse aproximation / faster)" << endl;
+    cin >> option;
+
+    struct timeval start, end;
+    ios_base::sync_with_stdio(false);
+    gettimeofday(&start, NULL);
+    switch (option) {
+        case 1:
+            graph->graphreport.distTriangular = graph->primMST();
+            gettimeofday(&end, NULL);
+            graph->graphreport.elapsedTriangular = printElapsedTime(start, end);
+            break;
+        case 2:
+            graph->graphreport.distTriangular2 = graph->primMST2();
+            gettimeofday(&end, NULL);
+            graph->graphreport.elapsedTriangular2 = printElapsedTime(start, end);
+            break;
+    }
     graph->resetNodes();
 }
 
@@ -72,14 +93,7 @@ void Menu::TSPalgorithmsSubmenu(Graph *graph) {
             }
         }
         case 2: {
-            struct timeval start, end;
-            gettimeofday(&start, NULL);
-            ios_base::sync_with_stdio(false);
             TSPtriangularInequality(graph);
-
-            gettimeofday(&end, NULL);
-            graph->graphreport.elapsedTriangular = printElapsedTime(start, end);
-
             string decision;
             cout << "Do you want to do another action?. (ex.: yes or no) \n";
             cin >> decision;
