@@ -105,7 +105,6 @@ void Graph::preorder_helper(string node, vector<string> *preOrder, Graph* mst){
         if(!(mst->nodesMAP.find(segment->getNodeB())->second.isVisited())) preorder_helper(segment->getNodeB(), preOrder, mst);
     }
 }
-
 double Graph::primMST() {
     Graph *mst = new Graph();
     MutablePriorityQueue<Node> mutablePQ;
@@ -138,6 +137,7 @@ double Graph::primMST() {
         nodesMAP.find(nodestartID)->second.setVisited(true);
     }
 
+    /*
     for(auto pair : nodesMAP){
         auto path = pair.second.getPath();
         if(path!= nullptr){
@@ -152,45 +152,60 @@ double Graph::primMST() {
             mst->nodesMAP.find(path->getNodeA())->second.addOutgoing(path);
         }
     }
+*/
+    for(auto& pair:nodesMAP){
+        pair.second.setVisited(false);
+    }
 
     vector<string> preOrder;
     cout << "acabei prim" << endl;
-    return preOrderWalk("0", primVisit, &preOrder, mst);
+    return preOrderWalk("0", primVisit, &preOrder);
 }
 
-double Graph::preOrderWalk(string nodeID, vector<string>& primVisit, vector<string> *preOrder, Graph *mst) {
-    mst->nodesMAP.find(nodeID)->second.setVisited(true);
+double Graph::preOrderWalk(string nodeID, vector<string>& primVisit, vector<string>* preOrder) {
+    nodesMAP.find(nodeID)->second.setVisited(true);
     preOrder->push_back(nodeID);
 
-    for(auto itr = primVisit.begin(); itr != primVisit.end(); itr++){
-        if(!(mst->nodesMAP.find(*itr)->second.isVisited())){
-            preorder_helper(*itr,preOrder,mst);
+    for (size_t i = 0; i < primVisit.size(); i++) {
+        const string& next_node = primVisit[i];
+        auto& nextNode = nodesMAP.find(next_node)->second;
+        auto* nextPath = nextNode.getPath();
+
+        if (nextPath != nullptr && nextPath->getNodeA() == nodeID && !nextNode.isVisited()) {
+            preOrderWalk(next_node, primVisit, preOrder);
         }
     }
+
     if (nodesMAP.find(nodeID)->second.getPath() == nullptr) {
-        double totalcost = 0.0;
+        double totalCost = 0.0;
         preOrder->push_back("0");
+
         for (int i = 0; i < preOrder->size() - 1; i++) {
             int nodeA = std::stoi((*preOrder)[i]);
             int nodeB = std::stoi((*preOrder)[i + 1]);
+
             if (dists[nodeA][nodeB] != std::numeric_limits<double>::infinity()) {
-                totalcost += dists[nodeA][nodeB];
+                totalCost += dists[nodeA][nodeB];
                 cout << nodeA << " -> " << nodeB << " || distance: " << dists[nodeA][nodeB] << " || type: "
                      << "direct connection" << endl;
             } else {
                 Node NODEA = nodesMAP.find((*preOrder)[i])->second;
                 Node NODEB = nodesMAP.find((*preOrder)[i + 1])->second;
+
                 double distance = 0;
+
                 if (NODEA.isLongSET() && NODEA.isLatSET() && NODEB.isLongSET() && NODEB.isLatSET()) {
                     distance = HaversineDist(NODEA.getID(), NODEB.getID());
-                    totalcost += distance;
+                    totalCost += distance;
                 }
+
                 cout << nodeA << " -> " << nodeB << " || distance: " << distance << " || type: "
                      << "Haversine connection" << endl;
             }
         }
-        cout << "Triangular Inequality Cost: " << totalcost << endl;
-        return totalcost;
+
+        cout << "Triangular Inequality Cost: " << totalCost << endl;
+        return totalCost;
     }
 }
 

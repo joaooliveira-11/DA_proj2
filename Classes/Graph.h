@@ -34,7 +34,7 @@ public:
     void savepath(int n, int current_path[], int path[]);
     double TSPRec(double currDist, double *minDist, int currentIndx, int n, int currentPath[], int path[]);
     double primMST();
-    double preOrderWalk(string nodeID, vector<string>& primVisit, vector<string> *preOrder, Graph *mst);
+    double preOrderWalk(string nodeID, vector<string>& primVisit, vector<string> *preOrder);
     void preorder_helper(string node, vector<string> *preOrder, Graph* mst);
     void resetNodes();
     double HaversineDist(string nodeA, string nodeB);
