@@ -51,9 +51,11 @@ public:
 
     void ChristophidesOdddegree(vector<pair<string, bool>>& oddDegree);
     double christofidesAlgo();
-    set<Segment*> christofidesPrim();
-    set<Segment*> christofidesPerfectMatch( vector<pair<string, bool>>& oddDegree);
+    vector<struct Segment *> christofidesPrim();
+    vector<struct Segment *> christofidesPerfectMatch(vector<pair<string, bool>>& oddDegree);
     void EulerianCycle(set<Segment*> &christograph, vector<string>& eulerianpath);
+
+    void EulerianCycle(vector<Segment *> &christograph, vector<string> &eulerianpath);
 };
 
 
