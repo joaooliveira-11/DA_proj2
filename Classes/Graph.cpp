@@ -7,6 +7,7 @@
 #include <math.h>
 #include <set>
 #include <algorithm>
+#include <stack>
 
 Graph::~Graph() {
 
@@ -115,12 +116,11 @@ double Graph::primMST() {
     nodesMAP.find("0")->second.setVisited(true);
     mutablePQ.decreaseKey(&nodesMAP.find("0")->second);
 
-    vector<Segment> segments_mst;
+    vector<Segment*> segments_mst;
 
     while (!mutablePQ.empty()) {
         Node* nodeOrig = mutablePQ.extractMin();
         primVisit.push_back(nodeOrig->getID());
-        //cout << nodeOrig->getID() << endl;
         const string nodestartID = nodeOrig->getID();
         for(auto segment : nodeOrig->getOutgoing()){
             const string nodeDestID = segment->getNodeB();
@@ -129,86 +129,17 @@ double Graph::primMST() {
                 nodesMAP.find(nodeDestID)->second.setPath(segment);
                 nodesMAP.find(nodestartID)->second.incrementDegree(1);
                 mutablePQ.decreaseKey(&nodesMAP.find(nodeDestID)->second);
-                segments_mst.push_back(*segment);
+                segments_mst.push_back(segment);
             }
         }
         nodesMAP.find(nodestartID)->second.setVisited(true);
     }
-
-
-
-    /// para o christophides
-    /*
-    vector<pair<string, bool>>oddDegree;
-    for(auto pair : nodesMAP){
-        if((pair.second.getDegree() > 0) && ((pair.second.getDegree() % 2) == 1)){
-            oddDegree.push_back({pair.second.getID(), false});
-        }
-
-    }
-    //bipartite matching
-    for(auto &node1 : oddDegree){
-        if(!node1.second){
-            node1.second = true;
-            double min_dist = numeric_limits<double>::infinity();
-            int match = 0;
-            for(auto node2 = 0; node2 < oddDegree.size(); node2++) {
-                if (dists[stoi(node1.first)][stoi(oddDegree[node2].first)] < min_dist && !oddDegree[node2].second) {
-                    match = node2;
-                    min_dist = dists[stoi(node1.first)][stoi(oddDegree[node2].first)];
-                }
-            }
-            oddDegree[match].second = true;
-            segments_mst.push_back(Segment(node1.first, to_string(match), dists[stoi(node1.first)][match]));
-        }
-    }
-
-    vector<Segment> eulerian_tour;
-    for (const auto& segment : segments_mst) {
-        eulerian_tour.push_back(segment);
-        eulerian_tour.push_back(Segment(segment.getNodeB(), segment.getNodeA(), segment.getCost()));
-    }
-
-    sort(eulerian_tour.begin(), eulerian_tour.end(), [](const Segment& a, const Segment& b) {
-        if (a.getNodeA() != b.getNodeA()) {
-            return stoi(a.getNodeA()) < stoi(b.getNodeA());
-        }
-        return a.getNodeB() < b.getNodeB();
-    });
-
-
-    vector<bool> visited(eulerian_tour.size(), false);
-
-    vector<string> eulerian_path;
-
-
-
-
-
-
-    eulerian_path.push_back("0");
-
-    double total = 0.0;
-    for(int i = 0; i < eulerian_path.size() - 1 ; i += 2){
-        cout << stoi(eulerian_path[i]) << " -> " << stoi(eulerian_path[i + 1]) << endl;
-        total += dists[stoi(eulerian_path[i])][stoi(eulerian_path[i + 1])];
-    }
-
-    cout << "cost: " << total << endl;
-*/
-
-    ///para a triangular
-
     for(auto& pair : nodesMAP){
         pair.second.setVisited(false);
     }
-    vector<string> preOrder;
+    vector<string>preOrder;
     return preOrderWalk("0",primVisit,&preOrder);
-
-
 }
-
-
 
 double Graph::preOrderWalk(string nodeID, vector<string> primVisit, vector<string> *preOrder) {
     nodesMAP.find(nodeID)->second.setVisited(true);
@@ -293,3 +224,140 @@ double Graph::swapNodes(int i, int j){
     return nodesMAP.find(to_string(i))->second.getDist() - nodesMAP.find(to_string(j))->second.getDist();
 }
 
+set<Segment*> Graph::christofidesPrim(){
+    MutablePriorityQueue<Node> mutablePQ;
+
+    for (auto& pair : nodesMAP) {
+        pair.second.setVisited(false);
+        pair.second.setDist(numeric_limits<double>::infinity());
+        mutablePQ.insert(&pair.second);
+    }
+
+    nodesMAP.find("0")->second.setDist(0);
+    nodesMAP.find("0")->second.setPath(nullptr);
+    nodesMAP.find("0")->second.setVisited(true);
+    mutablePQ.decreaseKey(&nodesMAP.find("0")->second);
+
+    set<Segment*> segments_mst;
+
+    while (!mutablePQ.empty()) {
+        Node* nodeOrig = mutablePQ.extractMin();
+        const string nodestartID = nodeOrig->getID();
+        for(auto segment : nodeOrig->getOutgoing()){
+            const string nodeDestID = segment->getNodeB();
+            if(!(nodesMAP.find(nodeDestID)->second.isVisited()) && segment->getCost() < nodesMAP.find(nodeDestID)->second.getDist()){
+                nodesMAP.find(nodeDestID)->second.setDist(segment->getCost());
+                nodesMAP.find(nodeDestID)->second.setPath(segment);
+                nodesMAP.find(nodestartID)->second.incrementDegree(1);
+                mutablePQ.decreaseKey(&nodesMAP.find(nodeDestID)->second);
+                //segments_mst.push_back(segment);
+                segments_mst.insert(segment);
+            }
+        }
+        nodesMAP.find(nodestartID)->second.setVisited(true);
+    }
+    for(auto& pair : nodesMAP){
+        pair.second.setVisited(false);
+    }
+
+    return segments_mst;
+}
+
+
+void Graph::ChristophidesOdddegree(vector<pair<string, bool>>& oddDegree){
+    for(auto pair : nodesMAP){
+        if((pair.second.getDegree() > 0) && ((pair.second.getDegree() % 2) == 1)){
+            oddDegree.emplace_back(pair.second.getID(), false);
+        }
+
+    }
+}
+set<Segment*> Graph::christofidesPerfectMatch(vector<pair<string, bool>>& oddDegree){
+    set<Segment*> perfect_match;
+    for(auto &node1 : oddDegree){
+        if(!node1.second){
+            node1.second = true;
+            double min_dist = numeric_limits<double>::infinity();
+            int match = -1;
+            for(auto node2 = 0; node2 < oddDegree.size(); node2++) {
+                if (dists[stoi(node1.first)][stoi(oddDegree[node2].first)] < min_dist && !oddDegree[node2].second) {
+                    match = node2;
+                    min_dist = dists[stoi(node1.first)][stoi(oddDegree[node2].first)];
+                }
+            }
+            if(match != -1){
+                oddDegree[match].second = true;
+                //perfect_match.push_back(new Segment(node1.first, to_string(match), dists[stoi(node1.first)][match]));
+                perfect_match.insert(new Segment(node1.first, to_string(match), dists[stoi(node1.first)][match]));
+            }
+        }
+    }
+    return perfect_match;
+}
+void Graph::EulerianCycle(set<Segment*> &christograph, vector<string>& eulerianpath){
+    std::stack<string> circuit;
+    circuit.push("0");
+    std::set<Segment*> visited;
+
+    while (!circuit.empty()) {
+        string currentVertex = circuit.top();
+
+        bool found = false;
+        for (auto it = christograph.begin(); it != christograph.end(); ++it) {
+            Segment* edge = *it;
+            if ((nodesMAP.find(edge->getNodeA())->second.getID() == currentVertex) && (visited.find(edge) == visited.end())) {
+                visited.insert(edge);
+                circuit.push(edge->getNodeB());
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            eulerianpath.push_back(circuit.top());
+            circuit.pop();
+        }
+    }
+    // Output the Euler circuit
+    /*while (!circuit.empty()) {
+        euler_path.push_back(findVertex(circuit.top()));
+        circuit.pop();
+    }*/
+}
+
+double Graph::christofidesAlgo(){
+    set<Segment*> mst_segments = christofidesPrim();
+    vector<pair<string, bool>>oddDegree;
+    ChristophidesOdddegree(oddDegree);
+    set<Segment*> perfect_match = christofidesPerfectMatch(oddDegree);
+
+    for(auto edge : perfect_match){
+        if(mst_segments.find(edge) == mst_segments.end()){
+            mst_segments.insert(edge);
+        }
+    }
+
+    vector<string> eulerianpath;
+    EulerianCycle(mst_segments, eulerianpath);
+
+    vector<string>finalPath;
+    for (string node : eulerianpath) {
+        if(!(nodesMAP.find(node)->second.isVisited())){
+            finalPath.push_back(node);
+            nodesMAP.find(node)->second.setVisited(true);
+        }
+    }
+
+    double distance = 0;
+    for(int i = 0; i < finalPath.size() - 1; i++) {
+        int nodeA = std::stoi(finalPath[i]);
+        int nodeB = std::stoi(finalPath[i + 1]);
+        if (dists[nodeA][nodeB] != std::numeric_limits<double>::infinity()) {
+            distance += dists[nodeA][nodeB];
+            cout << nodeA << " -> " << nodeB << " || distance: " << dists[nodeA][nodeB] << " || type: "
+                 << "direct connection" << endl;
+        }
+    }
+    cout << "Christofides Aproximation: " << distance << endl;
+    return distance;
+}

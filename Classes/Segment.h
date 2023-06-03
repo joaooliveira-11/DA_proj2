@@ -14,7 +14,15 @@ public:
     string getNodeB() const;
     double getCost() const;
 
-    bool operator<(Segment b){if(this->getCost() > b.getCost()) return true; else return false;}
+    bool operator<(const Segment& other) const {
+        if (nodeA != other.nodeA) {
+            return nodeA < other.nodeA;
+        }
+        if (nodeB != other.nodeB) {
+            return nodeB < other.nodeB;
+        }
+        return cost < other.cost;
+    }
 };
 
 #endif

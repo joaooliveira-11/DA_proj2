@@ -4,6 +4,7 @@
 #include <string>
 #include <unordered_map>
 #include "Node.h"
+#include <set>
 
 using namespace std;
 class Graph {
@@ -42,17 +43,17 @@ public:
     };
     report graphreport{0, 0, 0, 0};
 
-    void hungarianAlgorithm(vector<vector<double>> matrix);
-
     vector<string> nearestNeightbour(string origin);
 
     pair<double, string> getNearest(string next, string origin);
 
-    void getEulerianTour(const string &nodeID, vector<Segment> &eulerian_tour, vector<bool> &visited,
-                         vector<string> &eulerian_path);
-
-
     double swapNodes(int i, int j);
+
+    void ChristophidesOdddegree(vector<pair<string, bool>>& oddDegree);
+    double christofidesAlgo();
+    set<Segment*> christofidesPrim();
+    set<Segment*> christofidesPerfectMatch( vector<pair<string, bool>>& oddDegree);
+    void EulerianCycle(set<Segment*> &christograph, vector<string>& eulerianpath);
 };
 
 

@@ -23,7 +23,7 @@ double Menu::TSPbacktrack(Graph *graph) {
 }
 
 void Menu::TSPtriangularInequality(Graph *graph) {
-    graph->graphreport.distTriangular = graph->primMST();
+    graph->graphreport.distTriangular = graph->christofidesAlgo();
     graph->resetNodes();
 }
 
