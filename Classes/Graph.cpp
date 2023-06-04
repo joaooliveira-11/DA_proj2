@@ -39,8 +39,8 @@ bool Graph::addSegment(string _nodeA, string _nodeB, double _cost) {
     return true;
 }
 
-double Graph::degreesToRadians(double degrees) {
-    return degrees * M_PI / 180.0;
+double Graph::degreesToRadians(double coord) {
+    return coord * M_PI / 180.0;
 }
 
 double Graph::HaversineDist(string nodeA, string nodeB){
@@ -49,8 +49,8 @@ double Graph::HaversineDist(string nodeA, string nodeB){
     double latitudeA = nodesMAP.find(nodeA)->second.getLAT();
     double latitudeB = nodesMAP.find(nodeB)->second.getLAT();
 
-    double deltaLatitude = degreesToRadians(latitudeB - latitudeA);
-    double deltaLongitude = degreesToRadians(longitudeB - longitudeA);
+    double deltaLatitude = degreesToRadians(latitudeB) - degreesToRadians(latitudeA);
+    double deltaLongitude = degreesToRadians(longitudeB) - degreesToRadians(longitudeA);
 
     double a = std::sin(deltaLatitude / 2.0) * std::sin(deltaLatitude / 2.0) +
                std::cos(degreesToRadians(latitudeA)) * std::cos(degreesToRadians(latitudeB)) *
@@ -67,7 +67,7 @@ void Graph::resetNodes(){
         pair.second.setVisited(false);
         pair.second.setDist(0);
         pair.second.setPath(nullptr);
-        pair.second.setQueuIndex(0);
+        pair.second.setQueueIndex(0);
     }
 }
 
@@ -116,20 +116,17 @@ double Graph::primMST() {
     nodesMAP.find("0")->second.setVisited(true);
     mutablePQ.decreaseKey(&nodesMAP.find("0")->second);
 
-    vector<Segment*> segments_mst;
-
     while (!mutablePQ.empty()) {
         Node* nodeOrig = mutablePQ.extractMin();
         primVisit.push_back(nodeOrig->getID());
+        //cout << nodeOrig->getID() << endl;
         const string nodestartID = nodeOrig->getID();
         for(auto segment : nodeOrig->getOutgoing()){
             const string nodeDestID = segment->getNodeB();
             if(!(nodesMAP.find(nodeDestID)->second.isVisited()) && segment->getCost() < nodesMAP.find(nodeDestID)->second.getDist()){
                 nodesMAP.find(nodeDestID)->second.setDist(segment->getCost());
                 nodesMAP.find(nodeDestID)->second.setPath(segment);
-                nodesMAP.find(nodestartID)->second.incrementDegree(1);
                 mutablePQ.decreaseKey(&nodesMAP.find(nodeDestID)->second);
-                segments_mst.push_back(segment);
             }
         }
         nodesMAP.find(nodestartID)->second.setVisited(true);
@@ -141,56 +138,163 @@ double Graph::primMST() {
     return preOrderWalk("0",primVisit,&preOrder);
 }
 
-double Graph::preOrderWalk(string nodeID, vector<string> primVisit, vector<string> *preOrder) {
+double Graph::preOrderWalk(string nodeID, vector<string>& primVisit, vector<string> *preOrder) {
     nodesMAP.find(nodeID)->second.setVisited(true);
     preOrder->push_back(nodeID);
-    for (auto next_node: primVisit) {
-        if (nodesMAP.find(next_node)->second.getPath() != nullptr) {
-            if (nodesMAP.find(next_node)->second.getPath()->getNodeA() == nodeID &&
-                !(nodesMAP.find(next_node)->second.isVisited())) {
-                preOrderWalk(next_node, primVisit, preOrder);
-            }
+
+    for (size_t i = 0; i < primVisit.size(); i++) {
+        const string& next_node = primVisit[i];
+        auto& nextNode = nodesMAP.find(next_node)->second;
+        auto* nextPath = nextNode.getPath();
+
+        if (nextPath != nullptr && nextPath->getNodeA() == nodeID && !nextNode.isVisited()) {
+            preOrderWalk(next_node, primVisit, preOrder);
         }
     }
+
     if (nodesMAP.find(nodeID)->second.getPath() == nullptr) {
-        double totalcost = 0;
+        double totalCost = 0.0;
         preOrder->push_back("0");
+
         for (int i = 0; i < preOrder->size() - 1; i++) {
             int nodeA = std::stoi((*preOrder)[i]);
             int nodeB = std::stoi((*preOrder)[i + 1]);
+
             if (dists[nodeA][nodeB] != std::numeric_limits<double>::infinity()) {
-                totalcost += dists[nodeA][nodeB];
+                totalCost += dists[nodeA][nodeB];
                 cout << nodeA << " -> " << nodeB << " || distance: " << dists[nodeA][nodeB] << " || type: "
                      << "direct connection" << endl;
             } else {
-                Node NODEA = nodesMAP.find( (*preOrder)[i] )->second;
-                Node NODEB = nodesMAP.find ( (*preOrder)[i + 1] )->second;
+                Node NODEA = nodesMAP.find((*preOrder)[i])->second;
+                Node NODEB = nodesMAP.find((*preOrder)[i + 1])->second;
+
                 double distance = 0;
-                if(NODEA.isLongSET() &&  NODEA.isLatSET() && NODEB.isLongSET() && NODEB.isLatSET()){
+
+                if (NODEA.isLongSET() && NODEA.isLatSET() && NODEB.isLongSET() && NODEB.isLatSET()) {
                     distance = HaversineDist(NODEA.getID(), NODEB.getID());
-                    totalcost += distance;
+                    totalCost += distance;
                 }
-                cout << nodeA << " -> " << nodeB << " || distance: " << distance << " || type: " << "Haversine connection" << endl;
+
+                cout << nodeA << " -> " << nodeB << " || distance: " << distance << " || type: "
+                     << "Haversine connection" << endl;
             }
         }
-        cout << "Triangular Inequality Cost: " << totalcost << endl;
-        return totalcost;
+
+        cout << "Triangular Inequality Cost: " << totalCost << endl;
+        return totalCost;
     }
     return 0.0;
 }
 
-pair<double, string> Graph::getNearest(string next, string origin){
-        nodesMAP.find(next)->second.setVisited(true);
-        double cost = std::numeric_limits<double>::infinity();
-        string dest = "";
-        for(auto i = 0; i < nodesMAP.size(); i++) {
-            if (!nodesMAP.find(to_string(i))->second.isVisited() && (dists[stoi(next)][i] < cost) && to_string(i) != origin) {
-                cost = dists[stoi(next)][i];
-                dest = to_string(i);
+void Graph::preorder_helper(string node, vector<string> *preOrder, Graph* mst){
+    mst->nodesMAP.find(node)->second.setVisited(true);
+    preOrder->push_back(node);
+    for(auto segment : mst->nodesMAP.find(node)->second.getOutgoing()){
+        if(!(mst->nodesMAP.find(segment->getNodeB())->second.isVisited())) preorder_helper(segment->getNodeB(), preOrder, mst);
+    }
+}
+
+double Graph::primMST2(){
+    Graph *mst = new Graph();
+    MutablePriorityQueue<Node> mutablePQ;
+    vector<string> primVisit;
+
+    for (auto& pair : nodesMAP) {
+        pair.second.setVisited(false);
+        pair.second.setDist(numeric_limits<double>::infinity());
+        mutablePQ.insert(&pair.second);
+    }
+    nodesMAP.find("0")->second.setDist(0);
+    nodesMAP.find("0")->second.setPath(nullptr);
+    nodesMAP.find("0")->second.setVisited(true);
+    mutablePQ.decreaseKey(&nodesMAP.find("0")->second);
+    while (!mutablePQ.empty()) {
+        Node* nodeOrig = mutablePQ.extractMin();
+        primVisit.push_back(nodeOrig->getID());
+        //cout << nodeOrig->getID() << endl;
+        const string nodestartID = nodeOrig->getID();
+        for(auto segment : nodeOrig->getOutgoing()){
+            const string nodeDestID = segment->getNodeB();
+            if(!(nodesMAP.find(nodeDestID)->second.isVisited()) && segment->getCost() < nodesMAP.find(nodeDestID)->second.getDist()){
+                nodesMAP.find(nodeDestID)->second.setDist(segment->getCost());
+                nodesMAP.find(nodeDestID)->second.setPath(segment);
+                mutablePQ.decreaseKey(&nodesMAP.find(nodeDestID)->second);
             }
         }
+        nodesMAP.find(nodestartID)->second.setVisited(true);
+    }
+    for(auto pair : nodesMAP){
+        auto path = pair.second.getPath();
+        if(path!= nullptr){
+            if (mst->nodesMAP.find(path->getNodeA()) == mst->nodesMAP.end()) {
+                Node node = Node(path->getNodeA());
+                mst->nodesMAP.emplace(node.getID(), node);
+            }
+            if (mst->nodesMAP.find(path->getNodeB()) == mst->nodesMAP.end()) {
+                Node node = Node(path->getNodeB());
+                mst->nodesMAP.emplace(node.getID(), node);
+            }
+            mst->nodesMAP.find(path->getNodeA())->second.addOutgoing(path);
+        }
+    }
+    vector<string> preOrder;
+    return preOrderWalk2("0", primVisit, &preOrder, mst);
+}
+double Graph::preOrderWalk2(string nodeID, vector<string>& primVisit, vector<string> *preOrder, Graph *mst){
+    mst->nodesMAP.find(nodeID)->second.setVisited(true);
+    preOrder->push_back(nodeID);
+
+    for(auto itr = primVisit.begin(); itr != primVisit.end(); itr++){
+        if(!(mst->nodesMAP.find(*itr)->second.isVisited())){
+            preorder_helper(*itr,preOrder,mst);
+        }
+    }
+    if (nodesMAP.find(nodeID)->second.getPath() == nullptr) {
+        double totalCost = 0.0;
+        preOrder->push_back("0");
+
+        for (int i = 0; i < preOrder->size() - 1; i++) {
+            int nodeA = std::stoi((*preOrder)[i]);
+            int nodeB = std::stoi((*preOrder)[i + 1]);
+
+            if (dists[nodeA][nodeB] != std::numeric_limits<double>::infinity()) {
+                totalCost += dists[nodeA][nodeB];
+                cout << nodeA << " -> " << nodeB << " || distance: " << dists[nodeA][nodeB] << " || type: "
+                     << "direct connection" << endl;
+            } else {
+                Node NODEA = nodesMAP.find((*preOrder)[i])->second;
+                Node NODEB = nodesMAP.find((*preOrder)[i + 1])->second;
+
+                double distance = 0;
+
+                if (NODEA.isLongSET() && NODEA.isLatSET() && NODEB.isLongSET() && NODEB.isLatSET()) {
+                    distance = HaversineDist(NODEA.getID(), NODEB.getID());
+                    totalCost += distance;
+                }
+
+                cout << nodeA << " -> " << nodeB << " || distance: " << distance << " || type: "
+                     << "Haversine connection" << endl;
+            }
+        }
+
+        cout << "Triangular Inequality Cost: " << totalCost << endl;
+        return totalCost;
+    }
+    return  0.0;
+}
+
+pair<double, string> Graph::getNearest(string next, string origin){
+    nodesMAP.find(next)->second.setVisited(true);
+    double cost = std::numeric_limits<double>::infinity();
+    string dest = "";
+    for(auto i = 0; i < nodesMAP.size(); i++) {
+        if (!nodesMAP.find(to_string(i))->second.isVisited() && (dists[stoi(next)][i] < cost) && to_string(i) != origin) {
+            cost = dists[stoi(next)][i];
+            dest = to_string(i);
+        }
+    }
     if(dest == "") return  { dists[stoi(origin)][stoi(next)], origin};
-        return {cost, dest};
+    return {cost, dest};
 }
 
 vector<string> Graph::nearestNeightbour(string origin){
@@ -223,6 +327,44 @@ vector<string> Graph::nearestNeightbour(string origin){
 double Graph::swapNodes(int i, int j){
     return nodesMAP.find(to_string(i))->second.getDist() - nodesMAP.find(to_string(j))->second.getDist();
 }
+
+void Graph::compareTriangular(){
+    if(graphreport.elapsedBacktrack == 0 || graphreport.distBacktrack == 0 || graphreport.elapsedTriangular == 0 || graphreport.distTriangular == 0 ){
+        cout << "You don't have the data yet to compare backtrack and triangular inequality, remember that you need to run both algorithms to get the full data" << endl;
+    }
+    else{
+        double ratioTime, ratioDist;
+        ratioTime =  (graphreport.elapsedTriangular / graphreport.elapsedBacktrack) * 100 ;
+        ratioDist = ((graphreport.distTriangular / graphreport.distBacktrack) * 100) - 100 ;
+        cout << "the triangular aproximation takes "<< ratioTime <<"% of the time it takes the backtracking algorithm" << endl;
+        cout << "the triangular aproximation distance is "<< ratioDist <<"% longer than the backtracking algorithm distance" << endl;
+    }
+}
+void Graph::compareTriangular2(){
+    if(graphreport.elapsedBacktrack == 0 || graphreport.distBacktrack == 0 || graphreport.elapsedTriangular2 == 0 || graphreport.distTriangular2 == 0 ){
+        cout << "You don't have the data yet to compare backtrack and triangular inequality second version, remember that you need to run both algorithms to get the full data. \n";
+    }
+    else{
+        double ratioTime, ratioDist;
+        ratioTime =  (graphreport.elapsedTriangular2 / graphreport.elapsedBacktrack) * 100 ;
+        ratioDist = ((graphreport.distTriangular2 / graphreport.distBacktrack) * 100) - 100 ;
+        cout << "the second version of triangular aproximation takes "<< ratioTime <<"% of the time it takes the backtracking algorithm" << endl;
+        cout << "the second version of triangular aproximation distance is "<< ratioDist <<"% longer than the backtracking algorithm distance" << endl;
+    }
+}
+void Graph::compareNN(){
+    if(graphreport.elapsedBacktrack == 0 || graphreport.distBacktrack == 0 || graphreport.elapsedNN == 0 || graphreport.distNN == 0 ){
+        cout << "You don't have the data yet to compare backtrack and nearest neighbor with 2-opt optimization, remember that you need to run both algorithms to get the full data" << endl;
+    }
+    else{
+        double ratioTime, ratioDist;
+        ratioTime =  (graphreport.elapsedNN / graphreport.elapsedBacktrack) * 100 ;
+        ratioDist = ((graphreport.distNN / graphreport.distBacktrack) * 100) - 100 ;
+        cout << "the nearest neighbor with 2-opt optimization takes "<< ratioTime <<"% of the time it takes the backtracking algorithm" << endl;
+        cout << "the nearest neighbor with 2-opt optimization aproximation distance is "<< ratioDist <<"% longer than the backtracking algorithm distance" << endl;
+    }
+}
+
 
 vector<Segment*> Graph::christofidesPrim(){
     MutablePriorityQueue<Node> mutablePQ;

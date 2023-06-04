@@ -12,26 +12,29 @@ using namespace std;
 
 class Reading {
 public:
-    Graph* read_stadium_graph();
-    Graph* read_shiping_graph();
+
+    ///@brief Reads stadiums and shipping toy graphs
+    ///@param input controll which graph to read
+    ///@note Store Nodes in an unordered_map and build a graph with vertexes representing Nodes and edges the segments.
+    ///@returns A graph with the vertexes being Nodes and the edges being segments
+    Graph* read_toygraphs(int input);
+
+    ///@brief Reads the tourism graph
+    ///@note Store Nodes in an unordered_map and build a graph with vertexes representing Nodes and edges the segments.
+    ///@returns A graph with the vertexes being Nodes and the edges being segments
     Graph* read_tourism_graph();
 
-    Graph* read_fullyconected25();
-    Graph* read_fullyconected50();
-    Graph* read_fullyconected75();
-    Graph* read_fullyconected100();
-    Graph* read_fullyconected200();
-    Graph* read_fullyconected300();
-    Graph* read_fullyconected400();
-    Graph* read_fullyconected500();
-    Graph* read_fullyconected600();
-    Graph* read_fullyconected700();
-    Graph* read_fullyconected800();
-    Graph* read_fullyconected900();
+    ///@brief Reads real world graphs
+    ///@param input controll which graph to read
+    ///@note Store Nodes in an unordered_map and build a graph with vertexes representing Nodes and edges the segments.
+    ///@returns A graph with the vertexes being Nodes and the edges being segments
+    Graph* read_realgraphs(int input);
 
-    Graph* read_realgraph1();
-    Graph* read_realgraph2();
-    Graph* read_realgraph3();
+    ///@brief Reads fully connected graphs
+    ///@param input controll which graph to read
+    ///@note Store Nodes in an unordered_map and build a graph with vertexes representing Nodes and edges the segments.
+    ///@returns A graph with the vertexes being Nodes and the edges being segments
+    Graph* read_fullyconectedGraphs(int input);
 
 };
 

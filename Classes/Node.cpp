@@ -43,7 +43,7 @@ void Node::setPath(Segment *path) {
     incrementDegree(1);
 }
 
-void Node::setQueuIndex(int index){this->queueIndex = 0;}
+void Node::setQueueIndex(int index){this->queueIndex = 0;}
 
 void Node::setLONG(double longitude_){
     this->longitude = longitude_;
