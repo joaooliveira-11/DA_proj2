@@ -65,7 +65,7 @@ void Graph::resetNodes(){
         pair.second.setVisited(false);
         pair.second.setDist(0);
         pair.second.setPath(nullptr);
-        pair.second.setQueuIndex(0);
+        pair.second.setQueueIndex(0);
     }
 }
 

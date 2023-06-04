@@ -27,6 +27,7 @@ public:
     ///@brief Getter for the Segment´s cost
     ///@returns the Segment´s cost
     double getCost() const;
+
 };
 
 #endif

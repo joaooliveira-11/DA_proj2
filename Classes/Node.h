@@ -88,7 +88,7 @@ public:
     ///@brief Setter for the node's queue Index
     ///@param index
     ///@note helper function for the prim algorithm
-    void setQueuIndex(int index);
+    void setQueueIndex(int index);
 
     ///@brief Setter for the node's longitude
     ///@param longitude_

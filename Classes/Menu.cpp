@@ -98,7 +98,7 @@ void Menu::TSPchristofides(Graph *graph){
 double Menu::printElapsedTime(timeval start, timeval end){
     double elapsed =  (end.tv_sec - start.tv_sec) * 1e6;
     elapsed = (elapsed + (end.tv_usec -
-                   start.tv_usec)) * 1e-6;
+                          start.tv_usec)) * 1e-6;
     cout << "The elapsed time was: " << fixed <<elapsed <<setprecision(6) <<"seconds. "<< endl;
     return elapsed;
 }
