@@ -279,6 +279,7 @@ double Graph::preOrderWalk2(string nodeID, vector<string>& primVisit, vector<str
         cout << "Triangular Inequality Cost: " << totalCost << endl;
         return totalCost;
     }
+    return 0.0;
 }
 
 pair<double, string> Graph::getNearest(string next, string origin){
