@@ -35,6 +35,11 @@ public:
     static double TSPbacktrack(Graph* graph);
     static void TSPtriangularInequality(Graph* graph);
     static double printElapsedTime(timeval start, timeval end);
+
+    static void TSPnearestNeighbor(Graph *graph);
+    static void do2Opt(vector<string> &tour, int i, int j);
+
+    static void graphReport(Graph* graph);
 };
 
 

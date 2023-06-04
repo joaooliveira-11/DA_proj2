@@ -27,7 +27,7 @@ void Menu::TSPtriangularInequality(Graph *graph) {
     cout << "===============TSP Triangular Submenu===============" << endl;
     cout << "Chose a version for this algorithm" << endl;
     cout << "1 - Triangular Inequality (better aproximation / slower)" << endl;
-    cout << "2 - Triangular Inequality (worse aproximation / faster)" << endl;
+    cout << "2 - Triangular Inequality (worse aproximation / faster for larger graphs)" << endl;
     cin >> option;
 
     struct timeval start, end;
@@ -48,6 +48,43 @@ void Menu::TSPtriangularInequality(Graph *graph) {
     graph->resetNodes();
 }
 
+void Menu::do2Opt(vector<string> &tour, int i, int j) {
+    reverse(begin(tour) + i + 1, begin(tour) + j + 1);
+}
+
+void Menu::TSPnearestNeighbor(Graph *graph){
+    vector<string> tour = graph->nearestNeightbour("0");
+
+    double res = 0.0;
+    for(int i = 0; i < tour.size() - 1; i++){
+        res += graph->dists[stoi(tour[i])][stoi(tour[i + 1])];
+    }
+    res += graph->dists[stoi(tour[tour.size() - 1])][0];
+
+    cout << "the minimum of all the neighbors is: " << res <<endl <<endl;
+
+    int n = tour.size();
+    bool foundImprovement = true;
+    while (foundImprovement) {
+        foundImprovement = false;
+        for (int i = 0; i <= n - 2; i++) {
+            for (int j = i + 1; j <= n - 1; j++) {
+                int diff =  - graph->dists[stoi(tour[i])][stoi(tour[(i + 1) % n])] - graph->dists[stoi(tour[j])][stoi(tour[(j + 1) % n])]
+                            + graph->dists[stoi(tour[i])][stoi(tour[j])] + graph->dists[stoi(tour[(i + 1) % n])][stoi(tour[(j + 1) % n])];
+
+                // If the length of the path is reduced, do a 2-opt swap
+                if (diff < 0) {
+                    do2Opt(tour, i, j);
+                    res += diff;
+                    foundImprovement = true;
+                }
+            }
+        }
+    }
+    cout << "2-opt improvement:" << res <<endl <<endl;
+    graph->graphreport.distNN = res;
+}
+
 double Menu::printElapsedTime(timeval start, timeval end){
     double elapsed =  (end.tv_sec - start.tv_sec) * 1e6;
     elapsed = (elapsed + (end.tv_usec -
@@ -56,6 +93,13 @@ double Menu::printElapsedTime(timeval start, timeval end){
     return elapsed;
 }
 
+void Menu::graphReport(Graph* graph){
+    cout << "Heuristics time and cost approximation: comparisons between them and backtracking" << std::endl;
+    cout << "---------------------------------------------------------------------------------" << endl;
+    graph->compareTriangular();
+    graph->compareTriangular2();
+    graph->compareNN();
+}
 void Menu::TSPalgorithmsSubmenu(Graph *graph) {
 
     int option;
@@ -63,6 +107,7 @@ void Menu::TSPalgorithmsSubmenu(Graph *graph) {
     cout << "Chose an aproach for the TSP" << endl;
     cout << "1 - TSP Backtrack Aproach (only for toy graphs)" << endl;
     cout << "2 - TSP Triangular Inequality Aproach" << endl;
+    cout << "3 - TSP Nearest Neighbor" << endl;
     cout << "4 - Report (only for toy graphs)" << endl;
     cin >> option;
 
@@ -110,18 +155,39 @@ void Menu::TSPalgorithmsSubmenu(Graph *graph) {
                 break;
             }
         }
-        case 4:{
-            if(graph->graphreport.elapsedTriangular == 0 || graph->graphreport.elapsedBacktrack == 0 || graph->graphreport.distTriangular == 0 || graph->graphreport.distBacktrack == 0){
-                cout << "You don't have the data yet, remember that you need to run both algorithms to get the full data. \n";
+
+        case 3:{
+            struct timeval start, end;
+            gettimeofday(&start, NULL);
+            ios_base::sync_with_stdio(false);
+
+            TSPnearestNeighbor(graph);
+
+            gettimeofday(&end, NULL);
+            graph->graphreport.elapsedNN = printElapsedTime(start, end);
+
+            graph->resetNodes();
+
+            string decision;
+            cout << "Do you want to do another action?. (ex.: yes or no) \n";
+            cin >> decision;
+            while (decision != "yes" && decision != "no") {
+                cout << "Do you want to do another action?. (ex.: yes or no) \n";
+                cin >> decision;
+            }
+            if (decision == "yes") {
                 TSPalgorithmsSubmenu(graph);
+                break;
+            }
+            else {
+                readmenu();
+                break;
             }
 
-            double ratioTime, ratioDist;
-            ratioTime =  (graph->graphreport.elapsedTriangular / graph->graphreport.elapsedBacktrack) * 100 ;
-            ratioDist = ((graph->graphreport.distTriangular / graph->graphreport.distBacktrack) * 100) - 100 ;
-            cout << "the triangular aproximation takes "<< ratioTime <<"% of the time it takes the backtracking algorithm  \n" ;
-            cout << "the triangular aproximation distance is "<< ratioDist <<"% longer than the backtracking algorithm distance\n \n" ;
+        }
 
+        case 4:{
+            graphReport(graph);
             string decision;
             cout << "Do you want to do another action?. (ex.: yes or no) \n";
             cin >> decision;

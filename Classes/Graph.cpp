@@ -279,3 +279,85 @@ double Graph::preOrderWalk2(string nodeID, vector<string>& primVisit, vector<str
     }
 }
 
+pair<double, string> Graph::getNearest(string next, string origin){
+    nodesMAP.find(next)->second.setVisited(true);
+    double cost = std::numeric_limits<double>::infinity();
+    string dest = "";
+    for(auto i = 0; i < nodesMAP.size(); i++) {
+        if (!nodesMAP.find(to_string(i))->second.isVisited() && (dists[stoi(next)][i] < cost) && to_string(i) != origin) {
+            cost = dists[stoi(next)][i];
+            dest = to_string(i);
+        }
+    }
+    if(dest == "") return  { dists[stoi(origin)][stoi(next)], origin};
+    return {cost, dest};
+}
+
+vector<string> Graph::nearestNeightbour(string origin){
+
+    for(auto &i : nodesMAP){
+        i.second.setVisited(false);
+        i.second.setDist(numeric_limits<double>::infinity());
+    }
+
+
+    string next =  origin;
+    string previous;
+    vector<string> tour;
+    double total = 0.0;
+    do{
+        tour.push_back(next);
+        nodesMAP.find(next)->second.setDist(total);
+        previous = next;
+        auto res = getNearest(next, origin);
+        total += res.first;
+        next  = res.second;
+        cout << previous << " -> " << next << " || distance: " << dists[stoi(previous)][stoi(next)] << " || type: "
+             << "direct connection" << endl;
+    }while(next != origin);
+    cout << "total: "  <<total <<endl;
+    return tour;
+}
+
+
+double Graph::swapNodes(int i, int j){
+    return nodesMAP.find(to_string(i))->second.getDist() - nodesMAP.find(to_string(j))->second.getDist();
+}
+
+void Graph::compareTriangular(){
+    if(graphreport.elapsedBacktrack == 0 || graphreport.distBacktrack == 0 || graphreport.elapsedTriangular == 0 || graphreport.distTriangular == 0 ){
+        cout << "You don't have the data yet to compare backtrack and triangular inequality, remember that you need to run both algorithms to get the full data" << endl;
+    }
+    else{
+        double ratioTime, ratioDist;
+        ratioTime =  (graphreport.elapsedTriangular / graphreport.elapsedBacktrack) * 100 ;
+        ratioDist = ((graphreport.distTriangular / graphreport.distBacktrack) * 100) - 100 ;
+        cout << "the triangular aproximation takes "<< ratioTime <<"% of the time it takes the backtracking algorithm" << endl;
+        cout << "the triangular aproximation distance is "<< ratioDist <<"% longer than the backtracking algorithm distance" << endl;
+    }
+}
+void Graph::compareTriangular2(){
+    if(graphreport.elapsedBacktrack == 0 || graphreport.distBacktrack == 0 || graphreport.elapsedTriangular2 == 0 || graphreport.distTriangular2 == 0 ){
+        cout << "You don't have the data yet to compare backtrack and triangular inequality second version, remember that you need to run both algorithms to get the full data. \n";
+    }
+    else{
+        double ratioTime, ratioDist;
+        ratioTime =  (graphreport.elapsedTriangular2 / graphreport.elapsedBacktrack) * 100 ;
+        ratioDist = ((graphreport.distTriangular2 / graphreport.distBacktrack) * 100) - 100 ;
+        cout << "the second version of triangular aproximation takes "<< ratioTime <<"% of the time it takes the backtracking algorithm" << endl;
+        cout << "the second version of triangular aproximation distance is "<< ratioDist <<"% longer than the backtracking algorithm distance" << endl;
+    }
+}
+void Graph::compareNN(){
+    if(graphreport.elapsedBacktrack == 0 || graphreport.distBacktrack == 0 || graphreport.elapsedNN == 0 || graphreport.distNN == 0 ){
+        cout << "You don't have the data yet to compare backtrack and nearest neighbor with 2-opt optimization, remember that you need to run both algorithms to get the full data" << endl;
+    }
+    else{
+        double ratioTime, ratioDist;
+        ratioTime =  (graphreport.elapsedNN / graphreport.elapsedBacktrack) * 100 ;
+        ratioDist = ((graphreport.distNN / graphreport.distBacktrack) * 100) - 100 ;
+        cout << "the nearest neighbor with 2-opt optimization takes "<< ratioTime <<"% of the time it takes the backtracking algorithm" << endl;
+        cout << "the nearest neighbor with 2-opt optimization aproximation distance is "<< ratioDist <<"% longer than the backtracking algorithm distance" << endl;
+    }
+}
+

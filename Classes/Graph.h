@@ -44,9 +44,19 @@ public:
     double degreesToRadians(double degrees);
 
     struct report{
-        double elapsedBacktrack, elapsedTriangular, elapsedTriangular2, distBacktrack, distTriangular, distTriangular2;
+        double elapsedBacktrack, elapsedTriangular, elapsedTriangular2, elapsedNN, distBacktrack, distTriangular, distTriangular2, distNN;
     };
-    report graphreport{0, 0, 0, 0,0,0};
+    report graphreport{0, 0, 0, 0,0,0,0,0};
+
+    vector<string> nearestNeightbour(string origin);
+
+    pair<double, string> getNearest(string next, string origin);
+
+    double swapNodes(int i, int j);
+
+    void compareTriangular();
+    void compareTriangular2();
+    void compareNN();
 
 };
 
