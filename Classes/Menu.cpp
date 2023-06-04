@@ -60,10 +60,8 @@ void Menu::TSPnearestNeighbor(Graph *graph){
     for(int i = 0; i < tour.size() - 1; i++){
         res += graph->dists[stoi(tour[i])][stoi(tour[i + 1])];
     }
-    res += graph->dists[stoi(tour[tour.size() - 1])][0];
 
-    cout << "the minimum of all the neighbors is: " << res <<endl <<endl;
-
+    cout <<"performed 2-opt local optimization of the tour: " <<endl;
     int n = tour.size();
     bool foundImprovement = true;
     while (foundImprovement) {
@@ -75,6 +73,7 @@ void Menu::TSPnearestNeighbor(Graph *graph){
 
                 // If the length of the path is reduced, do a 2-opt swap
                 if (diff < 0) {
+                    cout << "swapped nodes " <<tour[i] << " and " <<tour[j] <<endl;
                     do2Opt(tour, i, j);
                     res += diff;
                     foundImprovement = true;
@@ -82,7 +81,16 @@ void Menu::TSPnearestNeighbor(Graph *graph){
             }
         }
     }
-    cout << "2-opt improvement:" << res <<endl <<endl;
+
+    cout <<endl << "New tour:" <<endl;
+    for(int i = 1; i < tour.size(); i++){
+        cout << tour[i - 1] << " -> " << tour[i] << " || distance: " << graph->dists[stoi(tour[i - 1])][stoi(tour[i])] << " || type: "
+             << "direct connection" << endl;
+    }
+
+
+
+    cout <<endl <<"2-opt improvement:" << res <<endl <<endl;
 
     graph->resetNodes();
 }

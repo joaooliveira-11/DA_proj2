@@ -319,6 +319,8 @@ vector<string> Graph::nearestNeightbour(string origin){
         cout << previous << " -> " << next << " || distance: " << dists[stoi(previous)][stoi(next)] << " || type: "
              << "direct connection" << endl;
     }while(next != origin);
+
+    tour.push_back("0");
     cout << "total: "  <<total <<endl;
     return tour;
 }
