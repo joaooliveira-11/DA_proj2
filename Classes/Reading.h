@@ -16,23 +16,27 @@ public:
     ///@brief Reads stadiums and shipping toy graphs
     ///@param input controll which graph to read
     ///@note Store Nodes in an unordered_map and build a graph with vertexes representing Nodes and edges the segments.
+    ///@note Time complexity : O(n)
     ///@returns A graph with the vertexes being Nodes and the edges being segments
     Graph* read_toygraphs(int input);
 
     ///@brief Reads the tourism graph
     ///@note Store Nodes in an unordered_map and build a graph with vertexes representing Nodes and edges the segments.
+    ///@note Time complexity : O(n)
     ///@returns A graph with the vertexes being Nodes and the edges being segments
     Graph* read_tourism_graph();
 
     ///@brief Reads real world graphs
     ///@param input controll which graph to read
     ///@note Store Nodes in an unordered_map and build a graph with vertexes representing Nodes and edges the segments.
+    ///@note Time complexity : O(n + e), where n is the number of lines of the nodes file and e is the number of lines of the edges file
     ///@returns A graph with the vertexes being Nodes and the edges being segments
     Graph* read_realgraphs(int input);
 
     ///@brief Reads fully connected graphs
     ///@param input controll which graph to read
     ///@note Store Nodes in an unordered_map and build a graph with vertexes representing Nodes and edges the segments.
+    ///@note Time complexity : O(n)
     ///@returns A graph with the vertexes being Nodes and the edges being segments
     Graph* read_fullyconectedGraphs(int input);
 

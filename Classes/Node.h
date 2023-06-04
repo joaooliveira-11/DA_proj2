@@ -20,6 +20,8 @@ private:
     bool longitudeSET = false;
     bool latitudeSET = false;
 
+    int degree = 0;
+
 public:
     ///@brief Constructor of new Node given its id
     ///@param _id the node id
@@ -41,10 +43,12 @@ public:
     vector<Segment *> getIncoming() const;
 
     ///@brief adds a new incoming segment
+    ///@note Time complexity : O(1)
     ///@param segment
     void addIncoming(Segment *segment);
 
     ///@brief adds a new outgoing segment
+    ///@note Time complexity : O(1)
     ///@param s
     void addOutgoing(Segment *s);
 
@@ -73,6 +77,7 @@ public:
     bool operator<(Node & node) const;
 
     ///@brief Function to know if a node is visited
+    ///@note Time complexity : O(1)
     ///@returns true if visited, false otherwise
     bool isVisited();
 
@@ -108,6 +113,14 @@ public:
     ///@brief Function to know if the node's latitude is set
     ///@returns true if is set, false otherwise
     bool isLatSET();
+
+    ///@brief Function to increment the Node´s degree
+    ///@param i
+    ///@note Time complexity : O(1)
+    void incrementDegree(int i);
+
+    ///@brief Getter for the Node´s degree
+    int getDegree();
 
     int queueIndex = 0;
 };

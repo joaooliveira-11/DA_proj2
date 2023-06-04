@@ -57,3 +57,9 @@ double Node::getLAT(){ return latitude;}
 
 bool Node::isLongSET() {return longitudeSET;}
 bool Node::isLatSET() {return latitudeSET;}
+
+void Node::incrementDegree(int i){
+    this->degree += i;
+}
+
+int Node::getDegree(){ return this->degree;}

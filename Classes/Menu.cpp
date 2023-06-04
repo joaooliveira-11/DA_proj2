@@ -59,10 +59,8 @@ void Menu::TSPnearestNeighbor(Graph *graph){
     for(int i = 0; i < tour.size() - 1; i++){
         res += graph->dists[stoi(tour[i])][stoi(tour[i + 1])];
     }
-    res += graph->dists[stoi(tour[tour.size() - 1])][0];
 
-    cout << "the minimum of all the neighbors is: " << res <<endl <<endl;
-
+    cout <<"performed 2-opt local optimization of the tour: " <<endl;
     int n = tour.size();
     bool foundImprovement = true;
     while (foundImprovement) {
@@ -74,6 +72,7 @@ void Menu::TSPnearestNeighbor(Graph *graph){
 
                 // If the length of the path is reduced, do a 2-opt swap
                 if (diff < 0) {
+                    cout << "swapped nodes " <<tour[i] << " and " <<tour[j] <<endl;
                     do2Opt(tour, i, j);
                     res += diff;
                     foundImprovement = true;
@@ -81,8 +80,19 @@ void Menu::TSPnearestNeighbor(Graph *graph){
             }
         }
     }
-    cout << "2-opt improvement:" << res <<endl <<endl;
+
+    cout <<endl << "New tour:" <<endl;
+    for(int i = 1; i < tour.size(); i++){
+        cout << tour[i - 1] << " -> " << tour[i] << " || distance: " << graph->dists[stoi(tour[i - 1])][stoi(tour[i])] << " || type: "
+             << "direct connection" << endl;
+    }
+
+    cout <<endl <<"2-opt improvement:" << res <<endl <<endl;
     graph->graphreport.distNN = res;
+}
+
+void Menu::TSPchristofides(Graph *graph){
+    graph->graphreport.distCristo = graph->christofidesAlgo();
 }
 
 double Menu::printElapsedTime(timeval start, timeval end){
@@ -96,10 +106,49 @@ double Menu::printElapsedTime(timeval start, timeval end){
 void Menu::graphReport(Graph* graph){
     cout << "Heuristics time and cost approximation: comparisons between them and backtracking" << std::endl;
     cout << "---------------------------------------------------------------------------------" << endl;
+    cout << endl;
+
     graph->compareTriangular();
     graph->compareTriangular2();
     graph->compareNN();
+    graph->compareChristofides();
+
+    cout << endl;
+
+    cout << "Heuristics time and cost approximation" << endl;
+    cout << "---------------------------------------------------------------------------------" << endl;
+    cout << endl;
+
+// Print table headers
+    cout << setw(15) << left << "Algorithm";
+    cout << setw(20) << left << "TSP Approximation";
+    cout << setw(20) << left << "Execution Time" << endl;
+    cout << endl;
+
+// Print values for each algorithm
+    cout << setw(15) << left << "Backtrack";
+    cout << setw(20) << left << graph->graphreport.distBacktrack;
+    cout << setw(20) << left << graph->graphreport.elapsedBacktrack << endl;
+
+    cout << setw(15) << left << "Triangular";
+    cout << setw(20) << left << graph->graphreport.distTriangular;
+    cout << setw(20) << left << graph->graphreport.elapsedTriangular << endl;
+
+    cout << setw(15) << left << "Triangular2";
+    cout << setw(20) << left << graph->graphreport.distTriangular2;
+    cout << setw(20) << left << graph->graphreport.elapsedTriangular2 << endl;
+
+    cout << setw(15) << left << "NN-2opt";
+    cout << setw(20) << left << graph->graphreport.distNN;
+    cout << setw(20) << left << graph->graphreport.elapsedNN << endl;
+
+    cout << setw(15) << left << "Christofides";
+    cout << setw(20) << left << graph->graphreport.distCristo;
+    cout << setw(20) << left << graph->graphreport.elapsedCristo << endl;
+
+    cout << endl;
 }
+
 void Menu::TSPalgorithmsSubmenu(Graph *graph) {
 
     int option;
@@ -108,7 +157,8 @@ void Menu::TSPalgorithmsSubmenu(Graph *graph) {
     cout << "1 - TSP Backtrack Aproach (only for toy graphs)" << endl;
     cout << "2 - TSP Triangular Inequality Aproach" << endl;
     cout << "3 - TSP Nearest Neighbor" << endl;
-    cout << "4 - Report (only for toy graphs)" << endl;
+    cout << "4 - TSP Christofides" << endl;
+    cout << "5 - Report (only for toy graphs)" << endl;
     cin >> option;
 
     switch (option) {
@@ -187,6 +237,34 @@ void Menu::TSPalgorithmsSubmenu(Graph *graph) {
         }
 
         case 4:{
+            struct timeval start, end;
+            gettimeofday(&start, NULL);
+            ios_base::sync_with_stdio(false);
+
+            TSPchristofides(graph);
+
+            gettimeofday(&end, NULL);
+            graph->graphreport.elapsedCristo = printElapsedTime(start, end);
+
+            graph->resetNodes();
+
+            string decision;
+            cout << "Do you want to do another action?. (ex.: yes or no) \n";
+            cin >> decision;
+            while (decision != "yes" && decision != "no") {
+                cout << "Do you want to do another action?. (ex.: yes or no) \n";
+                cin >> decision;
+            }
+            if (decision == "yes"){
+                TSPalgorithmsSubmenu(graph);
+                break;
+            }
+            else {
+                readmenu();
+                break;
+            }
+        }
+        case 5:{
             graphReport(graph);
             string decision;
             cout << "Do you want to do another action?. (ex.: yes or no) \n";

@@ -59,6 +59,10 @@ public:
     ///@param graph the graph used
     static void TSPnearestNeighbor(Graph *graph);
 
+    ///@brief Runs the TSP nearest Christofides algorithm.
+    ///@param graph the graph used
+    static void TSPchristofides(Graph *graph);
+
     ///@brief Runs the 2-opt optimization.
     ///@param tour
     ///@param i
