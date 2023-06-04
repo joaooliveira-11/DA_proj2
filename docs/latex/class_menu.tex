@@ -1,0 +1,207 @@
+\hypertarget{class_menu}{}\doxysection{Menu Class Reference}
+\label{class_menu}\index{Menu@{Menu}}
+
+
+{\ttfamily \#include $<$Menu.\+h$>$}
+
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_menu_ad8572ff8d66ae357cbfa15112375dc07}{readmenu}} ()
+\begin{DoxyCompactList}\small\item\em Runs the interactive user menu. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_menu_ae56213949ace2537cb179fe8437c58ca}{toy\+Graphs}} ()
+\begin{DoxyCompactList}\small\item\em Runs toy graphs submenu. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_menu_a17420b30a8da717a60f5170e13d33535}{real\+World\+Graphs}} ()
+\begin{DoxyCompactList}\small\item\em Runs real world graphs submenu. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_menu_aeafdc5a667363e2c1c7ceec57383ba61}{fully\+Connected\+Graphs}} ()
+\begin{DoxyCompactList}\small\item\em Runs fully connected graphs submenu. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_menu_ac6872ebed9be11fe21f328add0a20306}{TSPalgorithms\+Submenu}} (\mbox{\hyperlink{class_graph}{Graph}} $\ast$graph)
+\begin{DoxyCompactList}\small\item\em Runs the TSP algorithms menu. \end{DoxyCompactList}\item 
+static double \mbox{\hyperlink{class_menu_a0b5652c2785c8030e1dc67bae4c6d752}{TSPbacktrack}} (\mbox{\hyperlink{class_graph}{Graph}} $\ast$graph)
+\begin{DoxyCompactList}\small\item\em Runs the TSP backtrack algorithm. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_menu_a827cdc2b1fa9a0b17f60fab9407a637e}{TSPtriangular\+Inequality}} (\mbox{\hyperlink{class_graph}{Graph}} $\ast$graph)
+\begin{DoxyCompactList}\small\item\em Runs the TSP triangular inequality algorithm. \end{DoxyCompactList}\item 
+static double \mbox{\hyperlink{class_menu_acbe6de98590fe049d73d029b11cd7f01}{print\+Elapsed\+Time}} (timeval start, timeval end)
+\begin{DoxyCompactList}\small\item\em Prints the elapsed time. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_menu_ac03e57b6f4bff35e49a67acb5a90eeb0}{TSPnearest\+Neighbor}} (\mbox{\hyperlink{class_graph}{Graph}} $\ast$graph)
+\begin{DoxyCompactList}\small\item\em Runs the TSP nearest Neightbour algorithm. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_menu_a617b87349db5d59e2528d9002eaafbc6}{TSPchristofides}} (\mbox{\hyperlink{class_graph}{Graph}} $\ast$graph)
+\begin{DoxyCompactList}\small\item\em Runs the TSP nearest Christofides algorithm. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_menu_a7f8b1f78d04ac8c78761e0145e96174d}{do2\+Opt}} (vector$<$ string $>$ \&tour, int i, int j)
+\begin{DoxyCompactList}\small\item\em Runs the 2-\/opt optimization. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_menu_a8e9dd7d5bc03cc49738306a2b98a810e}{graph\+Report}} (\mbox{\hyperlink{class_graph}{Graph}} $\ast$graph)
+\begin{DoxyCompactList}\small\item\em Runs the graph report. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_menu_a7f8b1f78d04ac8c78761e0145e96174d}\label{class_menu_a7f8b1f78d04ac8c78761e0145e96174d}} 
+\index{Menu@{Menu}!do2Opt@{do2Opt}}
+\index{do2Opt@{do2Opt}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{do2Opt()}{do2Opt()}}
+{\footnotesize\ttfamily void Menu\+::do2\+Opt (\begin{DoxyParamCaption}\item[{vector$<$ string $>$ \&}]{tour,  }\item[{int}]{i,  }\item[{int}]{j }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Runs the 2-\/opt optimization. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tour} & \\
+\hline
+{\em i} & \\
+\hline
+{\em j} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_menu_aeafdc5a667363e2c1c7ceec57383ba61}\label{class_menu_aeafdc5a667363e2c1c7ceec57383ba61}} 
+\index{Menu@{Menu}!fullyConnectedGraphs@{fullyConnectedGraphs}}
+\index{fullyConnectedGraphs@{fullyConnectedGraphs}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{fullyConnectedGraphs()}{fullyConnectedGraphs()}}
+{\footnotesize\ttfamily void Menu\+::fully\+Connected\+Graphs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Runs fully connected graphs submenu. 
+
+\mbox{\Hypertarget{class_menu_a8e9dd7d5bc03cc49738306a2b98a810e}\label{class_menu_a8e9dd7d5bc03cc49738306a2b98a810e}} 
+\index{Menu@{Menu}!graphReport@{graphReport}}
+\index{graphReport@{graphReport}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{graphReport()}{graphReport()}}
+{\footnotesize\ttfamily void Menu\+::graph\+Report (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} $\ast$}]{graph }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Runs the graph report. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & the graph used \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Used to compare all algorithms and their time complexity and distance aproximation 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_menu_acbe6de98590fe049d73d029b11cd7f01}\label{class_menu_acbe6de98590fe049d73d029b11cd7f01}} 
+\index{Menu@{Menu}!printElapsedTime@{printElapsedTime}}
+\index{printElapsedTime@{printElapsedTime}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{printElapsedTime()}{printElapsedTime()}}
+{\footnotesize\ttfamily double Menu\+::print\+Elapsed\+Time (\begin{DoxyParamCaption}\item[{timeval}]{start,  }\item[{timeval}]{end }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Prints the elapsed time. 
+
+\mbox{\Hypertarget{class_menu_ad8572ff8d66ae357cbfa15112375dc07}\label{class_menu_ad8572ff8d66ae357cbfa15112375dc07}} 
+\index{Menu@{Menu}!readmenu@{readmenu}}
+\index{readmenu@{readmenu}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{readmenu()}{readmenu()}}
+{\footnotesize\ttfamily void Menu\+::readmenu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Runs the interactive user menu. 
+
+\mbox{\Hypertarget{class_menu_a17420b30a8da717a60f5170e13d33535}\label{class_menu_a17420b30a8da717a60f5170e13d33535}} 
+\index{Menu@{Menu}!realWorldGraphs@{realWorldGraphs}}
+\index{realWorldGraphs@{realWorldGraphs}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{realWorldGraphs()}{realWorldGraphs()}}
+{\footnotesize\ttfamily void Menu\+::real\+World\+Graphs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Runs real world graphs submenu. 
+
+\mbox{\Hypertarget{class_menu_ae56213949ace2537cb179fe8437c58ca}\label{class_menu_ae56213949ace2537cb179fe8437c58ca}} 
+\index{Menu@{Menu}!toyGraphs@{toyGraphs}}
+\index{toyGraphs@{toyGraphs}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{toyGraphs()}{toyGraphs()}}
+{\footnotesize\ttfamily void Menu\+::toy\+Graphs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Runs toy graphs submenu. 
+
+\mbox{\Hypertarget{class_menu_ac6872ebed9be11fe21f328add0a20306}\label{class_menu_ac6872ebed9be11fe21f328add0a20306}} 
+\index{Menu@{Menu}!TSPalgorithmsSubmenu@{TSPalgorithmsSubmenu}}
+\index{TSPalgorithmsSubmenu@{TSPalgorithmsSubmenu}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{TSPalgorithmsSubmenu()}{TSPalgorithmsSubmenu()}}
+{\footnotesize\ttfamily void Menu\+::\+TSPalgorithms\+Submenu (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} $\ast$}]{graph }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Runs the TSP algorithms menu. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & the graph used in the TSP algorithms \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_menu_a0b5652c2785c8030e1dc67bae4c6d752}\label{class_menu_a0b5652c2785c8030e1dc67bae4c6d752}} 
+\index{Menu@{Menu}!TSPbacktrack@{TSPbacktrack}}
+\index{TSPbacktrack@{TSPbacktrack}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{TSPbacktrack()}{TSPbacktrack()}}
+{\footnotesize\ttfamily double Menu\+::\+TSPbacktrack (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} $\ast$}]{graph }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Runs the TSP backtrack algorithm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & the graph used \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_menu_a617b87349db5d59e2528d9002eaafbc6}\label{class_menu_a617b87349db5d59e2528d9002eaafbc6}} 
+\index{Menu@{Menu}!TSPchristofides@{TSPchristofides}}
+\index{TSPchristofides@{TSPchristofides}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{TSPchristofides()}{TSPchristofides()}}
+{\footnotesize\ttfamily void Menu\+::\+TSPchristofides (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} $\ast$}]{graph }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Runs the TSP nearest Christofides algorithm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & the graph used \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_menu_ac03e57b6f4bff35e49a67acb5a90eeb0}\label{class_menu_ac03e57b6f4bff35e49a67acb5a90eeb0}} 
+\index{Menu@{Menu}!TSPnearestNeighbor@{TSPnearestNeighbor}}
+\index{TSPnearestNeighbor@{TSPnearestNeighbor}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{TSPnearestNeighbor()}{TSPnearestNeighbor()}}
+{\footnotesize\ttfamily void Menu\+::\+TSPnearest\+Neighbor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} $\ast$}]{graph }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Runs the TSP nearest Neightbour algorithm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & the graph used \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_menu_a827cdc2b1fa9a0b17f60fab9407a637e}\label{class_menu_a827cdc2b1fa9a0b17f60fab9407a637e}} 
+\index{Menu@{Menu}!TSPtriangularInequality@{TSPtriangularInequality}}
+\index{TSPtriangularInequality@{TSPtriangularInequality}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{TSPtriangularInequality()}{TSPtriangularInequality()}}
+{\footnotesize\ttfamily void Menu\+::\+TSPtriangular\+Inequality (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} $\ast$}]{graph }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Runs the TSP triangular inequality algorithm. 
+
+\begin{DoxyNote}{Note}
+User can choose version 1 or 2 of this algorithm 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & the graph used \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Classes/\mbox{\hyperlink{_menu_8h}{Menu.\+h}}\item 
+Classes/\mbox{\hyperlink{_menu_8cpp}{Menu.\+cpp}}\end{DoxyCompactItemize}

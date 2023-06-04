@@ -1,0 +1,113 @@
+\hypertarget{class_reading}{}\doxysection{Reading Class Reference}
+\label{class_reading}\index{Reading@{Reading}}
+
+
+{\ttfamily \#include $<$Reading.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_graph}{Graph}} $\ast$ \mbox{\hyperlink{class_reading_a754854b30af1db39b82c1273511a7ec8}{read\+\_\+toygraphs}} (int input)
+\begin{DoxyCompactList}\small\item\em Reads stadiums and shipping toy graphs. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_graph}{Graph}} $\ast$ \mbox{\hyperlink{class_reading_afd61ac4fe2299840f1cc101f879b0e11}{read\+\_\+tourism\+\_\+graph}} ()
+\begin{DoxyCompactList}\small\item\em Reads the tourism graph. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_graph}{Graph}} $\ast$ \mbox{\hyperlink{class_reading_aed2e6ca72fa8a9a91b4a50a8c8bef27d}{read\+\_\+realgraphs}} (int input)
+\begin{DoxyCompactList}\small\item\em Reads real world graphs. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_graph}{Graph}} $\ast$ \mbox{\hyperlink{class_reading_ae2827b9dee79f3dcf9df45985c46c698}{read\+\_\+fullyconected\+Graphs}} (int input)
+\begin{DoxyCompactList}\small\item\em Reads fully connected graphs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_reading_ae2827b9dee79f3dcf9df45985c46c698}\label{class_reading_ae2827b9dee79f3dcf9df45985c46c698}} 
+\index{Reading@{Reading}!read\_fullyconectedGraphs@{read\_fullyconectedGraphs}}
+\index{read\_fullyconectedGraphs@{read\_fullyconectedGraphs}!Reading@{Reading}}
+\doxysubsubsection{\texorpdfstring{read\_fullyconectedGraphs()}{read\_fullyconectedGraphs()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_graph}{Graph}} $\ast$ Reading\+::read\+\_\+fullyconected\+Graphs (\begin{DoxyParamCaption}\item[{int}]{input }\end{DoxyParamCaption})}
+
+
+
+Reads fully connected graphs. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & controll which graph to read \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Store Nodes in an unordered\+\_\+map and build a graph with vertexes representing Nodes and edges the segments. 
+
+Time complexity \+: O(n) 
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+A graph with the vertexes being Nodes and the edges being segments 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_reading_aed2e6ca72fa8a9a91b4a50a8c8bef27d}\label{class_reading_aed2e6ca72fa8a9a91b4a50a8c8bef27d}} 
+\index{Reading@{Reading}!read\_realgraphs@{read\_realgraphs}}
+\index{read\_realgraphs@{read\_realgraphs}!Reading@{Reading}}
+\doxysubsubsection{\texorpdfstring{read\_realgraphs()}{read\_realgraphs()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_graph}{Graph}} $\ast$ Reading\+::read\+\_\+realgraphs (\begin{DoxyParamCaption}\item[{int}]{input }\end{DoxyParamCaption})}
+
+
+
+Reads real world graphs. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & controll which graph to read \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Store Nodes in an unordered\+\_\+map and build a graph with vertexes representing Nodes and edges the segments. 
+
+Time complexity \+: O(n + e), where n is the number of lines of the nodes file and e is the number of lines of the edges file 
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+A graph with the vertexes being Nodes and the edges being segments 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_reading_afd61ac4fe2299840f1cc101f879b0e11}\label{class_reading_afd61ac4fe2299840f1cc101f879b0e11}} 
+\index{Reading@{Reading}!read\_tourism\_graph@{read\_tourism\_graph}}
+\index{read\_tourism\_graph@{read\_tourism\_graph}!Reading@{Reading}}
+\doxysubsubsection{\texorpdfstring{read\_tourism\_graph()}{read\_tourism\_graph()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_graph}{Graph}} $\ast$ Reading\+::read\+\_\+tourism\+\_\+graph (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reads the tourism graph. 
+
+\begin{DoxyNote}{Note}
+Store Nodes in an unordered\+\_\+map and build a graph with vertexes representing Nodes and edges the segments. 
+
+Time complexity \+: O(n) 
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+A graph with the vertexes being Nodes and the edges being segments 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_reading_a754854b30af1db39b82c1273511a7ec8}\label{class_reading_a754854b30af1db39b82c1273511a7ec8}} 
+\index{Reading@{Reading}!read\_toygraphs@{read\_toygraphs}}
+\index{read\_toygraphs@{read\_toygraphs}!Reading@{Reading}}
+\doxysubsubsection{\texorpdfstring{read\_toygraphs()}{read\_toygraphs()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_graph}{Graph}} $\ast$ Reading\+::read\+\_\+toygraphs (\begin{DoxyParamCaption}\item[{int}]{input }\end{DoxyParamCaption})}
+
+
+
+Reads stadiums and shipping toy graphs. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & controll which graph to read \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Store Nodes in an unordered\+\_\+map and build a graph with vertexes representing Nodes and edges the segments. 
+
+Time complexity \+: O(n) 
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+A graph with the vertexes being Nodes and the edges being segments 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Classes/\mbox{\hyperlink{_reading_8h}{Reading.\+h}}\item 
+Classes/\mbox{\hyperlink{_reading_8cpp}{Reading.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,592 @@
+\hypertarget{class_graph}{}\doxysection{Graph Class Reference}
+\label{class_graph}\index{Graph@{Graph}}
+
+
+{\ttfamily \#include $<$Graph.\+h$>$}
+
+
+
+Collaboration diagram for Graph\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=168pt]{class_graph__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_graph_1_1report}{report}}
+\item 
+struct \mbox{\hyperlink{struct_graph_1_1_segment_comparator}{Segment\+Comparator}}
+\item 
+struct \mbox{\hyperlink{struct_graph_1_1_string_equal}{String\+Equal}}
+\item 
+struct \mbox{\hyperlink{struct_graph_1_1_string_hash}{String\+Hash}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_graph_a902c5b3eacb66d60752525ab23297a95}{$\sim$\+Graph}} ()
+\item 
+\mbox{\hyperlink{class_graph_ae4c72b8ac4d693c49800a4c7e273654f}{Graph}} ()
+\begin{DoxyCompactList}\small\item\em Constructor of new \mbox{\hyperlink{class_graph}{Graph}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_graph_aba26ca18c785ba397e7500c73fcd74b4}{add\+Segment}} (string \+\_\+nodeA, string \+\_\+nodeB, double \+\_\+cost)
+\begin{DoxyCompactList}\small\item\em Add a segment to the graph. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_a875f923744607c7c6280348ff10fe5f5}{savepath}} (int n, int current\+\_\+path\mbox{[}$\,$\mbox{]}, int path\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Helper function to save a new optimal path. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_graph_ae84d1cc83fad4d538c5f36cd34bca1bb}{TSPRec}} (double curr\+Dist, double $\ast$min\+Dist, int current\+Indx, int n, int current\+Path\mbox{[}$\,$\mbox{]}, int path\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Function for the TSP backtrack algorithm. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_graph_a4b428ac94a142db6739b48c26179a144}{prim\+MST}} ()
+\begin{DoxyCompactList}\small\item\em Function to calculate the MST. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_graph_a14e1d8bfa223ca4cd0e11325b0ddd3ed}{pre\+Order\+Walk}} (string node\+ID, vector$<$ string $>$ \&prim\+Visit, vector$<$ string $>$ $\ast$pre\+Order)
+\begin{DoxyCompactList}\small\item\em Function to perform a pre-\/\+Order walk in the MST. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_graph_a8bd6700ad212506dc019d353ff7b1a61}{prim\+MST2}} ()
+\begin{DoxyCompactList}\small\item\em Function to calculate the MST. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_graph_a853d7440bd6849879714e3b294825d15}{pre\+Order\+Walk2}} (string node\+ID, vector$<$ string $>$ \&prim\+Visit, vector$<$ string $>$ $\ast$pre\+Order, \mbox{\hyperlink{class_graph}{Graph}} $\ast$mst)
+\begin{DoxyCompactList}\small\item\em Function to perform a pre-\/\+Order walk in the MST. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_a8ce2d823ccbefbe31591df409f8edf37}{preorder\+\_\+helper}} (string node, vector$<$ string $>$ $\ast$pre\+Order, \mbox{\hyperlink{class_graph}{Graph}} $\ast$mst)
+\item 
+void \mbox{\hyperlink{class_graph_a332c8ffff73104bfeaf02966c006acf2}{reset\+Nodes}} ()
+\item 
+double \mbox{\hyperlink{class_graph_a0bc26a41943a8bf2da79e8b822cb6bfb}{Haversine\+Dist}} (string nodeA, string nodeB)
+\begin{DoxyCompactList}\small\item\em Auxiliar function for the triangular inequality algorithm. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_graph_a3f73ca947ae151245a61b7afdb3089d8}{degrees\+To\+Radians}} (double degrees)
+\begin{DoxyCompactList}\small\item\em Auxiliar function for the Haversine. \end{DoxyCompactList}\item 
+vector$<$ string $>$ \mbox{\hyperlink{class_graph_a39e51a509156ad927991b3e0e81c8a5c}{nearest\+Neightbour}} (string origin)
+\begin{DoxyCompactList}\small\item\em Function for the TSP nearest Neightbour algorithm. \end{DoxyCompactList}\item 
+pair$<$ double, string $>$ \mbox{\hyperlink{class_graph_a5b72877c56110a397bf8e449aaebd64e}{get\+Nearest}} (string next, string origin)
+\begin{DoxyCompactList}\small\item\em Auxiliar function for Neightbour algorithm. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_graph_aaa4b2153788f5cf81aa040113a96d5c0}{swap\+Nodes}} (int i, int j)
+\item 
+void \mbox{\hyperlink{class_graph_afae6eb55777e1b47c696cbb2ff99bc27}{compare\+Triangular}} ()
+\begin{DoxyCompactList}\small\item\em Function to compare the time complexity and distance aproximation between triangular inequality and backtrack algorithms. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_ac79ce64df322362c339a7fd3729fd263}{compare\+Triangular2}} ()
+\begin{DoxyCompactList}\small\item\em Function to compare the time complexity and distance aproximation between the 2 version of triangular inequality and backtrack algorithms. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_ad15cda1923d014254a85aca96b833089}{compare\+NN}} ()
+\begin{DoxyCompactList}\small\item\em Function to compare the time complexity and distance aproximation between nearest Neightbour and backtrack algorithms. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_a3fb25b4278fc3fc428f9f35d26656e1b}{compare\+Christofides}} ()
+\begin{DoxyCompactList}\small\item\em Function to compare the time complexity and distance aproximation between christofides and backtrack algorithms. \end{DoxyCompactList}\item 
+set$<$ \mbox{\hyperlink{class_segment}{Segment}} $\ast$, \mbox{\hyperlink{struct_graph_1_1_segment_comparator}{Graph\+::\+Segment\+Comparator}} $>$ \mbox{\hyperlink{class_graph_abdd747af3dea0c38839dc22f7ca4e71d}{christofides\+Prim}} ()
+\begin{DoxyCompactList}\small\item\em Function for the MST. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_a341988b565751b212e1b3c4d0b1c2259}{Christophides\+Odddegree}} (vector$<$ pair$<$ string, bool $>$ $>$ \&odd\+Degree)
+\begin{DoxyCompactList}\small\item\em Function to get the MST nodes with odd degrees. \end{DoxyCompactList}\item 
+set$<$ \mbox{\hyperlink{class_segment}{Segment}} $\ast$, \mbox{\hyperlink{struct_graph_1_1_segment_comparator}{Graph\+::\+Segment\+Comparator}} $>$ \mbox{\hyperlink{class_graph_aba7a849b8a6a14d47e6ed32fda10d94c}{christofides\+Perfect\+Match}} (vector$<$ pair$<$ string, bool $>$ $>$ \&odd\+Degree)
+\begin{DoxyCompactList}\small\item\em Function for the christofides nodes Perfect Match. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_afc10972cb36033baa8898c423f6a2571}{Eulerian\+Cycle}} (set$<$ \mbox{\hyperlink{class_segment}{Segment}} $\ast$, \mbox{\hyperlink{struct_graph_1_1_segment_comparator}{Graph\+::\+Segment\+Comparator}} $>$ \&christograph, vector$<$ string $>$ \&eulerianpath)
+\begin{DoxyCompactList}\small\item\em Function for the christofides eulerian Cycle. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_graph_aad3fb42cc6cadbc904010d9118b3c4c6}{christofides\+Algo}} ()
+\begin{DoxyCompactList}\small\item\em Function for the christofides algorithm. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::unordered\+\_\+map$<$ string, \mbox{\hyperlink{class_node}{Node}}, \mbox{\hyperlink{struct_graph_1_1_string_hash}{String\+Hash}}, \mbox{\hyperlink{struct_graph_1_1_string_equal}{String\+Equal}} $>$ \mbox{\hyperlink{class_graph_ae788fb946c8245dd2137f80b96f46343}{nodes\+MAP}}
+\item 
+double $\ast$$\ast$ \mbox{\hyperlink{class_graph_a5882f9569ec78eba66a26911b2858dfc}{dists}} = new double$\ast$\mbox{[}10000\mbox{]}
+\item 
+\mbox{\hyperlink{struct_graph_1_1report}{report}} \mbox{\hyperlink{class_graph_a7d4bd0310e1ad34ab89f90ce2c499be8}{graphreport}} \{0, 0, 0, 0,0,0,0,0, 0, 0\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_graph_a902c5b3eacb66d60752525ab23297a95}\label{class_graph_a902c5b3eacb66d60752525ab23297a95}} 
+\index{Graph@{Graph}!````~Graph@{$\sim$Graph}}
+\index{````~Graph@{$\sim$Graph}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{$\sim$Graph()}{~Graph()}}
+{\footnotesize\ttfamily Graph\+::$\sim$\+Graph (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_graph_ae4c72b8ac4d693c49800a4c7e273654f}\label{class_graph_ae4c72b8ac4d693c49800a4c7e273654f}} 
+\index{Graph@{Graph}!Graph@{Graph}}
+\index{Graph@{Graph}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{Graph()}{Graph()}}
+{\footnotesize\ttfamily Graph\+::\+Graph (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Constructor of new \mbox{\hyperlink{class_graph}{Graph}}. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_graph_aba26ca18c785ba397e7500c73fcd74b4}\label{class_graph_aba26ca18c785ba397e7500c73fcd74b4}} 
+\index{Graph@{Graph}!addSegment@{addSegment}}
+\index{addSegment@{addSegment}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{addSegment()}{addSegment()}}
+{\footnotesize\ttfamily bool Graph\+::add\+Segment (\begin{DoxyParamCaption}\item[{string}]{\+\_\+nodeA,  }\item[{string}]{\+\_\+nodeB,  }\item[{double}]{\+\_\+cost }\end{DoxyParamCaption})}
+
+
+
+Add a segment to the graph. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+nodeA} & Origin of the segment \\
+\hline
+{\em \+\_\+nodeB} & Destiny of the segment \\
+\hline
+{\em \+\_\+cost} & \mbox{\hyperlink{class_segment}{Segment}} cost \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time complexity \+: O(1) 
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+true if added, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_graph_aad3fb42cc6cadbc904010d9118b3c4c6}\label{class_graph_aad3fb42cc6cadbc904010d9118b3c4c6}} 
+\index{Graph@{Graph}!christofidesAlgo@{christofidesAlgo}}
+\index{christofidesAlgo@{christofidesAlgo}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{christofidesAlgo()}{christofidesAlgo()}}
+{\footnotesize\ttfamily double Graph\+::christofides\+Algo (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Function for the christofides algorithm. 
+
+\begin{DoxyNote}{Note}
+Time Complexity\+: O(E log V + V$^\wedge$2), where E is the number of edges and v the number of nodes 
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+an aproximation distance of the TSP 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_graph_aba7a849b8a6a14d47e6ed32fda10d94c}\label{class_graph_aba7a849b8a6a14d47e6ed32fda10d94c}} 
+\index{Graph@{Graph}!christofidesPerfectMatch@{christofidesPerfectMatch}}
+\index{christofidesPerfectMatch@{christofidesPerfectMatch}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{christofidesPerfectMatch()}{christofidesPerfectMatch()}}
+{\footnotesize\ttfamily set$<$ \mbox{\hyperlink{class_segment}{Segment}} $\ast$, \mbox{\hyperlink{struct_graph_1_1_segment_comparator}{Graph\+::\+Segment\+Comparator}} $>$ Graph\+::christofides\+Perfect\+Match (\begin{DoxyParamCaption}\item[{vector$<$ pair$<$ string, bool $>$ $>$ \&}]{odd\+Degree }\end{DoxyParamCaption})}
+
+
+
+Function for the christofides nodes Perfect Match. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em odd\+Degree} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time Complexity \+: O(n $^\wedge$2) 
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+Set with the segments of the perfect matches 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_graph_abdd747af3dea0c38839dc22f7ca4e71d}\label{class_graph_abdd747af3dea0c38839dc22f7ca4e71d}} 
+\index{Graph@{Graph}!christofidesPrim@{christofidesPrim}}
+\index{christofidesPrim@{christofidesPrim}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{christofidesPrim()}{christofidesPrim()}}
+{\footnotesize\ttfamily set$<$ \mbox{\hyperlink{class_segment}{Segment}} $\ast$, \mbox{\hyperlink{struct_graph_1_1_segment_comparator}{Graph\+::\+Segment\+Comparator}} $>$ Graph\+::christofides\+Prim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Function for the MST. 
+
+\begin{DoxyReturn}{Returns}
+A set with all MST edges 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time complexity \+: O(\+E log V), where E is the number of segments and V the number of nodes 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_graph_a341988b565751b212e1b3c4d0b1c2259}\label{class_graph_a341988b565751b212e1b3c4d0b1c2259}} 
+\index{Graph@{Graph}!ChristophidesOdddegree@{ChristophidesOdddegree}}
+\index{ChristophidesOdddegree@{ChristophidesOdddegree}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{ChristophidesOdddegree()}{ChristophidesOdddegree()}}
+{\footnotesize\ttfamily void Graph\+::\+Christophides\+Odddegree (\begin{DoxyParamCaption}\item[{vector$<$ pair$<$ string, bool $>$ $>$ \&}]{odd\+Degree }\end{DoxyParamCaption})}
+
+
+
+Function to get the MST nodes with odd degrees. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em odd\+Degree} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time Complexity \+: O(n) 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_graph_a3fb25b4278fc3fc428f9f35d26656e1b}\label{class_graph_a3fb25b4278fc3fc428f9f35d26656e1b}} 
+\index{Graph@{Graph}!compareChristofides@{compareChristofides}}
+\index{compareChristofides@{compareChristofides}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{compareChristofides()}{compareChristofides()}}
+{\footnotesize\ttfamily void Graph\+::compare\+Christofides (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Function to compare the time complexity and distance aproximation between christofides and backtrack algorithms. 
+
+\begin{DoxyNote}{Note}
+Time complexity \+: O(1) 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_graph_ad15cda1923d014254a85aca96b833089}\label{class_graph_ad15cda1923d014254a85aca96b833089}} 
+\index{Graph@{Graph}!compareNN@{compareNN}}
+\index{compareNN@{compareNN}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{compareNN()}{compareNN()}}
+{\footnotesize\ttfamily void Graph\+::compare\+NN (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Function to compare the time complexity and distance aproximation between nearest Neightbour and backtrack algorithms. 
+
+\begin{DoxyNote}{Note}
+Time complexity \+: O(1) 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_graph_afae6eb55777e1b47c696cbb2ff99bc27}\label{class_graph_afae6eb55777e1b47c696cbb2ff99bc27}} 
+\index{Graph@{Graph}!compareTriangular@{compareTriangular}}
+\index{compareTriangular@{compareTriangular}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{compareTriangular()}{compareTriangular()}}
+{\footnotesize\ttfamily void Graph\+::compare\+Triangular (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Function to compare the time complexity and distance aproximation between triangular inequality and backtrack algorithms. 
+
+\begin{DoxyNote}{Note}
+Time complexity \+: O(1) 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_graph_ac79ce64df322362c339a7fd3729fd263}\label{class_graph_ac79ce64df322362c339a7fd3729fd263}} 
+\index{Graph@{Graph}!compareTriangular2@{compareTriangular2}}
+\index{compareTriangular2@{compareTriangular2}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{compareTriangular2()}{compareTriangular2()}}
+{\footnotesize\ttfamily void Graph\+::compare\+Triangular2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Function to compare the time complexity and distance aproximation between the 2 version of triangular inequality and backtrack algorithms. 
+
+\begin{DoxyNote}{Note}
+Time complexity \+: O(1) 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_graph_a3f73ca947ae151245a61b7afdb3089d8}\label{class_graph_a3f73ca947ae151245a61b7afdb3089d8}} 
+\index{Graph@{Graph}!degreesToRadians@{degreesToRadians}}
+\index{degreesToRadians@{degreesToRadians}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{degreesToRadians()}{degreesToRadians()}}
+{\footnotesize\ttfamily double Graph\+::degrees\+To\+Radians (\begin{DoxyParamCaption}\item[{double}]{degrees }\end{DoxyParamCaption})}
+
+
+
+Auxiliar function for the Haversine. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em degrees} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time complexity \+: O(1) 
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+coordinate value from degrees to radians 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_graph_afc10972cb36033baa8898c423f6a2571}\label{class_graph_afc10972cb36033baa8898c423f6a2571}} 
+\index{Graph@{Graph}!EulerianCycle@{EulerianCycle}}
+\index{EulerianCycle@{EulerianCycle}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{EulerianCycle()}{EulerianCycle()}}
+{\footnotesize\ttfamily void Graph\+::\+Eulerian\+Cycle (\begin{DoxyParamCaption}\item[{set$<$ \mbox{\hyperlink{class_segment}{Segment}} $\ast$, \mbox{\hyperlink{struct_graph_1_1_segment_comparator}{Graph\+::\+Segment\+Comparator}} $>$ \&}]{christograph,  }\item[{vector$<$ string $>$ \&}]{eulerianpath }\end{DoxyParamCaption})}
+
+
+
+Function for the christofides eulerian Cycle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em christograph} & the mst graph with the perfect match segments \\
+\hline
+{\em eulerianpath} & vector to save the eulerian path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time Complexity\+: O(n) 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_graph_a5b72877c56110a397bf8e449aaebd64e}\label{class_graph_a5b72877c56110a397bf8e449aaebd64e}} 
+\index{Graph@{Graph}!getNearest@{getNearest}}
+\index{getNearest@{getNearest}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{getNearest()}{getNearest()}}
+{\footnotesize\ttfamily pair$<$ double, string $>$ Graph\+::get\+Nearest (\begin{DoxyParamCaption}\item[{string}]{next,  }\item[{string}]{origin }\end{DoxyParamCaption})}
+
+
+
+Auxiliar function for Neightbour algorithm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em next} & \\
+\hline
+{\em origin} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time complexity \+: O(n) 
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_graph_a0bc26a41943a8bf2da79e8b822cb6bfb}\label{class_graph_a0bc26a41943a8bf2da79e8b822cb6bfb}} 
+\index{Graph@{Graph}!HaversineDist@{HaversineDist}}
+\index{HaversineDist@{HaversineDist}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{HaversineDist()}{HaversineDist()}}
+{\footnotesize\ttfamily double Graph\+::\+Haversine\+Dist (\begin{DoxyParamCaption}\item[{string}]{nodeA,  }\item[{string}]{nodeB }\end{DoxyParamCaption})}
+
+
+
+Auxiliar function for the triangular inequality algorithm. 
+
+\begin{DoxyNote}{Note}
+calculates the distance between 2 nodes 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em nodeA} & \\
+\hline
+{\em nodeB} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time complexity \+: O(1) 
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+the distance between the 2 nodes in meters 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_graph_a39e51a509156ad927991b3e0e81c8a5c}\label{class_graph_a39e51a509156ad927991b3e0e81c8a5c}} 
+\index{Graph@{Graph}!nearestNeightbour@{nearestNeightbour}}
+\index{nearestNeightbour@{nearestNeightbour}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{nearestNeightbour()}{nearestNeightbour()}}
+{\footnotesize\ttfamily vector$<$ string $>$ Graph\+::nearest\+Neightbour (\begin{DoxyParamCaption}\item[{string}]{origin }\end{DoxyParamCaption})}
+
+
+
+Function for the TSP nearest Neightbour algorithm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em origin} & the starting node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time complexity \+: O(n$^\wedge$2) 
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+a vector with nodes representing the path 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_graph_a8ce2d823ccbefbe31591df409f8edf37}\label{class_graph_a8ce2d823ccbefbe31591df409f8edf37}} 
+\index{Graph@{Graph}!preorder\_helper@{preorder\_helper}}
+\index{preorder\_helper@{preorder\_helper}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{preorder\_helper()}{preorder\_helper()}}
+{\footnotesize\ttfamily void Graph\+::preorder\+\_\+helper (\begin{DoxyParamCaption}\item[{string}]{node,  }\item[{vector$<$ string $>$ $\ast$}]{pre\+Order,  }\item[{\mbox{\hyperlink{class_graph}{Graph}} $\ast$}]{mst }\end{DoxyParamCaption})}
+
+\begin{DoxyNote}{Note}
+Auxiliar function for the second version of the triangular inequality 
+
+Auxiliar function to perform the pre-\/\+Order 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em node} & current node \\
+\hline
+{\em vector} & with nodes after the pre-\/\+Order \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time complexity \+: O(\+E), where E is the number of segments. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em mst} & graph representing the mst after prim \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_graph_a14e1d8bfa223ca4cd0e11325b0ddd3ed}\label{class_graph_a14e1d8bfa223ca4cd0e11325b0ddd3ed}} 
+\index{Graph@{Graph}!preOrderWalk@{preOrderWalk}}
+\index{preOrderWalk@{preOrderWalk}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{preOrderWalk()}{preOrderWalk()}}
+{\footnotesize\ttfamily double Graph\+::pre\+Order\+Walk (\begin{DoxyParamCaption}\item[{string}]{node\+ID,  }\item[{vector$<$ string $>$ \&}]{prim\+Visit,  }\item[{vector$<$ string $>$ $\ast$}]{pre\+Order }\end{DoxyParamCaption})}
+
+
+
+Function to perform a pre-\/\+Order walk in the MST. 
+
+\begin{DoxyNote}{Note}
+Used after prim 
+
+Auxiliar function for the TSP triangular inequality algorithm 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em node\+ID} & the current node \\
+\hline
+{\em prim\+Visit} & vector with all nodes and sorted by prim visit \\
+\hline
+{\em pre\+Order} & vector with nodes after the pre-\/\+Order \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time complexity \+: O(n), where n is the size of prim\+Visit vector 
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+the distance aproximation 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_graph_a853d7440bd6849879714e3b294825d15}\label{class_graph_a853d7440bd6849879714e3b294825d15}} 
+\index{Graph@{Graph}!preOrderWalk2@{preOrderWalk2}}
+\index{preOrderWalk2@{preOrderWalk2}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{preOrderWalk2()}{preOrderWalk2()}}
+{\footnotesize\ttfamily double Graph\+::pre\+Order\+Walk2 (\begin{DoxyParamCaption}\item[{string}]{node\+ID,  }\item[{vector$<$ string $>$ \&}]{prim\+Visit,  }\item[{vector$<$ string $>$ $\ast$}]{pre\+Order,  }\item[{\mbox{\hyperlink{class_graph}{Graph}} $\ast$}]{mst }\end{DoxyParamCaption})}
+
+
+
+Function to perform a pre-\/\+Order walk in the MST. 
+
+\begin{DoxyNote}{Note}
+Used after prim 
+
+Auxiliar function for the TSP triangular inequality algorithm 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em node\+ID} & the current node \\
+\hline
+{\em prim\+Visit} & vector with all nodes and sorted by prim visit \\
+\hline
+{\em pre\+Order} & vector with nodes after the pre-\/\+Order \\
+\hline
+{\em mst} & graph representing the mst after prim \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time complexity \+: O(n), where n is the size of prim\+Visit vector 
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+the distance aproximation 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_graph_a4b428ac94a142db6739b48c26179a144}\label{class_graph_a4b428ac94a142db6739b48c26179a144}} 
+\index{Graph@{Graph}!primMST@{primMST}}
+\index{primMST@{primMST}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{primMST()}{primMST()}}
+{\footnotesize\ttfamily double Graph\+::prim\+MST (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Function to calculate the MST. 
+
+\begin{DoxyNote}{Note}
+Auxiliar function for the TSP triangular inequality algorithm 
+
+Time complexity \+: O(\+E log V), where E is the number of segments and V the number of nodes 
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+the distance aproximation 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_graph_a8bd6700ad212506dc019d353ff7b1a61}\label{class_graph_a8bd6700ad212506dc019d353ff7b1a61}} 
+\index{Graph@{Graph}!primMST2@{primMST2}}
+\index{primMST2@{primMST2}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{primMST2()}{primMST2()}}
+{\footnotesize\ttfamily double Graph\+::prim\+MST2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Function to calculate the MST. 
+
+\begin{DoxyNote}{Note}
+Auxiliar function for the TSP triangular inequality algorithm 
+
+second version of triangular inequality 
+
+Time complexity \+: O(\+E log V), where E is the number of segments and V the number of nodes 
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+the distance aproximation 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_graph_a332c8ffff73104bfeaf02966c006acf2}\label{class_graph_a332c8ffff73104bfeaf02966c006acf2}} 
+\index{Graph@{Graph}!resetNodes@{resetNodes}}
+\index{resetNodes@{resetNodes}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{resetNodes()}{resetNodes()}}
+{\footnotesize\ttfamily void Graph\+::reset\+Nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyNote}{Note}
+Auxiliar function to reset node atributes 
+
+Time complexity \+: O(n), where n is the number of nodes 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_graph_a875f923744607c7c6280348ff10fe5f5}\label{class_graph_a875f923744607c7c6280348ff10fe5f5}} 
+\index{Graph@{Graph}!savepath@{savepath}}
+\index{savepath@{savepath}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{savepath()}{savepath()}}
+{\footnotesize\ttfamily void Graph\+::savepath (\begin{DoxyParamCaption}\item[{int}]{n,  }\item[{int}]{current\+\_\+path\mbox{[}$\,$\mbox{]},  }\item[{int}]{path\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Helper function to save a new optimal path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & path size \\
+\hline
+{\em current\+\_\+path} & array with the current path \\
+\hline
+{\em path} & final optimal path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time complexity \+: O(n), where n is the number of nodes 
+
+Helper function for the backtrack algorithm 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_graph_aaa4b2153788f5cf81aa040113a96d5c0}\label{class_graph_aaa4b2153788f5cf81aa040113a96d5c0}} 
+\index{Graph@{Graph}!swapNodes@{swapNodes}}
+\index{swapNodes@{swapNodes}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{swapNodes()}{swapNodes()}}
+{\footnotesize\ttfamily double Graph\+::swap\+Nodes (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{j }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_graph_ae84d1cc83fad4d538c5f36cd34bca1bb}\label{class_graph_ae84d1cc83fad4d538c5f36cd34bca1bb}} 
+\index{Graph@{Graph}!TSPRec@{TSPRec}}
+\index{TSPRec@{TSPRec}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{TSPRec()}{TSPRec()}}
+{\footnotesize\ttfamily double Graph\+::\+TSPRec (\begin{DoxyParamCaption}\item[{double}]{curr\+Dist,  }\item[{double $\ast$}]{min\+Dist,  }\item[{int}]{current\+Indx,  }\item[{int}]{n,  }\item[{int}]{current\+Path\mbox{[}$\,$\mbox{]},  }\item[{int}]{path\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Function for the TSP backtrack algorithm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em curr\+Dist} & current path distance \\
+\hline
+{\em min\+Dist} & current min distance \\
+\hline
+{\em current\+Indx} & current path array index \\
+\hline
+{\em current\+Path} & array with the current path \\
+\hline
+{\em path} & array with the optimal path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time complexity \+: O(n!), where n is the number of nodes 
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+the TSP backtrack distance 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_graph_a5882f9569ec78eba66a26911b2858dfc}\label{class_graph_a5882f9569ec78eba66a26911b2858dfc}} 
+\index{Graph@{Graph}!dists@{dists}}
+\index{dists@{dists}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{dists}{dists}}
+{\footnotesize\ttfamily double$\ast$$\ast$ Graph\+::dists = new double$\ast$\mbox{[}10000\mbox{]}}
+
+\mbox{\Hypertarget{class_graph_a7d4bd0310e1ad34ab89f90ce2c499be8}\label{class_graph_a7d4bd0310e1ad34ab89f90ce2c499be8}} 
+\index{Graph@{Graph}!graphreport@{graphreport}}
+\index{graphreport@{graphreport}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{graphreport}{graphreport}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_graph_1_1report}{report}} Graph\+::graphreport \{0, 0, 0, 0,0,0,0,0, 0, 0\}}
+
+\mbox{\Hypertarget{class_graph_ae788fb946c8245dd2137f80b96f46343}\label{class_graph_ae788fb946c8245dd2137f80b96f46343}} 
+\index{Graph@{Graph}!nodesMAP@{nodesMAP}}
+\index{nodesMAP@{nodesMAP}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{nodesMAP}{nodesMAP}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$string, \mbox{\hyperlink{class_node}{Node}}, \mbox{\hyperlink{struct_graph_1_1_string_hash}{String\+Hash}}, \mbox{\hyperlink{struct_graph_1_1_string_equal}{String\+Equal}}$>$ Graph\+::nodes\+MAP}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Classes/\mbox{\hyperlink{_graph_8h}{Graph.\+h}}\item 
+Classes/\mbox{\hyperlink{_graph_8cpp}{Graph.\+cpp}}\end{DoxyCompactItemize}

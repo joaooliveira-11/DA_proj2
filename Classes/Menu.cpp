@@ -81,8 +81,10 @@ void Menu::TSPnearestNeighbor(Graph *graph){
         }
     }
 
+    res = 0;
     cout <<endl << "New tour:" <<endl;
     for(int i = 1; i < tour.size(); i++){
+        res += graph->dists[stoi(tour[i - 1])][stoi(tour[i])];
         cout << tour[i - 1] << " -> " << tour[i] << " || distance: " << graph->dists[stoi(tour[i - 1])][stoi(tour[i])] << " || type: "
              << "direct connection" << endl;
     }

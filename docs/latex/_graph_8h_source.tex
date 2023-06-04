@@ -1,0 +1,104 @@
+\hypertarget{_graph_8h_source}{}\doxysection{Graph.\+h}
+\label{_graph_8h_source}\index{Classes/Graph.h@{Classes/Graph.h}}
+\mbox{\hyperlink{_graph_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef DA\_PROJ2\_GRAPH\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define DA\_PROJ2\_GRAPH\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <unordered\_map>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_node_8h}{Node.h}}"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <set>}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{10 \textcolor{keyword}{class }\mbox{\hyperlink{class_graph}{Graph}} \{}
+\DoxyCodeLine{11 \textcolor{keyword}{private}:}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{public}:}
+\DoxyCodeLine{14     \mbox{\hyperlink{class_graph_a902c5b3eacb66d60752525ab23297a95}{\string~Graph}}();}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{17     \mbox{\hyperlink{class_graph_ae4c72b8ac4d693c49800a4c7e273654f}{Graph}}();}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{25     \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_graph_aba26ca18c785ba397e7500c73fcd74b4}{addSegment}}(\textcolor{keywordtype}{string} \_nodeA, \textcolor{keywordtype}{string} \_nodeB, \textcolor{keywordtype}{double} \_cost);}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27     \textcolor{keyword}{struct }\mbox{\hyperlink{struct_graph_1_1_string_hash}{StringHash}} \{}
+\DoxyCodeLine{28         std::size\_t \mbox{\hyperlink{struct_graph_1_1_string_hash_ac0c837f435fd1267138dd558240a97f3}{operator()}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& str)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{29             \textcolor{keywordflow}{return} 37* hash<string>()(str);}
+\DoxyCodeLine{30         \}}
+\DoxyCodeLine{31     \};}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33     \textcolor{keyword}{struct }\mbox{\hyperlink{struct_graph_1_1_string_equal}{StringEqual}} \{}
+\DoxyCodeLine{34         \textcolor{keywordtype}{bool} \mbox{\hyperlink{struct_graph_1_1_string_equal_af12f7a740ef239b37f48c3bccf72c8c3}{operator()}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& str1, \textcolor{keyword}{const} \textcolor{keywordtype}{string}\& str2)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{35             \textcolor{keywordflow}{return} str1 == str2;}
+\DoxyCodeLine{36         \}}
+\DoxyCodeLine{37     \};}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39     \textcolor{keyword}{struct }\mbox{\hyperlink{struct_graph_1_1report}{report}}\{}
+\DoxyCodeLine{40         \textcolor{keywordtype}{double} \mbox{\hyperlink{struct_graph_1_1report_adfba3cbc43f1b23d1c422f05446d9434}{elapsedBacktrack}}, \mbox{\hyperlink{struct_graph_1_1report_a3a10771dc33ced9579bffd1f299c725c}{elapsedTriangular}}, \mbox{\hyperlink{struct_graph_1_1report_a27232938c6e479908cbb774c6e3d2cd1}{elapsedTriangular2}}, \mbox{\hyperlink{struct_graph_1_1report_a350305d38f3fff633f50bd66d6e220c0}{elapsedNN}}, \mbox{\hyperlink{struct_graph_1_1report_aa84cdf3e32b214acdb5b7b25f34782ea}{elapsedCristo}}, \mbox{\hyperlink{struct_graph_1_1report_a76ef8c7a4d0846e21308cbaedc63a6af}{distBacktrack}}, \mbox{\hyperlink{struct_graph_1_1report_a1f8cad4276f7635a3050872a77d71c90}{distTriangular}}, \mbox{\hyperlink{struct_graph_1_1report_aa3e61dfd7692cb5405f382bd37b03076}{distTriangular2}}, \mbox{\hyperlink{struct_graph_1_1report_ab3109010f1760a7e9c3bf9cb81ee3746}{distNN}}, \mbox{\hyperlink{struct_graph_1_1report_ab6906fecda91b60088001fcfcdc9a88e}{distCristo}};}
+\DoxyCodeLine{41     \};}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43     std::unordered\_map<string, Node, StringHash, StringEqual> \mbox{\hyperlink{class_graph_ae788fb946c8245dd2137f80b96f46343}{nodesMAP}};}
+\DoxyCodeLine{44     \textcolor{keywordtype}{double} **\mbox{\hyperlink{class_graph_a5882f9569ec78eba66a26911b2858dfc}{dists}} = \textcolor{keyword}{new} \textcolor{keywordtype}{double}*[10000];}
+\DoxyCodeLine{45     \mbox{\hyperlink{struct_graph_1_1report}{report}} \mbox{\hyperlink{class_graph_a7d4bd0310e1ad34ab89f90ce2c499be8}{graphreport}}\{0, 0, 0, 0,0,0,0,0, 0, 0\};}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{53     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_graph_a875f923744607c7c6280348ff10fe5f5}{savepath}}(\textcolor{keywordtype}{int} n, \textcolor{keywordtype}{int} current\_path[], \textcolor{keywordtype}{int} path[]);}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{63     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_graph_ae84d1cc83fad4d538c5f36cd34bca1bb}{TSPRec}}(\textcolor{keywordtype}{double} currDist, \textcolor{keywordtype}{double} *minDist, \textcolor{keywordtype}{int} currentIndx, \textcolor{keywordtype}{int} n, \textcolor{keywordtype}{int} currentPath[], \textcolor{keywordtype}{int} path[]);}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{69     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_graph_a4b428ac94a142db6739b48c26179a144}{primMST}}();}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{79     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_graph_a14e1d8bfa223ca4cd0e11325b0ddd3ed}{preOrderWalk}}(\textcolor{keywordtype}{string} nodeID,vector<string>\&primVisit, vector<string>* preOrder);}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{86     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_graph_a8bd6700ad212506dc019d353ff7b1a61}{primMST2}}();}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{97     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_graph_a853d7440bd6849879714e3b294825d15}{preOrderWalk2}}(\textcolor{keywordtype}{string} nodeID, vector<string>\& primVisit, vector<string> *preOrder, \mbox{\hyperlink{class_graph}{Graph}} *mst);}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{105     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_graph_a8ce2d823ccbefbe31591df409f8edf37}{preorder\_helper}}(\textcolor{keywordtype}{string} node, vector<string> *preOrder, \mbox{\hyperlink{class_graph}{Graph}} *mst);}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{109     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_graph_a332c8ffff73104bfeaf02966c006acf2}{resetNodes}}();}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{117     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_graph_a0bc26a41943a8bf2da79e8b822cb6bfb}{HaversineDist}}(\textcolor{keywordtype}{string} nodeA, \textcolor{keywordtype}{string} nodeB);}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{123     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_graph_a3f73ca947ae151245a61b7afdb3089d8}{degreesToRadians}}(\textcolor{keywordtype}{double} degrees);}
+\DoxyCodeLine{124 }
+\DoxyCodeLine{129     vector<string> \mbox{\hyperlink{class_graph_a39e51a509156ad927991b3e0e81c8a5c}{nearestNeightbour}}(\textcolor{keywordtype}{string} origin);}
+\DoxyCodeLine{130 }
+\DoxyCodeLine{136     pair<double, string> \mbox{\hyperlink{class_graph_a5b72877c56110a397bf8e449aaebd64e}{getNearest}}(\textcolor{keywordtype}{string} next, \textcolor{keywordtype}{string} origin);}
+\DoxyCodeLine{137 }
+\DoxyCodeLine{138     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_graph_aaa4b2153788f5cf81aa040113a96d5c0}{swapNodes}}(\textcolor{keywordtype}{int} i, \textcolor{keywordtype}{int} j);}
+\DoxyCodeLine{139 }
+\DoxyCodeLine{142     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_graph_afae6eb55777e1b47c696cbb2ff99bc27}{compareTriangular}}();}
+\DoxyCodeLine{143 }
+\DoxyCodeLine{146     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_graph_ac79ce64df322362c339a7fd3729fd263}{compareTriangular2}}();}
+\DoxyCodeLine{147 }
+\DoxyCodeLine{150     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_graph_ad15cda1923d014254a85aca96b833089}{compareNN}}();}
+\DoxyCodeLine{151 }
+\DoxyCodeLine{154     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_graph_a3fb25b4278fc3fc428f9f35d26656e1b}{compareChristofides}}();}
+\DoxyCodeLine{155 }
+\DoxyCodeLine{156     \textcolor{keyword}{struct }\mbox{\hyperlink{struct_graph_1_1_segment_comparator}{SegmentComparator}} \{}
+\DoxyCodeLine{157         \textcolor{keywordtype}{bool} \mbox{\hyperlink{struct_graph_1_1_segment_comparator_a71d6844ed682b6e18b06fa7fe8f7cc97}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_segment}{Segment}}* seg1, \textcolor{keyword}{const} \mbox{\hyperlink{class_segment}{Segment}}* seg2)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{158             \textcolor{keywordflow}{if} (seg1-\/>\mbox{\hyperlink{class_segment_a346fcd414145aa286dc4ee84ea70d9c6}{getNodeA}}() != seg2-\/>\mbox{\hyperlink{class_segment_a346fcd414145aa286dc4ee84ea70d9c6}{getNodeA}}()) \{}
+\DoxyCodeLine{159                 \textcolor{keywordflow}{return} seg1-\/>\mbox{\hyperlink{class_segment_a346fcd414145aa286dc4ee84ea70d9c6}{getNodeA}}() < seg2-\/>\mbox{\hyperlink{class_segment_a346fcd414145aa286dc4ee84ea70d9c6}{getNodeA}}();}
+\DoxyCodeLine{160             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (seg1-\/>\mbox{\hyperlink{class_segment_a2f1a6baf2f91499ac45959135d11780b}{getNodeB}}() != seg2-\/>\mbox{\hyperlink{class_segment_a2f1a6baf2f91499ac45959135d11780b}{getNodeB}}()) \{}
+\DoxyCodeLine{161                 \textcolor{keywordflow}{return} seg1-\/>\mbox{\hyperlink{class_segment_a2f1a6baf2f91499ac45959135d11780b}{getNodeB}}() < seg2-\/>\mbox{\hyperlink{class_segment_a2f1a6baf2f91499ac45959135d11780b}{getNodeB}}();}
+\DoxyCodeLine{162             \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{163                 \textcolor{keywordflow}{return} seg1-\/>\mbox{\hyperlink{class_segment_aa3db96cbeccde4a326e3be6829205e0f}{getCost}}() < seg2-\/>\mbox{\hyperlink{class_segment_aa3db96cbeccde4a326e3be6829205e0f}{getCost}}();}
+\DoxyCodeLine{164             \}}
+\DoxyCodeLine{165         \}}
+\DoxyCodeLine{166     \};}
+\DoxyCodeLine{167 }
+\DoxyCodeLine{171     set<Segment*, Graph::SegmentComparator> \mbox{\hyperlink{class_graph_abdd747af3dea0c38839dc22f7ca4e71d}{christofidesPrim}}();}
+\DoxyCodeLine{172 }
+\DoxyCodeLine{176     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_graph_a341988b565751b212e1b3c4d0b1c2259}{ChristophidesOdddegree}}(vector<pair<string, bool>>\& oddDegree);}
+\DoxyCodeLine{177 }
+\DoxyCodeLine{182     set<Segment*, Graph::SegmentComparator> \mbox{\hyperlink{class_graph_aba7a849b8a6a14d47e6ed32fda10d94c}{christofidesPerfectMatch}}(vector<pair<string, bool>>\& oddDegree);}
+\DoxyCodeLine{183 }
+\DoxyCodeLine{188     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_graph_afc10972cb36033baa8898c423f6a2571}{EulerianCycle}}(set<Segment*, Graph::SegmentComparator> \&christograph, vector<string>\& eulerianpath);}
+\DoxyCodeLine{189 }
+\DoxyCodeLine{193     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_graph_aad3fb42cc6cadbc904010d9118b3c4c6}{christofidesAlgo}}();}
+\DoxyCodeLine{194 \};}
+\DoxyCodeLine{195 }
+\DoxyCodeLine{196 }
+\DoxyCodeLine{197 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
