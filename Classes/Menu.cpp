@@ -45,6 +45,7 @@ void Menu::TSPtriangularInequality(Graph *graph) {
             graph->graphreport.elapsedTriangular2 = printElapsedTime(start, end);
             break;
     }
+    graph->graphreport.distTriangular = graph->christofidesAlgo();
     graph->resetNodes();
 }
 
@@ -70,7 +71,7 @@ void Menu::TSPnearestNeighbor(Graph *graph){
         for (int i = 0; i <= n - 2; i++) {
             for (int j = i + 1; j <= n - 1; j++) {
                 int diff =  - graph->dists[stoi(tour[i])][stoi(tour[(i + 1) % n])] - graph->dists[stoi(tour[j])][stoi(tour[(j + 1) % n])]
-                            + graph->dists[stoi(tour[i])][stoi(tour[j])] + graph->dists[stoi(tour[(i + 1) % n])][stoi(tour[(j + 1) % n])];
+                        + graph->dists[stoi(tour[i])][stoi(tour[j])] + graph->dists[stoi(tour[(i + 1) % n])][stoi(tour[(j + 1) % n])];
 
                 // If the length of the path is reduced, do a 2-opt swap
                 if (diff < 0) {
@@ -82,7 +83,8 @@ void Menu::TSPnearestNeighbor(Graph *graph){
         }
     }
     cout << "2-opt improvement:" << res <<endl <<endl;
-    graph->graphreport.distNN = res;
+
+    graph->resetNodes();
 }
 
 double Menu::printElapsedTime(timeval start, timeval end){
@@ -183,9 +185,7 @@ void Menu::TSPalgorithmsSubmenu(Graph *graph) {
                 readmenu();
                 break;
             }
-
         }
-
         case 4:{
             graphReport(graph);
             string decision;

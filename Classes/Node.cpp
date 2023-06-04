@@ -38,9 +38,12 @@ double Node::getDist(){ return dist;}
 
 void Node::setDist(double distance){ dist = distance;}
 
-void Node::setPath(Segment *path) {this->path = path;}
+void Node::setPath(Segment *path) {
+    this->path = path;
+    incrementDegree(1);
+}
 
-void Node::setQueuIndex(int index){this->queueIndex = 0;}
+void Node::setQueueIndex(int index){this->queueIndex = 0;}
 
 void Node::setLONG(double longitude_){
     this->longitude = longitude_;
@@ -57,3 +60,10 @@ double Node::getLAT(){ return latitude;}
 
 bool Node::isLongSET() {return longitudeSET;}
 bool Node::isLatSET() {return latitudeSET;}
+
+
+void Node::incrementDegree(int i){
+    this->degree += i;
+}
+
+int Node::getDegree(){ return this->degree;}

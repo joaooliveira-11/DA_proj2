@@ -27,6 +27,16 @@ public:
     ///@brief Getter for the Segment´s cost
     ///@returns the Segment´s cost
     double getCost() const;
+
+    bool operator<(const Segment& other) const {
+        if (nodeA != other.nodeA) {
+            return nodeA < other.nodeA;
+        }
+        if (nodeB != other.nodeB) {
+            return nodeB < other.nodeB;
+        }
+        return cost < other.cost;
+    }
 };
 
 #endif

@@ -4,6 +4,7 @@
 #include <string>
 #include <unordered_map>
 #include "Node.h"
+#include <set>
 
 using namespace std;
 class Graph {
@@ -133,6 +134,12 @@ public:
     ///@brief Function to compare the time complexity and distance aproximation between nearest Neightbour and backtrack algorithms
     void compareNN();
 
+    void ChristophidesOdddegree(vector<pair<string, bool>>& oddDegree);
+    double christofidesAlgo();
+    vector<struct Segment *> christofidesPrim();
+    vector<struct Segment *> christofidesPerfectMatch(vector<pair<string, bool>>& oddDegree);
+
+    void EulerianCycle(vector<Segment *> &christograph, vector<string> &eulerianpath);
 };
 
 

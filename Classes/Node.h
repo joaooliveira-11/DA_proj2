@@ -20,6 +20,8 @@ private:
     bool longitudeSET = false;
     bool latitudeSET = false;
 
+    int degree = 0;
+
 public:
     ///@brief Constructor of new Node given its id
     ///@param _id the node id
@@ -83,7 +85,7 @@ public:
     ///@brief Setter for the node's queue Index
     ///@param index
     ///@note helper function for the prim algorithm
-    void setQueuIndex(int index);
+    void setQueueIndex(int index);
 
     ///@brief Setter for the node's longitude
     ///@param longitude_
@@ -110,6 +112,10 @@ public:
     bool isLatSET();
 
     int queueIndex = 0;
+
+    void incrementDegree(int i);
+
+    int getDegree();
 };
 
 
