@@ -14,9 +14,9 @@ double Menu::TSPbacktrack(Graph *graph) {
     graph->nodesMAP.find(to_string(0))->second.setVisited(true);
     graph->TSPRec(0, &minDist, 1, n, currentPath, path);
     for (int i = 0; i < n; i++) {
-        if (i != n - 1) cout << path[i] << "-> ";
-        else cout << path[i] << endl;
+        cout << path[i] << "-> ";
     }
+    cout << "0" << endl;
     cout << "TSP Backtrack Cost: " << minDist << endl;
     graph->resetNodes();
     return minDist;

@@ -26,19 +26,48 @@
 
 class Menu {
 public:
+
+    ///@brief Runs the interactive user menu.
     static void readmenu();
+
+    ///@brief Runs toy graphs submenu
     static void toyGraphs();
+
+    ///@brief Runs real world graphs submenu
     static void realWorldGraphs();
+
+    ///@brief Runs fully connected graphs submenu
     static void fullyConnectedGraphs();
 
+    ///@brief Runs the TSP algorithms menu.
+    ///@param graph the graph used in the TSP algorithms
     static void TSPalgorithmsSubmenu(Graph* graph);
+
+    ///@brief Runs the TSP backtrack algorithm.
+    ///@param graph the graph used
     static double TSPbacktrack(Graph* graph);
+
+    ///@brief Runs the TSP triangular inequality algorithm.
+    ///@note User can choose version 1 or 2 of this algorithm
+    ///@param graph the graph used
     static void TSPtriangularInequality(Graph* graph);
+
+    ///@brief Prints the elapsed time
     static double printElapsedTime(timeval start, timeval end);
 
+    ///@brief Runs the TSP nearest Neightbour algorithm.
+    ///@param graph the graph used
     static void TSPnearestNeighbor(Graph *graph);
+
+    ///@brief Runs the 2-opt optimization.
+    ///@param tour
+    ///@param i
+    ///@param j
     static void do2Opt(vector<string> &tour, int i, int j);
 
+    ///@brief Runs the graph report
+    ///@param graph the graph used
+    ///@note Used to compare all algorithms and their time complexity and distance aproximation
     static void graphReport(Graph* graph);
 };
 

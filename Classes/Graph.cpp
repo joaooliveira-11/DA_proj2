@@ -181,6 +181,7 @@ double Graph::preOrderWalk(string nodeID, vector<string>& primVisit, vector<stri
         cout << "Triangular Inequality Cost: " << totalCost << endl;
         return totalCost;
     }
+    return 0.0;
 }
 
 void Graph::preorder_helper(string node, vector<string> *preOrder, Graph* mst){

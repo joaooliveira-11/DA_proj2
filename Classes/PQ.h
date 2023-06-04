@@ -6,14 +6,29 @@
 template <class T>
 class MutablePriorityQueue {
     std::vector<T *> H;
+
+    ///@note Auxilir function for priority queue used in prim algorithm
     void heapifyUp(unsigned i);
+
+    ///@note Auxilir function for priority queue used in prim algorithm
     void heapifyDown(unsigned i);
+
+    ///@note Auxilir function for priority queue used in prim algorithm
     inline void set(unsigned i, T * x);
 public:
+    ///@note Auxilir function for priority queue used in prim algorithm
     MutablePriorityQueue();
+
+    ///@note Auxilir function for priority queue used in prim algorithm
     void insert(T * x);
+
+    ///@note Auxilir function for priority queue used in prim algorithm
     T * extractMin();
+
+    ///@note Auxilir function for priority queue used in prim algorithm
     void decreaseKey(T * x);
+
+    ///@note Auxilir function for priority queue used in prim algorithm
     bool empty();
 };
 
@@ -21,6 +36,7 @@ public:
 #define parent(i) ((i) / 2)
 #define leftChild(i) ((i) * 2)
 
+///@note Auxilir function for priority queue used in prim algorithm
 template <class T>
 MutablePriorityQueue<T>::MutablePriorityQueue() {
     H.push_back(nullptr);
